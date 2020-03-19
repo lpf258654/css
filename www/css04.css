@@ -1,0 +1,67 @@
+/*@media screen and (orientation: portrait){*/
+	html {
+		font-size: 168.75px;
+	}
+	@media (max-width: 1080px) {
+		html {
+			font-size: calc(100vw / 6.4)
+			}
+		}
+	body {
+		background-color: #68cdd5;border: 0; margin: 0;
+	}
+	div {
+		border: 0; margin: 0;
+	}
+	img {
+		margin: 0; 
+		float: left; 
+		max-width: 100%; 
+		position: relative; 
+		left: 50%; 
+		top: 50%; 
+		transform: translate(-50%, -50%);
+	}
+	.back {
+		width: 0.54rem; 
+		height: 0.54rem; 
+		position: fixed; 
+		left: 0.35rem; 
+		top: 0.2rem;
+	}
+	.logo {
+		width: 1.81rem; 
+		height: 0.7rem; 
+		position: absolute; 
+		left: 50%; 
+		top: 1.16rem; 
+		margin-left: -1.22rem;
+	}
+	.content {
+		position: absolute; 
+		left: 0.89rem; 
+		top: 3.05rem; 
+		right: 1rem;
+	}
+	.p1 {
+		width: 1.21rem; 
+		height: 1.3rem; 
+		position: absolute; 
+		left: 1.21rem; 
+		bottom: 2.03rem;
+	}
+	.p2 {
+		width: 1.05rem; 
+		height: 1.3rem; 
+		position: absolute; 
+		right: 1.11rem; 
+		bottom: 2.03rem;}
+	a {
+		color: #fff; 
+		font-size: 0.3rem; 
+		float: left;
+	}
+/*}
+@media screen and (orientation: landscape){
+	横屏适配
+}*/
