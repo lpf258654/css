@@ -1,12 +1,12 @@
 /*@media screen and (orientation: portrait){*/
 	html {
-		font-size: 168.75px;
+		font-size: 50px;
 	}
-	@media (max-width: 1080px) {
+/*	@media (max-width: 1080px) {
 		html {
 			font-size: calc(100vw / 6.4)
 			}
-		}
+		}*/
 	body {
 		background-color: #68cdd5;border: 0; margin: 0;
 	}
@@ -48,14 +48,17 @@
 		height: 1.3rem; 
 		position: absolute; 
 		left: 1.21rem; 
-		bottom: 2.03rem;
+		top: 6.73rem;
+		padding-bottom: 2rem;
 	}
 	.logo2 {
 		width: 1.05rem; 
 		height: 1.3rem; 
 		position: absolute; 
 		right: 1.11rem; 
-		bottom: 2.03rem;}
+		top: 6.73rem;
+		padding-bottom: 2rem;
+	}
 	a {
 		color: #fff; 
 		font-size: 0.3rem; 
