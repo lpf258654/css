@@ -3,57 +3,69 @@ html {
 	margin: 0; 
 	border:0;
 }
-body {margin: 0; 
+body {
+	margin: 0; 
 	border:0;
 	background-color: #EDEDED;
 }
-div {margin: 0; 
+div {
+	margin: 0; 
 	border:0;
 }
-.head {position: absolute; 
+.head {
+	position: absolute; 
 	width: 100%; 
 	height: 0.88rem; 
 	background-color: #68cdd5;
 }
-.register {font-size: 0.32rem; 
+.register {
+	font-size: 0.32rem; 
 	color: #fff; 
 	float: left; 
 	margin: 0.23rem 0 0.23rem 0.3rem;
 }
-.close {font-size: 0.32rem; 
+.close {
+	font-size: 0.32rem; 
 	color: #fff; 
 	float: right; 
 	margin:0.23rem 0.3rem 0.23rem 0;
 }
-.login {font-size: 0.36rem; 
+.login {
+	font-size: 0.36rem; 
 	color: #fff; 
 	position: absolute; 
 	left: 50%; 
 	top: 50%; 
 	margin: -0.25rem 0 0 -0.36rem;
 }
-.user_name {position: absolute; 
+.user_name {
+	position: absolute; 
 	top: 1.04rem; 
 	position: absolute; 
 	height: 1rem; 
 	width: 100%;
 }
-.user_pas {position: absolute; 
+.user_pas {
+	position: absolute; 
 	top: 2.18rem; 
 	position: absolute; 
 	height: 1rem; 
 	width: 100%;
 }
-img {width: 1.18rem; 
+img {
+	width: 1.18rem; 
 	height: 1rem; 
 	float: left;
 }
-input {width: calc(100% - 1.68rem); 
+input {
+	width: calc(100% - 1.68rem); 
 	height: 1rem; 
 	border: 0; 
 	padding: 0 0 0 0.5rem; 
 	float: left; 
 	font-size: 0.28rem;
+	-webkit-appearance:none;/*清除ios默认圆角*/
+	border-radius: 0;
 }
 input::-webkit-input-placeholder {
 	font-size: 0.28rem; 
