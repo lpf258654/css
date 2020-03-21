@@ -1,0 +1,1595 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0088)http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS3圆角详解 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS3圆角详解 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS3圆角详解 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS3圆角详解 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2010/12/hackers_heroes_of_the_computer_revolution.html" title="《黑客英雄》书摘">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2010/12/the_ruling_of_the_case_of_gold-farming_bot.html" title="南京&quot;外挂代练&quot;事件判决书">
+    
+    <title>CSS3圆角详解 - 阮一峰的网络日志</title>
+<script src="./CSS3圆角详解 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS3圆角详解 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS3圆角详解 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS3圆角详解 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS3圆角详解 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS3圆角详解 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1492" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2010/12/hackers_heroes_of_the_computer_revolution.html" title="《黑客英雄》书摘">《黑客英雄》书摘&nbsp;&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2010/12/the_ruling_of_the_case_of_gold-farming_bot.html" title="南京&quot;外挂代练&quot;事件判决书">南京"外挂代</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2010/12/hackers_heroes_of_the_computer_revolution.html" title="《黑客英雄》书摘">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2010/12/the_ruling_of_the_case_of_gold-farming_bot.html" title="南京&quot;外挂代练&quot;事件判决书">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS3圆角详解</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS3圆角详解 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2010/12/"><abbr class="published" title="2010-12-09T19:40:01+08:00">2010年12月 9日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>CSS3是样式表（style sheet）语言的最新版本，它的一大优点就是支持圆角。</p>
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>网页设计大师<a href="http://www.nczonline.net/" target="_blank">Nicholas Zakas</a>的<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg508841.aspx" target="_blank">最新文章</a>，清晰易懂地解释了CSS3圆角的各个方面，非常值得学习。以下就是我翻译的中文版。</p>
+
+<p>=========================================</p>
+
+<p><strong>CSS3圆角详解</strong></p>
+
+<p>作者：Nicholas Zakas</p>
+
+<p>译者：阮一峰</p>
+
+<p>原文：<a href="http://msdn.microsoft.com/en-us/scriptjunkie/gg508841.aspx" target="_blank">http://msdn.microsoft.com/en-us/scriptjunkie/gg508841.aspx</a></p>
+
+<p>发表日期：2010年12月8日</p>
+
+<p><br>
+<strong>一、CSS3圆角的优点</strong></p>
+
+<p>传统的圆角生成方案，必须使用多张图片作为背景图案。CSS3的出现，使得我们再也不必浪费时间去制作这些图片了，而且还有其他多个优点：</p>
+
+<p>　　* 减少维护的工作量。图片文件的生成、更新、编写网页代码，这些工作都不再需要了。</p>
+
+<p>　　* 提高网页性能。由于不必再发出多余的HTTP请求，网页的载入速度将变快。</p>
+
+<p>　　* 增加视觉可靠性。某些情况下（网络拥堵、服务器出错、网速过慢等等），背景图片会下载失败，导致视觉效果不佳。CSS3就不会发生这种情况。</p>
+
+<p><strong>二、border-radius属性</strong></p>
+
+<p>CSS3圆角只需设置一个属性：border-radius（含义是"边框半径"）。你为这个属性提供一个值，就能同时设置四个圆角的半径。所有合法的CSS度量值都可以使用：em、ex、pt、px、百分比等等。</p>
+
+<p>比如，下面是一个div方框：</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120901.png"></p>
+
+<p>现在设置它的圆角半径为15px：</p>
+
+<p>　　border-radius: 15px;</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120902.png"></p>
+
+<p>这条语句同时将每个圆角的"水平半径"（horizontal radius）和"垂直半径"（vertical radius）都设置为15px。</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120903.png"></p>
+
+<p>border-radius可以同时设置1到4个值。如果设置1个值，表示4个圆角都使用这个值。如果设置两个值，表示左上角和右下角使用第一个值，右上角和左下角使用第二个值。如果设置三个值，表示左上角使用第一个值，右上角和左下角使用第二个值，右下角使用第三个值。如果设置四个值，则依次对应左上角、右上角、右下角、左下角（顺时针顺序）。</p>
+
+<p>　　border-radius: 15px 5px; </p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120904.png"></p>
+
+<p>　　border-radius: 15px 5px 25px; </p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120905.png"></p>
+
+<p>　　border-radius: 15px 5px 25px 0px; </p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120906.png"></p>
+
+<p>（左下角的半径为0，就变成直角了。）</p>
+
+<p>border-radius还可以用斜杠设置第二组值。这时，第一组值表示水平半径，第二组值表示垂直半径。第二组值也可以同时设置1到4个值，应用规则与第一组值相同。</p>
+
+<p>　　border-radius: 15px 5px / 3px; </p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120907.png"></p>
+
+<p>　　border-radius: 15px 5px 25px / 3px 5px; </p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120908.png"></p>
+
+<p>　　border-radius: 15px 5px 25px 5px / 3px 5px 10px 15px;</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120909.png"></p>
+
+<p><strong>三、单个圆角的设置</strong></p>
+
+<p>除了同时设置四个圆角以外，还可以单独对每个角进行设置。对应四个角，CSS3提供四个单独的属性：</p>
+
+<p>　　* border-top-left-radius<br>
+　　* border-top-right-radius<br>
+　　* border-bottom-right-radius<br>
+　　* border-bottom-left-radius</p>
+
+<p>这四个属性都可以同时设置1到2个值。如果设置1个值，表示水平半径与垂直半径相等。如果设置2个值，第一个值表示水平半径，第二个值表示垂直半径。</p>
+
+<p>　　border-top-left-radius: 15px;</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120910.png"></p>
+
+<p>　　border-top-left-radius: 15px 5px;</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120911.png"></p>
+
+<p><strong>四、浏览器支持</strong></p>
+
+<p>IE 9、Opera 10.5、Safari 5、Chrome 4和Firefox 4，都支持上述的border-radius属性。早期版本的Safari和Chrome，支持-webkit-border-radius属性，早期版本的Firefox支持-moz-border-radius属性。</p>
+
+<p>目前来看，为了保证兼容性，只需同时设置-moz-border-radius和border-radius即可。</p>
+
+<p>　　-moz-border-radius: 15px;<br>
+　　border-radius: 15px;</p>
+
+<p>（注意：border-radius必须放在最后声明，否则可能会失效。）</p>
+
+<p>另外，早期版本Firefox的单个圆角的语句，与标准语法略有不同。</p>
+
+<p>　　* -moz-border-radius-topleft（标准语法：border-top-left-radius）<br>
+　　* -moz-border-radius-topright（标准语法：border-top-right-radius）<br>
+　　* -moz-border-radius-bottomleft（标准语法：border-bottom-left-radius）<br>
+　　* -moz-border-radius-bottomright（标准语法：border-bottom-right-radius）</p>
+
+<p><strong>五、注意事项</strong></p>
+
+<p>虽然各大浏览器都支持border-radius，但是在某些细节上，实现都不一样。当四个角的颜色、宽度、风格（实线框、虚线框等）、单位都相同时，所有浏览器的渲染结果基本一致；一旦四个角的设置不相同，就会出现很大的差异。比如，下面这段代码在不同的浏览器中，渲染结果就相差很大。</p>
+
+<p>　　border-color: black;<br>
+　　border-style: solid dashed;<br>
+　　border-width: 1px 2px 3px;<br>
+　　border-top-color: red;<br>
+　　border-radius: 5%;</p>
+
+<p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2010120912.png"></p>
+
+<p>另外，并非所有浏览器，都支持将圆角半径设为一个百分比值。</p>
+
+<p>因此，目前最安全的做法，就是将每个圆角边框的风格和宽度，都设为一样的值，并且避免使用百分比值。</p>
+
+<p>（完）</p>
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS3圆角详解 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2010-12-09T19:40:01+08:00">2010年12月 9日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（29条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-209783" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xshagua.com" href="http://www.xshagua.com/" target="_blank" rel="nofollow">Xshagua</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209783">
+            <p>写得这么详细，慢慢看</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2010  7:56 PM">2010年12月 9日 19:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209783">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用Xshagua的这条留言" onclick="return CommentQuote(&#39;comment-quote-209783&#39;,&#39;Xshagua&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209787" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://icyomik.tk/" href="http://icyomik.tk/" target="_blank" rel="nofollow">iCyOMiK</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209787">
+            <p>我也慢慢看，记得之前你也写过圆角的文章，我还Mark了书签。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2010  9:41 PM">2010年12月 9日 21:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209787">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用iCyOMiK的这条留言" onclick="return CommentQuote(&#39;comment-quote-209787&#39;,&#39;iCyOMiK&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209788" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://icyomik.tk/" href="http://icyomik.tk/" target="_blank" rel="nofollow">iCyOMiK</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209788">
+            <p>看完了，对你的无私表示感谢，同时表达个人已经看得很明白，果然是大道至简。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2010  9:52 PM">2010年12月 9日 21:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209788">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用iCyOMiK的这条留言" onclick="return CommentQuote(&#39;comment-quote-209788&#39;,&#39;iCyOMiK&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209789" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">hnglng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209789">
+            <p>有没有YUI自动化测试的文章可以分享？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2010  9:57 PM">2010年12月 9日 21:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209789">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用hnglng的这条留言" onclick="return CommentQuote(&#39;comment-quote-209789&#39;,&#39;hnglng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209791" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">sapjax</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209791">
+            <p>文章比较浅，不过Nicholas Zakas本来就不是“网页设计大师”。<br>
+他是JavaScript大师。呵呵</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2010 11:43 PM">2010年12月 9日 23:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209791">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用sapjax的这条留言" onclick="return CommentQuote(&#39;comment-quote-209791&#39;,&#39;sapjax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209794" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yted</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209794">
+            <p>呀!那些圆角矩形,竟然都是图片....</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 10, 2010  9:11 AM">2010年12月10日 09:11</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209794">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用yted的这条留言" onclick="return CommentQuote(&#39;comment-quote-209794&#39;,&#39;yted&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-209796" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.huangcong.com" href="http://www.huangcong.com/" target="_blank" rel="nofollow">hc</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-209796">
+            <p>很踏实的文章，谢谢分享！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 10, 2010 10:14 AM">2010年12月10日 10:14</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-209796">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用hc的这条留言" onclick="return CommentQuote(&#39;comment-quote-209796&#39;,&#39;hc&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-210015" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://nswutong.com" href="http://nswutong.com/" target="_blank" rel="nofollow">吴叔</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-210015">
+            <p>搜狗的webkit内核竟然不支持-webkit-border-radius 我实在是感到匪夷所思..</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 14, 2010  9:57 PM">2010年12月14日 21:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-210015">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用吴叔的这条留言" onclick="return CommentQuote(&#39;comment-quote-210015&#39;,&#39;吴叔&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-210096" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.yanxyz.net/blog" href="http://www.yanxyz.net/blog" target="_blank" rel="nofollow">yan</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-210096">
+            <blockquote>
+<pre>引用吴叔的发言：</pre>
+
+<p>搜狗的webkit内核竟然不支持-webkit-border-radius 我实在是感到匪夷所思..</p>
+
+</blockquote>
+
+<p>我用的是搜狗2.2.0.1699去原文章提供的测试页面测试了下，没有问题。看了user-agent是AppleWebKit/534.3，是较新的版本了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 20, 2010 11:05 AM">2010年12月20日 11:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-210096">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用yan的这条留言" onclick="return CommentQuote(&#39;comment-quote-210096&#39;,&#39;yan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-212254" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ding</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-212254">
+            <p>确实是非常好的文章，也很详细，，也表示个人看了很有想法，呵呵</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 18, 2011  4:18 PM">2011年2月18日 16:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-212254">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用ding的这条留言" onclick="return CommentQuote(&#39;comment-quote-212254&#39;,&#39;ding&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-212695" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">axiebin</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-212695">
+            <p>   -webkit-border-radius: 8px;<br>
+     -moz-border-radius: 8px;<br>
+    border-radius: 8px;<br>
+#############################<br>
+以上属性在IE9以下的浏览器能不能实现 全部圆角？？求解决方案？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March  4, 2011  3:25 PM">2011年3月 4日 15:25</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-212695">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用axiebin的这条留言" onclick="return CommentQuote(&#39;comment-quote-212695&#39;,&#39;axiebin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-216223" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">coldfusion</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-216223">
+            <blockquote>
+<pre>引用axiebin的发言：</pre>
+
+<p> -webkit-border-radius: 8px;<br>
+ -moz-border-radius: 8px;<br>
+border-radius: 8px;<br>
+#############################<br>
+以上属性在IE9以下的浏览器能不能实现 全部圆角？？求解决方案？</p>
+
+</blockquote>
+
+<p>ie9以下只能使用暴力方法：<br>
+<a href="http://bbs.blueidea.com/viewthread.php?tid=2880214&amp;page=1&amp;authorid=434259" rel="nofollow">http://bbs.blueidea.com/viewthread.php?tid=2880214&amp;page=1&amp;authorid=434259</a><br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 14, 2011  5:00 PM">2011年4月14日 17:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-216223">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用coldfusion的这条留言" onclick="return CommentQuote(&#39;comment-quote-216223&#39;,&#39;coldfusion&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-241335" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://iwfreedom.diandian.com/" href="http://iwfreedom.diandian.com/" target="_blank" rel="nofollow">milenbo</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-241335">
+            <p>很不错，学习了。我一直都在寻找这种简单方便的方法。看了你的文章才知道原来还有这个属性。我不是专业做设计的，只是感兴趣而已。比较喜欢web前端与后端。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  3, 2011  3:35 PM">2011年12月 3日 15:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-241335">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用milenbo的这条留言" onclick="return CommentQuote(&#39;comment-quote-241335&#39;,&#39;milenbo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-250851" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Amy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-250851">
+            <p>学习了，以前详细的学习过，看过又有的新的收获，非常感谢！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 20, 2012  9:56 AM">2012年3月20日 09:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-250851">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用Amy的这条留言" onclick="return CommentQuote(&#39;comment-quote-250851&#39;,&#39;Amy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-253545" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://hi.baidu.com/19%BA%C5a01" href="http://hi.baidu.com/19%BA%C5a01" target="_blank" rel="nofollow">改改名</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-253545">
+            <p>现在有新方法了 css3pie 可以兼容ie6-ie8的圆角。PIE给我们带来了CSS3属性在IE中的支持。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 27, 2012  4:23 PM">2012年4月27日 16:23</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-253545">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用改改名的这条留言" onclick="return CommentQuote(&#39;comment-quote-253545&#39;,&#39;改改名&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-258036" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">呆呆</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-258036">
+            <p>对圆角有了更全面的了解，非常感谢。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  4, 2012  1:20 PM">2012年7月 4日 13:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-258036">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用呆呆的这条留言" onclick="return CommentQuote(&#39;comment-quote-258036&#39;,&#39;呆呆&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-261597" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://http:www.lvyno.com/wp" href="http://http:www.lvyno.com/wp" target="_blank" rel="nofollow">lvyno</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-261597">
+            <p>我试过怎么IE8版本以下的都不兼容这个属性，这个问题有没有解决的办法呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 18, 2012 11:17 AM">2012年8月18日 11:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-261597">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用lvyno的这条留言" onclick="return CommentQuote(&#39;comment-quote-261597&#39;,&#39;lvyno&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-263931" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">丁玲</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-263931">
+            <p>这个在ie8以下的版本不适合<br>
+有没有在IE8下适合的？？？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 26, 2012 10:16 AM">2012年9月26日 10:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-263931">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用丁玲的这条留言" onclick="return CommentQuote(&#39;comment-quote-263931&#39;,&#39;丁玲&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-265590" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.ys2o.com" href="http://www.ys2o.com/" target="_blank" rel="nofollow">divachen</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-265590">
+            <blockquote>
+<pre>引用丁玲的发言：</pre>
+
+<p>这个在ie8以下的版本不适合<br>
+有没有在IE8下适合的？？？</p>
+
+</blockquote>
+
+<p>你需要这个<br>
+<a href="http://css3pie.com/" rel="nofollow">http://css3pie.com/</a><br>
+---------分割线----------------<br>
+<br>
+border: 1px solid #696;<br>
+padding: 60px 0;<br>
+text-align: center; width: 200px;<br>
+-webkit-border-radius: 8px;<br>
+-moz-border-radius: 8px;<br>
+border-radius: 8px;<br>
+-webkit-box-shadow: #666 0px 2px 3px;<br>
+-moz-box-shadow: #666 0px 2px 3px;<br>
+box-shadow: #666 0px 2px 3px;<br>
+background: #EEFF99;<br>
+background: -webkit-gradient(linear, 0 0, 0 bottom, from(#EEFF99), to(#66EE33));<br>
+background: -webkit-linear-gradient(#EEFF99, #66EE33);<br>
+background: -moz-linear-gradient(#EEFF99, #66EE33);<br>
+background: -ms-linear-gradient(#EEFF99, #66EE33);<br>
+background: -o-linear-gradient(#EEFF99, #66EE33);<br>
+background: linear-gradient(#EEFF99, #66EE33);<br>
+-pie-background: linear-gradient(#EEFF99, #66EE33);<br>
+behavior: url(/PIE.htc);<br>
+/*css中引入pie文件*/<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2012  8:04 PM">2012年11月 2日 20:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-265590">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用divachen的这条留言" onclick="return CommentQuote(&#39;comment-quote-265590&#39;,&#39;divachen&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-266244" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fws407296762</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-266244">
+            <p>你能说一下，怎么样才能用PS，或者是其它工具量出圆角的所要用的到数据吗？比如椭圆时候，半径数据，怎么能够测量出来？如果可以的话，能把方法发一份邮件给我吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 22, 2012 11:51 AM">2012年11月22日 11:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-266244">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用fws407296762的这条留言" onclick="return CommentQuote(&#39;comment-quote-266244&#39;,&#39;fws407296762&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-266817" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://wyzws.iteye.com/admin/blogs" href="http://wyzws.iteye.com/admin/blogs" target="_blank" rel="nofollow">js-=-nerd</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-266817">
+            <p>不错的教程，学习了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  9, 2012  3:06 PM">2012年12月 9日 15:06</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-266817">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用js-=-nerd的这条留言" onclick="return CommentQuote(&#39;comment-quote-266817&#39;,&#39;js-=-nerd&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-271524" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">小松</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-271524">
+            <p>希望能研发出ie6-8支持圆角方法。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 14, 2013  5:50 PM">2013年5月14日 17:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-271524">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用小松的这条留言" onclick="return CommentQuote(&#39;comment-quote-271524&#39;,&#39;小松&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-303388" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">差不多</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-303388">
+            <p>14年报到</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 17, 2014  1:19 PM">2014年3月17日 13:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-303388">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用差不多的这条留言" onclick="return CommentQuote(&#39;comment-quote-303388&#39;,&#39;差不多&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-343104" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.biaoker.com/liucheng.html" href="http://www.biaoker.com/liucheng.html" target="_blank" rel="nofollow">老潘</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-343104">
+            <p>感谢分享，我试了试，确实不错。用了下，但是IE6、IE7、IE8都不怎么支持，然后我百度了一下，搞了个behavior: url(ie-css3.htc);</p>
+
+<p>然后发现在IE6下面看，整个是黑的，可以看我个人网址那个商标抓让流程的实例</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  9, 2014  4:33 PM">2014年11月 9日 16:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-343104">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用老潘的这条留言" onclick="return CommentQuote(&#39;comment-quote-343104&#39;,&#39;老潘&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-348309" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.sina.com.cn/kimseongrim" href="http://blog.sina.com.cn/kimseongrim" target="_blank" rel="nofollow">夏尔猫叔</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-348309">
+            <p>推荐各位使用 html9patch（Android 9patch图的html版本），非常给力<br>
+<a href="https://github.com/kimseongrim/html9patch" rel="nofollow">https://github.com/kimseongrim/html9patch</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March  2, 2015  2:54 PM">2015年3月 2日 14:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-348309">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用夏尔猫叔的这条留言" onclick="return CommentQuote(&#39;comment-quote-348309&#39;,&#39;夏尔猫叔&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-351832" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://buttoncssgenerator.com" href="http://buttoncssgenerator.com/" target="_blank" rel="nofollow">coosummer</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-351832">
+            <p>推荐使用 <a href="http://buttoncssgenerator.com/" rel="nofollow">http://buttoncssgenerator.com</a> 生成按钮css，不仅可以生成圆角，还可以生成阴影，阶梯颜色，产生立体效果</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 23, 2015  3:36 PM">2015年9月23日 15:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-351832">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用coosummer的这条留言" onclick="return CommentQuote(&#39;comment-quote-351832&#39;,&#39;coosummer&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-353749" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">王志伟</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-353749">
+            <p>圆角在css3动画的时候失效，这个问题怎么破？？？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  4, 2016  6:29 PM">2016年1月 4日 18:29</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-353749">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用王志伟的这条留言" onclick="return CommentQuote(&#39;comment-quote-353749&#39;,&#39;王志伟&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-359294" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">贞子飘过</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-359294">
+            <p>厉害厉害，查了这么多不如这一条</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 17, 2016 10:27 AM">2016年6月17日 10:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-359294">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用贞子飘过的这条留言" onclick="return CommentQuote(&#39;comment-quote-359294&#39;,&#39;贞子飘过&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377550" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阿丹</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377550">
+            <blockquote>
+<pre></pre>
+很详细，容易理解。
+
+</blockquote>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 30, 2017 12:34 AM">2017年5月30日 00:34</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-377550">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/12/detailed_explanation_of_css3_rounded_corners.html#comment-text" title="引用阿丹的这条留言" onclick="return CommentQuote(&#39;comment-quote-377550&#39;,&#39;阿丹&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1492">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS3圆角详解 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS3圆角详解 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS3圆角详解 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS3圆角详解 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS3圆角详解 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame610" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS3圆角详解 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

@@ -1,0 +1,1376 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0055)http://www.ruanyifeng.com/blog/2018/07/white-space.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS 的空格处理 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS 的空格处理 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS 的空格处理 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS 的空格处理 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2018/07/weekly-issue-15.html" title="每周分享第 15 期">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2018/08/weekly-issue-16.html" title="每周分享第 16 期">
+    
+    <title>CSS 的空格处理 - 阮一峰的网络日志</title>
+<script src="./CSS 的空格处理 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 的空格处理 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS 的空格处理 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 的空格处理 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS 的空格处理 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS 的空格处理 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-2006" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2018/07/weekly-issue-15.html" title="每周分享第 15 期">每周分享第&nbsp;15&nbsp;期&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2018/08/weekly-issue-16.html" title="每周分享第 16 期">每周分享第&nbsp;16&nbsp;期&nbsp;</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2018/07/weekly-issue-15.html" title="每周分享第 15 期">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2018/08/weekly-issue-16.html" title="每周分享第 16 期">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS 的空格处理</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 的空格处理 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2018/07/"><abbr class="published" title="2018-07-30T20:25:09+08:00">2018年7月30日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <h2>一、空格规则</h2>
+
+<p>HTML 代码的空格通常会被浏览器忽略。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073106.jpg" alt="" title=""></p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>◡◡hello◡◡world◡◡<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面是一行 HTML 代码，文字的前部、内部和后部各有两个空格。为了便于识别，这里使用半圆形符号<code>◡</code>表示空格。</p>
+
+<p>浏览器的输出结果如下。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+hello world
+</code></pre></blockquote>
+
+<p>可以看到，文字的前部和后部的空格都会忽略，内部的连续空格只会算作一个。这就是浏览器处理空格的基本规则。</p>
+
+<p>如果希望空格原样输出，可以使用<code>&lt;pre&gt;</code>标签。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>pre</span><span class="token punctuation">&gt;</span></span>◡◡hello◡◡world◡◡<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>pre</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>另一种方法是，改用 HTML 实体<code>&amp;nbsp;</code>表示空格。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span><span class="token entity" title=" ">&amp;nbsp;</span><span class="token entity" title=" ">&amp;nbsp;</span>hello<span class="token entity" title=" ">&amp;nbsp;</span><span class="token entity" title=" ">&amp;nbsp;</span>world<span class="token entity" title=" ">&amp;nbsp;</span><span class="token entity" title=" ">&amp;nbsp;</span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<h2>二、空格字符</h2>
+
+<p>HTML 处理空格的规则，适用于多种字符。除了普通的空格键，还包括制表符（<code>\t</code>）和换行符（<code>\r</code>和<code>\n</code>）。</p>
+
+<p>浏览器会自动把这些符号转成普通的空格键。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>hello
+world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，文本内部包含了一个换行符，浏览器视同为空格，输出结果如下。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+hello world
+</code></pre></blockquote>
+
+<p>所以，文本内部的换行是无效的（除非文本放在<code>&lt;pre&gt;</code>标签内）。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>hello<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>br</span><span class="token punctuation">&gt;</span></span>world<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码使用<code>&lt;br&gt;</code>标签显式表示换行。</p>
+
+<h2>三、CSS 的 white-space 属性</h2>
+
+<p>HTML 语言的空格处理，基本上就是直接过滤。这样的处理过于粗糙，完全忽视了原始文本内部的空格可能是有意义的。</p>
+
+<p>CSS 提供了一个<code>white-space</code>属性，可以提供更精确一点的空格处理方式。该属性共有六个值，除了一个通用的<code>inherit</code>（继承父元素），下面依次介绍剩下的五个值。</p>
+
+<h3>3.1 white-space: normal</h3>
+
+<p><code>white-space</code>属性的默认值为<code>normal</code>，表示浏览器以正常方式处理空格。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>◡◡hellohellohello◡hello
+world
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，文本前部有两个空格，内部有一个长单词和一个换行符。</p>
+
+<p>然后，容器<code>&lt;p&gt;</code>指定一个比较小的宽度。为了便于识别，背景色设为红色。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100px<span class="token punctuation">;</span>
+  <span class="token property">background</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>显示效果如下图。</p>
+
+<p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073101.png" alt="" title=""></p>
+
+<p>可以看到，文首的空格被忽略。由于容器太窄，第一个单词溢出容器，然后在后面一个空格处换行。文本内部的换行符自动转成了空格。</p>
+
+<h3>3.2 white-space: nowrap</h3>
+
+<p><code>white-space</code>属性为<code>nowrap</code>时，不会因为超出容器宽度而发生换行。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> nowrap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>显示效果如下图。</p>
+
+<p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073102.png" alt="" title=""></p>
+
+<p>所有文本显示为一行，不会换行。</p>
+
+<h3>3.3 white-space: pre</h3>
+
+<p><code>white-space</code>属性为<code>pre</code>时，就按照<code>&lt;pre&gt;</code>标签的方式处理。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> pre<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>显示效果如下图。</p>
+
+<p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073103.png" alt="" title=""></p>
+
+<p>上面结果与原始文本完全一致，所有空格和换行符都保留了。</p>
+
+<h3>3.4 white-space: pre-wrap</h3>
+
+<p><code>white-space</code>属性为<code>pre-wrap</code>时，基本还是按照<code>&lt;pre&gt;</code>标签的方式处理，唯一区别是超出容器宽度时，会发生换行。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> pre-wrap<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>显示效果如下图。</p>
+
+<p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073104.png" alt="" title=""></p>
+
+<p>文首的空格、内部的空格和换行符都保留了，超出容器的地方发生了折行。</p>
+
+<h3>3.5 white-space: pre-line</h3>
+
+<p><code>white-space</code>属性为<code>pre-line</code>时，意为保留换行符。除了换行符会原样输出，其他都与<code>white-space:normal</code>规则一致。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">p </span><span class="token punctuation">{</span>
+  <span class="token property">white-space</span><span class="token punctuation">:</span> pre-line<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>显示效果如下图。</p>
+
+<p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2018073105.png" alt="" title=""></p>
+
+<p>除了文本内部的换行符没有转成空格，其他都与<code>normal</code>的处理规则一致。这对于诗歌类型的文本很有用。</p>
+
+<h2>四、参考链接</h2>
+
+<ul>
+<li><a href="https://medium.com/@patrickbrosset/when-does-white-space-matter-in-html-b90e8a7cdd33" target="_blank">When does white space matter in HTML?</a>，by Patrick Brosset</li>
+<li><a href="https://css-tricks.com/almanac/properties/w/whitespace/" target="_blank">white-space</a>，by Sara Cope </li>
+</ul>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS 的空格处理 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2018-07-30T20:25:09+08:00">2018年7月30日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（22条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-391627" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://liqi1997.xyz" href="http://liqi1997.xyz/" target="_blank" rel="nofollow">李奇</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391627">
+            <p>居然是第一条留言，真的很佩服可以读英文文档获取资讯知识的人，也佩服学到了东西爱分享的人。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 30, 2018 10:51 PM">2018年7月30日 22:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391627">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用李奇的这条留言" onclick="return CommentQuote(&#39;comment-quote-391627&#39;,&#39;李奇&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391651" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">张涛</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391651">
+            <p>晚上微博看到了，详细阅读了一下，非常实用的小细节东西，多掌握这种小的知识点必定会节省开发时间。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 31, 2018  2:42 PM">2018年7月31日 14:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391651">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用张涛的这条留言" onclick="return CommentQuote(&#39;comment-quote-391651&#39;,&#39;张涛&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391665" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://null" href="http://null/" target="_blank" rel="nofollow">梁晓辉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391665">
+            <p>我是linux的初学者，晚上翻看了您的博客《Linux的启动过程》，感觉您是很有“功夫”的人，向您学习！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 31, 2018  8:30 PM">2018年7月31日 20:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391665">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用梁晓辉的这条留言" onclick="return CommentQuote(&#39;comment-quote-391665&#39;,&#39;梁晓辉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391667" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">kfunny</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391667">
+            <p>一直追着看您的博客 今天第一次留言 还是觉得不太习惯 感觉disqus好用一点呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 31, 2018  9:08 PM">2018年7月31日 21:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391667">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用kfunny的这条留言" onclick="return CommentQuote(&#39;comment-quote-391667&#39;,&#39;kfunny&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391672" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">walacewang</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391672">
+            <p>怎么都溢出了呢？要想不溢出有办法吗</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  1, 2018  7:45 AM">2018年8月 1日 07:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391672">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用walacewang的这条留言" onclick="return CommentQuote(&#39;comment-quote-391672&#39;,&#39;walacewang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391695" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">fengjiahao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391695">
+            <blockquote>
+<pre>引用李奇的发言：</pre>
+
+<p>居然是第一条留言，真的很佩服可以读英文文档获取资讯知识的人，也佩服学到了东西爱分享的人。</p>
+
+</blockquote>
+
+<p>是的，分享到一定程度，我们就可以成为一个社区了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  1, 2018  3:34 PM">2018年8月 1日 15:34</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391695">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用fengjiahao的这条留言" onclick="return CommentQuote(&#39;comment-quote-391695&#39;,&#39;fengjiahao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391698" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">wjy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391698">
+            <p>阮老师好，想问一下为啥我输入</p><p>hello<br>world</p>，然后在浏览器中打开之后换行生效了呢<p></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  1, 2018  5:30 PM">2018年8月 1日 17:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391698">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用wjy的这条留言" onclick="return CommentQuote(&#39;comment-quote-391698&#39;,&#39;wjy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391699" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">11</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391699">
+            <p>这个是什么意思是哦？<br>
+Not Found<br>
+The requested URL /photo.html was not found on this server.</p>
+
+<p>Apache/2.4.25 (Debian) Server at 172.19.0.3 Port 80</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  1, 2018  5:56 PM">2018年8月 1日 17:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391699">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用11的这条留言" onclick="return CommentQuote(&#39;comment-quote-391699&#39;,&#39;11&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391700" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://panqiincs.me" href="https://panqiincs.me/" target="_blank" rel="nofollow">Krist Pan</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391700">
+            <blockquote>
+<pre>引用kfunny的发言：</pre>
+
+<p>一直追着看您的博客 今天第一次留言 还是觉得不太习惯 感觉disqus好用一点呢</p>
+
+</blockquote>
+
+<p>可是disqus无法正常访问啊。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  1, 2018  6:11 PM">2018年8月 1日 18:11</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391700">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用Krist Pan的这条留言" onclick="return CommentQuote(&#39;comment-quote-391700&#39;,&#39;Krist Pan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391724" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">e0y6dc+cnyvwm391zqk@sharklasers.com</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391724">
+            <p>阮老师好，loadjscssfile 函数写的很好但绕过很容易，别折腾了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  2, 2018 11:42 AM">2018年8月 2日 11:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391724">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用e0y6dc+cnyvwm391zqk@sharklasers.com的这条留言" onclick="return CommentQuote(&#39;comment-quote-391724&#39;,&#39;e0y6dc+cnyvwm391zqk@sharklasers.com&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391737" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">mcxu.org</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391737">
+            <p>之前一直用&amp;nbsp;来处理空格，今天又学到新知识点了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  2, 2018  9:22 PM">2018年8月 2日 21:22</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391737">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用mcxu.org的这条留言" onclick="return CommentQuote(&#39;comment-quote-391737&#39;,&#39;mcxu.org&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391750" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">木易杨</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391750">
+            <p>上午看到这篇文章，下午就用到了，小确幸</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  3, 2018 11:00 AM">2018年8月 3日 11:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391750">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用木易杨的这条留言" onclick="return CommentQuote(&#39;comment-quote-391750&#39;,&#39;木易杨&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391751" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Mars</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391751">
+            <p>尽管是一个小小的属性也是值得每一位前端开发去思考在<b>合适的地方用合适的属性</b></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  3, 2018 11:17 AM">2018年8月 3日 11:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391751">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用Mars的这条留言" onclick="return CommentQuote(&#39;comment-quote-391751&#39;,&#39;Mars&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391770" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">tiger</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391770">
+            <p>开心，阮老师最棒</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  3, 2018  3:04 PM">2018年8月 3日 15:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391770">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用tiger的这条留言" onclick="return CommentQuote(&#39;comment-quote-391770&#39;,&#39;tiger&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391859" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">名夏</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391859">
+            <p>很实用，之前一直没注意过，谨记，开发时能省很多事</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  6, 2018 10:31 AM">2018年8月 6日 10:31</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391859">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用名夏的这条留言" onclick="return CommentQuote(&#39;comment-quote-391859&#39;,&#39;名夏&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391875" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yohao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391875">
+            <p>建议网站加一个 回到顶部，每次都要滚上去，^_^~~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  6, 2018  6:21 PM">2018年8月 6日 18:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391875">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用yohao的这条留言" onclick="return CommentQuote(&#39;comment-quote-391875&#39;,&#39;yohao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391891" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">十划吕</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391891">
+            <p>关于文本类的空白字符处理还有 letter-spacing, 可以控制文本字符间的间隙, 配合 ::before, ::after 也有不错的效果</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  7, 2018 11:50 AM">2018年8月 7日 11:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391891">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用十划吕的这条留言" onclick="return CommentQuote(&#39;comment-quote-391891&#39;,&#39;十划吕&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391911" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://linhai1990.com" href="http://linhai1990.com/" target="_blank" rel="nofollow">林海草原</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391911">
+            <p>这篇博客对我修改博客代码起到了指导作用，谢谢阮老师！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  7, 2018 11:06 PM">2018年8月 7日 23:06</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-391911">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用林海草原的这条留言" onclick="return CommentQuote(&#39;comment-quote-391911&#39;,&#39;林海草原&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-392220" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">beryl</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-392220">
+            <p>是的呢，以前一只用&nbsp;来处空格，现在又学了一招</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 15, 2018  8:01 PM">2018年8月15日 20:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-392220">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用beryl的这条留言" onclick="return CommentQuote(&#39;comment-quote-392220&#39;,&#39;beryl&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-393445" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">烟雨蒙蒙陆振华</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-393445">
+            <p>经测试3.2节显示的效果图有误，hellohellohell前面应有两个空格，图中只有一个。<br>
+不知道这是否受使用的软件不同而有所影响。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 26, 2018  4:14 PM">2018年9月26日 16:14</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-393445">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用烟雨蒙蒙陆振华的这条留言" onclick="return CommentQuote(&#39;comment-quote-393445&#39;,&#39;烟雨蒙蒙陆振华&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-393806" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">陈崇强</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-393806">
+            <p>老师问下您文中提到的这边我有些没理解：<br>
+-------------------------------------------</p>
+
+<p>文本内部的换行是无效的（除非文本放在&lt;pre&gt;标签内）</p>
+
+<p>&lt;p&gt;hello&lt;br&gt;world&lt;/p&gt;</p>
+
+<p>上面代码使用&lt;br&gt;标签显式表示换行。<br>
+-------------------------------------------</p>
+
+<p>测试了下好像是有效的。</p>
+
+<p>----------------------------------<br>
+&lt;p&gt;hello&lt;br&gt;&lt;br&gt;world&lt;/p&gt;<br>
+----------------------------------<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October  9, 2018 12:02 PM">2018年10月 9日 12:02</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-393806">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用陈崇强的这条留言" onclick="return CommentQuote(&#39;comment-quote-393806&#39;,&#39;陈崇强&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-415825" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://1" href="http://0.0.0.1/" target="_blank" rel="nofollow">1</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-415825">
+            <p>你好，pre-line上面为什么会多出一行空白，这个有办法解决吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 13, 2020 11:57 AM">2020年1月13日 11:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-415825">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2018/07/white-space.html#comment-text" title="引用1的这条留言" onclick="return CommentQuote(&#39;comment-quote-415825&#39;,&#39;1&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="2006">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS 的空格处理 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS 的空格处理 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS 的空格处理 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS 的空格处理 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 的空格处理 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame246" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS 的空格处理 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

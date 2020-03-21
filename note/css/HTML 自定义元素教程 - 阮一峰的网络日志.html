@@ -1,0 +1,1496 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0059)http://www.ruanyifeng.com/blog/2017/06/custom-elements.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./HTML 自定义元素教程 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2017/06/raspberry-pi-tutorial.html" title="树莓派新手入门教程">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2017/06/smtp-protocol.html" title="如何验证 Email 地址：SMTP 协议入门教程">
+    
+    <title>HTML 自定义元素教程 - 阮一峰的网络日志</title>
+<script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1940" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2017/06/raspberry-pi-tutorial.html" title="树莓派新手入门教程">树莓派新手入门教程&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2017/06/smtp-protocol.html" title="如何验证 Email 地址：SMTP 协议入门教程">如何验证&nbsp;Email&nbsp;</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/06/raspberry-pi-tutorial.html" title="树莓派新手入门教程">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/06/smtp-protocol.html" title="如何验证 Email 地址：SMTP 协议入门教程">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">HTML 自定义元素教程</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2017/06/"><abbr class="published" title="2017-06-22T11:50:17+08:00">2017年6月22日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>组件是 Web 开发的方向，现在的热点是 JavaScript 组件，但是 HTML 组件未来可能更有希望。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>本文就介绍 HTML 组件的基础知识：自定义元素（custom elements）。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062201.png" alt="" title=""></p>
+
+<p>文章结尾还有一则 <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#support">React 培训消息</a>（含 React Native），欢迎关注。</p>
+
+<h2>一、浏览器处理</h2>
+
+<p>我们一般都使用标准的 HTML 元素。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>Hello World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>&lt;p&gt;</code>就是标准的 HTML 元素。</p>
+
+<p>如果使用非标准的自定义元素，会有什么结果？</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>greeting</span><span class="token punctuation">&gt;</span></span>Hello World<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>greeting</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>&lt;greeting&gt;</code>就是非标准元素，浏览器不认识它。这段代码的<a href="http://jsbin.com/rifozonomu/edit?html,output" target="_blank">运行结果</a>是，浏览器照常显示<code>Hello World</code>，这说明浏览器并没有过滤这个元素。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062202.png" alt="" title=""></p>
+
+<p>现在，为自定义元素加上样式。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">greeting </span><span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> block<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> 36px<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p><a href="http://jsbin.com/dawenun/edit?html,css,output" target="_blank">运行结果</a>如下。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062203.png" alt="" title=""></p>
+
+<p>接着，使用脚本操作这个元素。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token keyword">function</span> <span class="token function">customTag<span class="token punctuation">(</span></span>tagName<span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  Array
+    <span class="token punctuation">.</span><span class="token function">from<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">getElementsByTagName<span class="token punctuation">(</span></span>tagName<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">forEach<span class="token punctuation">(</span></span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">greetingHandler<span class="token punctuation">(</span></span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">'你好，世界'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>   
+
+<span class="token function">customTag<span class="token punctuation">(</span></span><span class="token string">'greeting'</span><span class="token punctuation">,</span> greetingHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p><a href="http://jsbin.com/bisege/edit?html,js,output" target="_blank">运行结果</a>如下。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062204.png" alt="" title=""></p>
+
+<p>这说明，浏览器对待自定义元素，就像对待标准元素一样，只是没有默认的样式和行为。这种处理方式是写入 <a href="https://www.w3.org/TR/html5/infrastructure.html#extensibility-0" target="_blank">HTML5 标准</a>的。</p>
+
+<blockquote>
+  <p>"User agents must treat elements and attributes that they do not understand as semantically neutral; leaving them in the DOM (for DOM processors), and styling them according to CSS (for CSS processors), but not inferring any meaning from them."</p>
+</blockquote>
+
+<p>上面这段话的意思是，浏览器必须将自定义元素保留在 DOM 之中，但不会任何语义。除此之外，自定义元素与标准元素都一致。</p>
+
+<p>事实上，浏览器提供了一个<code>HTMLUnknownElement</code>对象，所有自定义元素都是该对象的实例。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token keyword">var</span> tabs <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">'tabs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+tabs <span class="token keyword">instanceof</span> <span class="token class-name">HTMLUnknownElement</span><span class="token comment" spellcheck="true"> // true
+</span>tabs <span class="token keyword">instanceof</span> <span class="token class-name">HTMLElement</span><span class="token comment" spellcheck="true"> // true
+</span></code></pre></blockquote>
+
+<p>上面代码中，<code>tabs</code>是一个自定义元素，同时继承了<code>HTMLUnknownElement</code>和<code>HTMLElement</code>接口。</p>
+
+<h2>二、HTML import</h2>
+
+<p>有了自定义元素，就可以写出语义性非常好的 HTML 代码。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>share-buttons</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>social-button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>weibo<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>微博<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>social-button</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>social-button</span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>weixin<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>...<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>微信<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>social-button</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>share-buttons</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面的代码，一眼就能看出语义。</p>
+
+<p>如果将<code>&lt;share-buttons&gt;</code>元素的样式与脚本，封装在一个 HTML 文件<code>share-buttons.html</code>之中，这个元素就可以复用了。</p>
+
+<p>使用的时候，先引入<code>share-buttons.html</code>。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>import<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>share-buttons.html<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>然后，就可以在网页中使用<code>&lt;share-buttons&gt;</code>了。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>article</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">&gt;</span></span>Title<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>share-buttons</span><span class="token punctuation">/&gt;</span></span>
+  ... ...
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>article</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>HTML imports 的更多用法可以参考教程（<a href="https://www.html5rocks.com/en/tutorials/webcomponents/imports/" target="_blank">1</a>，<a href="https://www.webcomponents.org/community/articles/introduction-to-html-imports" target="_blank">2</a>）。目前只有 Chrome 浏览器支持这个语法。</p>
+
+<h2>三、Custom Elements 标准</h2>
+
+<p>HTML5 标准规定了自定义元素是合法的。然后，W3C 就为自定义元素制定了一个单独的 <a href="https://w3c.github.io/webcomponents/spec/custom/#custom-elements" target="_blank">Custom Elements 标准</a>。</p>
+
+<p>它与其他三个标准放在一起---- HTML Imports，HTML Template、Shadow DOM----统称为 <a href="https://www.w3.org/standards/techs/components#w3c_all" target="_blank">Web Components</a> 规范。目前，这个规范只有 Chrome 浏览器<a href="http://caniuse.com/#feat=custom-elements" target="_blank">支持</a>。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062205.jpg" alt="" title=""></p>
+
+<p>Custom Elements 标准对自定义元素的名字做了<a href="https://developers.google.com/web/fundamentals/getting-started/primers/customelements" target="_blank">限制</a>。</p>
+
+<blockquote>
+  <p>"自定义元素的名字必须包含一个破折号（<code>-</code>）所以<code>&lt;x-tags&gt;</code>、<code>&lt;my-element&gt;</code>和<code>&lt;my-awesome-app&gt;</code>都是正确的名字，而<code>&lt;tabs&gt;</code>和<code>&lt;foo_bar&gt;</code>是不正确的。这样的限制使得 HTML 解析器可以分辨那些是标准元素，哪些是自定义元素。"</p>
+</blockquote>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062206.jpg" alt="" title=""></p>
+
+<p>注意，一旦名字之中使用了破折号，自定义元素就不是<code>HTMLUnknownElement</code>的实例了。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token keyword">var</span> xTabs <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement<span class="token punctuation">(</span></span><span class="token string">'x-tabs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+xTabs <span class="token keyword">instanceof</span> <span class="token class-name">HTMLUnknownElement</span><span class="token comment" spellcheck="true"> // false
+</span>xTabs <span class="token keyword">instanceof</span> <span class="token class-name">HTMLElement</span><span class="token comment" spellcheck="true"> // true
+</span></code></pre></blockquote>
+
+<p>Custom Elements 标准规定了，自定义元素的定义可以使用 ES6 的<a href="http://es6.ruanyifeng.com/#docs/class"><code>class</code>语法</a>。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript"><span class="token comment" spellcheck="true">
+// 定义一个 &lt;my-element&gt;&lt;/my-element&gt;
+</span>class <span class="token class-name">MyElement</span> extends <span class="token class-name">HTMLElement</span> <span class="token punctuation">{</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">}</span>
+window<span class="token punctuation">.</span>customElements<span class="token punctuation">.</span><span class="token function">define<span class="token punctuation">(</span></span><span class="token string">'my-element'</span><span class="token punctuation">,</span> MyElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>上面代码中，原生的<code>window.customElements</code>对象的<code>define</code>方法用来定义 Custom Element。该方法接受两个参数，第一个参数是自定义元素的名字，第二个参数是一个 ES6 的<code>class</code>。</p>
+
+<p>这个<code>class</code>使用<code>get</code>和<code>set</code>方法定义 Custom Element 的某个属性。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+class <span class="token class-name">MyElement</span> extends <span class="token class-name">HTMLElement</span> <span class="token punctuation">{</span>
+  get <span class="token function">content<span class="token punctuation">(</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> this<span class="token punctuation">.</span><span class="token function">getAttribute<span class="token punctuation">(</span></span><span class="token string">'content'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  set <span class="token function">content<span class="token punctuation">(</span></span>val<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    this<span class="token punctuation">.</span><span class="token function">setAttribute<span class="token punctuation">(</span></span><span class="token string">'content'</span><span class="token punctuation">,</span> val<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>有了这个定义，网页之中就可以插入<code>&lt;my-element&gt;</code>了。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-element</span> <span class="token attr-name">content</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>Custom Element<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  Hello
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-element</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>处理脚本如下。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token keyword">function</span> <span class="token function">customTag<span class="token punctuation">(</span></span>tagName<span class="token punctuation">,</span> fn<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  Array
+    <span class="token punctuation">.</span><span class="token function">from<span class="token punctuation">(</span></span>document<span class="token punctuation">.</span><span class="token function">getElementsByTagName<span class="token punctuation">(</span></span>tagName<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">forEach<span class="token punctuation">(</span></span>fn<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">myElementHandler<span class="token punctuation">(</span></span>element<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  element<span class="token punctuation">.</span>textConent <span class="token operator">=</span> element<span class="token punctuation">.</span>content<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">customTag<span class="token punctuation">(</span></span><span class="token string">'my-element'</span><span class="token punctuation">,</span> myElementHandler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p><a href="http://jsbin.com/filejeq/edit?html,js,output" target="_blank">运行结果</a>如下。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062207.png" alt="" title=""></p>
+
+<p>ES6 Class 的一个好处是，可以很容易地写出继承类。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+class <span class="token class-name">MyNewElement</span> extends <span class="token class-name">MyElement</span> <span class="token punctuation">{</span>
+ <span class="token comment" spellcheck="true"> // ...
+</span><span class="token punctuation">}</span>
+
+customElements<span class="token punctuation">.</span><span class="token function">define<span class="token punctuation">(</span></span><span class="token string">'my-new-element'</span><span class="token punctuation">,</span> MyNewElement<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>今天的教程就到这里，更多用法请参考谷歌的<a href="https://developers.google.com/web/fundamentals/getting-started/primers/customelements" target="_blank">官方教程</a>。</p>
+
+<h2>四、参考链接</h2>
+
+<ul>
+<li>John Negoita, <a href="https://code.tutsplus.com/tutorials/extending-the-html-by-creating-custom-tags--cms-28622" target="_blank">Extending HTML by Creating Custom Tags</a></li>
+<li>StackOverflow, <a href="https://stackoverflow.com/questions/9845011/are-custom-elements-valid-html5" target="_blank">Are custom elements valid HTML5?</a></li>
+<li>Eric Bidelman, <a href="https://developers.google.com/web/fundamentals/getting-started/primers/customelements" target="_blank">Custom Elements v1: Reusable Web Components</a></li>
+</ul>
+
+<p>（正文完）</p>
+
+<p>==============================</p>
+
+<p><a id="support" target="_blank"></a></p>
+
+<p>下面是一则培训消息。</p>
+
+<p>自从我写了<a href="http://www.ruanyifeng.com/blog/2016/09/react-technology-stack.html" target="_blank">《React 技术栈系列教程》</a>以后，有两种反馈：一种是觉得内容不够完整深入，希望有更详细的介绍，另一种是要求补上 React Native。对此我也没办法，精力有限，无法持续投入，只能推荐大家自己去看官方文档。</p>
+
+<p>昨天，<a href="http://cn.udacity.com/?utm_source=ruanyfarticle&amp;utm_medium=referral&amp;utm_campaign=ReactND01" target="_blank">优达学城</a>的朋友联系我。他们与 <a href="https://reacttraining.com/" target="_blank">React Training</a> 合作，正式推出了 <a href="https://cn.udacity.com/course/react-nanodegree--nd019/?utm_source=ruanyfarticle&amp;utm_medium=referral&amp;utm_campaign=ReactND01" target="_blank">React 培训课程</a>，希望我帮忙推广。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062101.png" alt="" title=""></p>
+
+<p>我听了很兴奋，因为 <a href="https://reacttraining.com/" target="_blank">React Training</a> 是美国最专业的 React 培训机构，水平很高。几个讲课老师在 React 社区都非常有名，<a href="https://github.com/rackt/react-router" target="_blank">React Router</a> 、<a href="https://unpkg.com/" target="_blank">unpkg</a> 和 mustache.js 就是他们的作品。我相信，国内很难找到这样水平的老师和课程。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062102.png" alt="" title=""></p>
+
+<p>实际上，这件事在美国也很受关注，<a href="https://techcrunch.com/2017/06/20/udacitys-latest-nanodegree-will-teach-react/" target="_blank">Techcrunch</a> 进行了报道。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062105.png" alt="" title=""></p>
+
+<p><a href="https://cn.udacity.com/course/react-nanodegree--nd019/?utm_source=ruanyfarticle&amp;utm_medium=referral&amp;utm_campaign=ReactND01" target="_blank">整个课程</a>与美国完全同步，一共持续4个月，分成三个环节。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062103.png" alt="" title=""></p>
+
+<p>课程内容涉及整个 React 技术栈，PC 端和手机端并重。学完之后，可以获得纳米学位的证书。</p>
+
+<p>课程价格是 3399 元人民币。注意，该课程不是零基础的，要求学习者已经掌握 JavaScript 基本语法，所以有报名审核环节。</p>
+
+<p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2017062104.png" alt="" title=""></p>
+
+<p>想学 React/React Native 的同学可以考虑一下，点击<a href="https://cn.udacity.com/course/react-nanodegree--nd019/?utm_source=ruanyfarticle&amp;utm_medium=referral&amp;utm_campaign=ReactND01" target="_blank">这里</a>了解详情，报名到6月27日截止。</p>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2017-06-22T11:50:17+08:00">2017年6月22日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（23条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-378129" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">boomyao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378129">
+            <p>已经自学react一年了，也可以用react开发个人博客等网站，请问再花3000学习这门课程值吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017  3:00 PM">2017年6月22日 15:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378129">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用boomyao的这条留言" onclick="return CommentQuote(&#39;comment-quote-378129&#39;,&#39;boomyao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378130" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378130">
+            <p>@boomyao：他们好像有试听的。你咨询一下。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017  4:13 PM">2017年6月22日 16:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378130">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-378130&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378131" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://shuaiwu123.xyz" href="http://shuaiwu123.xyz/" target="_blank" rel="nofollow">李帅武</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378131">
+            <p>我参与公司的reactnative开发，当时自学半个月就上手了。。而卧对于react却一窍不通。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017  4:16 PM">2017年6月22日 16:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378131">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用李帅武的这条留言" onclick="return CommentQuote(&#39;comment-quote-378131&#39;,&#39;李帅武&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378134" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xttblog.com" href="http://www.xttblog.com/" target="_blank" rel="nofollow">业余草</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378134">
+            <p>我已自学成才了，跟着阮老师就行了，实惠还免费！<br>
+钱我真的没有！穷的只剩内裤了！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017  4:51 PM">2017年6月22日 16:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378134">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用业余草的这条留言" onclick="return CommentQuote(&#39;comment-quote-378134&#39;,&#39;业余草&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378135" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.codedq.net" href="http://www.codedq.net/" target="_blank" rel="nofollow">CODE大全</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378135">
+            <p>我想说的是这个证书，国家认吗？BAT认吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017  4:52 PM">2017年6月22日 16:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378135">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用CODE大全的这条留言" onclick="return CommentQuote(&#39;comment-quote-378135&#39;,&#39;CODE大全&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378141" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">shenjunjian</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378141">
+            <p>赶快顶一个，这技术是未来的希望</p>
+
+<p></p>
+
+<p>。。。。。。。呜呜，好像这么多年一直活在希望里了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017 11:32 PM">2017年6月22日 23:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378141">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用shenjunjian的这条留言" onclick="return CommentQuote(&#39;comment-quote-378141&#39;,&#39;shenjunjian&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378142" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">shenjunjian</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378142">
+            <p>顶的太快了，看完才发现内容不完整，如何自定义组件，shadow之类没讲，是不是还没写完呀！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 22, 2017 11:36 PM">2017年6月22日 23:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378142">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用shenjunjian的这条留言" onclick="return CommentQuote(&#39;comment-quote-378142&#39;,&#39;shenjunjian&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378144" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://lijinke.xicp.io" href="http://lijinke.xicp.io/" target="_blank" rel="nofollow">李金珂</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378144">
+            <p>感觉有点写起来有点像angular 哈~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 23, 2017 10:20 AM">2017年6月23日 10:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378144">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用李金珂的这条留言" onclick="return CommentQuote(&#39;comment-quote-378144&#39;,&#39;李金珂&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378157" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">小胖子</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378157">
+            <p>vue ag  jq  bs ......................学不完的前端框架真的，人的精力有限哎，真的要跟罗胖说的那样终身学习？可能对大部分学习能力一般前端也算是一种筛选。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 23, 2017  5:40 PM">2017年6月23日 17:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378157">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用小胖子的这条留言" onclick="return CommentQuote(&#39;comment-quote-378157&#39;,&#39;小胖子&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378159" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">L</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378159">
+            <p>你好，一直在读你的文章。刚刚发现你的网站首页源码里面好多duchang,seqing的乱七八糟的东西，是你自己放的吗？还是有人故意搞得。你看下</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 23, 2017  6:42 PM">2017年6月23日 18:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378159">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用L的这条留言" onclick="return CommentQuote(&#39;comment-quote-378159&#39;,&#39;L&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378160" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">harry</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378160">
+            <blockquote>
+<pre>引用boomyao的发言：</pre>
+
+<p>已经自学react一年了，也可以用react开发个人博客等网站，请问再花3000学习这门课程值吗？</p>
+
+</blockquote>
+
+<p> 不值</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 23, 2017  7:00 PM">2017年6月23日 19:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378160">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用harry的这条留言" onclick="return CommentQuote(&#39;comment-quote-378160&#39;,&#39;harry&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378162" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378162">
+            <p>@L：</p>
+
+<p>网站有安全漏洞，被注入代码了。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 23, 2017  9:35 PM">2017年6月23日 21:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378162">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-378162&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378179" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">bigglesworth</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378179">
+            <blockquote>
+<pre>引用CODE大全的发言：</pre>
+
+<p>我想说的是这个证书，国家认吗？BAT认吗？</p>
+
+</blockquote>
+
+<p>额，bat旗下的有认证的公司，你可以去优达学城看。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 24, 2017 11:35 PM">2017年6月24日 23:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378179">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用bigglesworth的这条留言" onclick="return CommentQuote(&#39;comment-quote-378179&#39;,&#39;bigglesworth&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378193" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">一枚小白</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378193">
+            <p>你好，我大专计算机专业，想自学web前端 数学英语不太好，是否合适学习web前端呢？尤其是 JS 。希望大神回复我！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 25, 2017  8:21 PM">2017年6月25日 20:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378193">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用一枚小白的这条留言" onclick="return CommentQuote(&#39;comment-quote-378193&#39;,&#39;一枚小白&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378210" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">cshenger</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378210">
+            <p>自打做了前端这行发现80%的时间都在学习，就20%的时间在干活^_^</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 26, 2017  3:42 PM">2017年6月26日 15:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378210">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用cshenger的这条留言" onclick="return CommentQuote(&#39;comment-quote-378210&#39;,&#39;cshenger&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378211" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">蒋泽涌</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378211">
+            <p>= =。老师你为啥不来信管任教。跑国贸学院去。你觉得张高煜老师的技术水平怎么样？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 26, 2017  4:08 PM">2017年6月26日 16:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378211">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用蒋泽涌的这条留言" onclick="return CommentQuote(&#39;comment-quote-378211&#39;,&#39;蒋泽涌&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378217" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">杜宁</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378217">
+            <blockquote>
+<pre>引用一枚小白的发言：</pre>
+
+<p>你好，我大专计算机专业，想自学web前端 数学英语不太好，是否合适学习web前端呢？尤其是 JS 。希望大神回复我！</p>
+
+</blockquote>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 26, 2017  6:18 PM">2017年6月26日 18:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378217">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用杜宁的这条留言" onclick="return CommentQuote(&#39;comment-quote-378217&#39;,&#39;杜宁&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378275" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">xubiao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378275">
+            <p>楼主用的什么编辑器啊，文章中图片样式怎么做的？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 28, 2017 11:34 PM">2017年6月28日 23:34</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378275">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用xubiao的这条留言" onclick="return CommentQuote(&#39;comment-quote-378275&#39;,&#39;xubiao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378353" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">呼呼哈哈</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378353">
+            <p>本来就是XML呀。。。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 30, 2017  1:27 PM">2017年6月30日 13:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378353">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用呼呼哈哈的这条留言" onclick="return CommentQuote(&#39;comment-quote-378353&#39;,&#39;呼呼哈哈&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378549" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">詹子镇</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378549">
+            <p>你的第三版es6入门快出了吗</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  7, 2017 11:40 AM">2017年7月 7日 11:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378549">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用詹子镇的这条留言" onclick="return CommentQuote(&#39;comment-quote-378549&#39;,&#39;詹子镇&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378831" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">晴朗哥</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378831">
+            <p>如果因为还过得去的话，直接看官方文档就好，没有必要去培训班。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 21, 2017  4:07 PM">2017年7月21日 16:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378831">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用晴朗哥的这条留言" onclick="return CommentQuote(&#39;comment-quote-378831&#39;,&#39;晴朗哥&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378837" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">swing</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378837">
+            <p>阮老师研究过polymer吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 21, 2017  8:33 PM">2017年7月21日 20:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-378837">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用swing的这条留言" onclick="return CommentQuote(&#39;comment-quote-378837&#39;,&#39;swing&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-380837" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">网络周星星</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-380837">
+            <blockquote>
+<pre>引用一枚小白的发言：</pre>
+
+<p>你好，我大专计算机专业，想自学web前端 数学英语不太好，是否合适学习web前端呢？尤其是 JS 。希望大神回复我！</p>
+
+</blockquote>
+
+<p>数学英语不好没关系，关键逻辑条例清晰就行，js讲的就是逻辑，剩下的就是语法结构了，想学就试试，试了才知道，问谁都没用的</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 25, 2017  2:12 PM">2017年9月25日 14:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-380837">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/06/custom-elements.html#comment-text" title="引用网络周星星的这条留言" onclick="return CommentQuote(&#39;comment-quote-380837&#39;,&#39;网络周星星&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1940">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame104" frameborder="0" scrolling="no" allowtransparency="true" src="./HTML 自定义元素教程 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

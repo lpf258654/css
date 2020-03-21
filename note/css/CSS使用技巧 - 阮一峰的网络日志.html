@@ -1,0 +1,2398 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0056)http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS使用技巧 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS使用技巧 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS使用技巧 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS使用技巧 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2010/03/last_words_of_a_doctoral_suicide.html" title="一封博士研究生的遗书">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2010/04/about_campus_folk.html" title="关于高晓松，以及其他的记忆">
+    
+    <title>CSS使用技巧 - 阮一峰的网络日志</title>
+<script src="./CSS使用技巧 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS使用技巧 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS使用技巧 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS使用技巧 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS使用技巧 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS使用技巧 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1360" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2010/03/last_words_of_a_doctoral_suicide.html" title="一封博士研究生的遗书">一封博士研究生的遗书&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2010/04/about_campus_folk.html" title="关于高晓松，以及其他的记忆">关于高晓松，以及其他的</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2010/03/last_words_of_a_doctoral_suicide.html" title="一封博士研究生的遗书">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2010/04/about_campus_folk.html" title="关于高晓松，以及其他的记忆">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS使用技巧</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS使用技巧 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2010/03/"><abbr class="published" title="2010-03-31T15:33:47+08:00">2010年3月31日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>最近，我开始升级网志了。</p>
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>在修改模板的过程中，需要重写CSS样式表。正好看到<a href="http://www.instantshift.com/2010/03/15/47-css-tips-tricks-to-take-your-site-to-the-next-level/" target="_blank">instantshift.com</a>有一篇CSS常用技巧的总结文章，我就把它整理出来，供自己参考，也希望对大家有用。</p>
+
+<p>未来，本文将持续更新。</p>
+
+<p><img src="./CSS使用技巧 - 阮一峰的网络日志_files/bg2010033103.jpg"></p>
+
+<p><strong>1. 文字的水平居中</strong></p>
+
+<p>将一段文字置于容器的水平中点，只要设置text-align属性即可：</p>
+
+<blockquote><div>
+
+<p>　　text-align:center;</p>
+
+</div></blockquote>
+
+<p><strong>2. 容器的水平居中</strong></p>
+
+<p>先为该容器设置一个明确宽度，然后将margin的水平值设为auto即可。</p>
+
+<blockquote><div>
+
+<p>　　div#container {<br>
+　　　　width:760px;<br>
+　　　　margin:0 auto;<br>
+　　}</p>
+
+</div></blockquote>
+
+<p><strong>3. 文字的垂直居中</strong></p>
+
+<p>单行文字的垂直居中，只要将行高与容器高设为相等即可。</p>
+
+<p>比如，容器中有一行数字。</p>
+
+<blockquote><div>
+
+<p>　　&lt;div id="container"&gt;1234567890&lt;/div&gt;</p>
+
+</div></blockquote>
+
+<p>然后CSS这样写：</p>
+
+<blockquote><div>
+
+<p>　　div#container {height: 35px; line-height: 35px;}</p>
+
+</div></blockquote>
+
+<p>如果有n行文字，那么将行高设为容器高度的n分之一即可。</p>
+
+<p><strong>4. 容器的垂直居中</strong></p>
+
+<p>比如，有一大一小两个容器，请问如何将小容器<a href="http://blog.themeforest.net/tutorials/vertical-centering-with-css/" target="_blank">垂直居中</a>？</p>
+
+<blockquote><div>
+
+<p>　　&lt;div id="big"&gt;<br>
+　　　　&lt;div id="small"&gt;<br>
+　　　　&lt;/div&gt;<br>
+　　&lt;/div&gt;</p>
+
+</div></blockquote>
+
+<p>首先，将大容器的定位为relative。</p>
+
+<blockquote><div>
+
+<p>　　div#big{<br>
+　　　　position:relative;<br>
+　　　　height:480px;<br>
+　　}</p>
+
+</div></blockquote>
+
+<p>然后，将小容器定位为absolute，再将它的左上角沿y轴下移50%，最后将它margin-top上移本身高度的50%即可。</p>
+
+<blockquote><div>
+
+<p>　　div#small {<br>
+　　　　position: absolute;<br>
+　　　　top: 50%;<br>
+　　　　height: 240px;<br>
+　　　　margin-top: -120px;<br>
+　　}</p>
+
+</div></blockquote>
+
+<p>使用同样的思路，也可以做出水平居中的效果。</p>
+
+<p><strong>5. 图片宽度的自适应</strong></p>
+
+<p>如何使得较大的图片，能够自动适应小容器的宽度？CSS可以这样写：</p>
+
+<blockquote><div>
+
+<p>　　img {max-width: 100%} </p>
+
+</div></blockquote>
+
+<p>但是IE6不支持max-width，所以遇到IE6时，使用<a href="http://www.quirksmode.org/css/condcom.html" target="_blank">IE条件注释</a>，将语句改写为：</p>
+
+<blockquote><div>
+
+<p>　　img {width: 100%}  </p>
+
+</div></blockquote>
+
+<p><strong>6. 3D按钮</strong></p>
+
+<p>要使按钮具有<a href="http://www.vanseodesign.com/css/css-navigation-buttons/" target="_blank">3D效果</a>，只要将它的左上部边框设为浅色，右下部边框设为深色即可。</p>
+
+<blockquote><div>
+
+<p>　　div#button {<br>
+　　　　background: #888;<br>
+　　　　border: 1px solid;<br>
+　　　　border-color: #999 #777 #777 #999;<br>
+　　}  </p>
+
+</div></blockquote>
+
+<p><strong>7. font属性的快捷写法</strong></p>
+
+<p>font快捷写法的格式为：</p>
+
+<blockquote><div>
+
+<p>　　body {<br>
+　　　　font: font-style font-variant font-weight font-size line-height font-family; <br>
+　　}  </p>
+
+</div></blockquote>
+
+<p>所以，</p>
+
+<blockquote><div>
+
+<p>　　body {  <br>
+　　　　font-family: Arial, Helvetica, sans-serif;  <br>
+　　　　font-size: 13px;  <br>
+　　　　font-weight: normal;  <br>
+　　　　font-variant: small-caps;  <br>
+　　　　font-style: italic;  <br>
+　　　　line-height: 150%;  <br>
+　　} </p>
+
+</div></blockquote>
+
+<p>可以被写成：</p>
+
+<blockquote><div>
+
+<p>　　body {  <br>
+　　　　font: italic small-caps normal 13px/150% Arial, Helvetica, sans-serif;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p><strong>8. link状态的设置顺序</strong></p>
+
+<p>link的四种状态，需要按照下面的前后顺序进行设置：</p>
+
+<blockquote><div>
+
+<p>　　a:link  <br>
+　　a:visited  <br>
+　　a:hover  <br>
+　　a:active  </p>
+
+</div> </blockquote>
+
+<p><strong>9. IE条件注释</strong></p>
+
+<p>你可以利用条件注释，设置只对IE产生作用的语句：</p>
+
+<blockquote><div>
+
+<p>　　&lt;!--[if IE]&gt;  <br>
+　　　　&lt;link rel="stylesheet" type="text/css" href="ie-stylesheet.css" /&gt;  <br>
+　　&lt; ![endif]--&gt; </p>
+
+</div> </blockquote>
+
+<p>还可以区分各种不同的IE版本：</p>
+
+<blockquote><div>
+
+<p>　　&lt;!--[if IE 6]&gt; - targets IE6 only --&gt;  <br>
+　　&lt;!--[if gt IE 6]&gt; - targets IE7 and above --&gt;  <br>
+　　&lt;!--[if lt IE 6]&gt; - targets IE5.5 and below --&gt;  <br>
+　　&lt;!--[if gte IE 6]&gt; - targets IE6 and above --&gt;  <br>
+　　&lt;!--[if lte IE 6]&gt; - targets IE6 and below --&gt;  </p>
+
+</div></blockquote>
+
+<p><strong>10. IE6专用语句：方法一</strong></p>
+
+<p>由于IE6不把html视为文档的根元素，所以利用这一点，可以写出只有IE6才能读到的语句：</p>
+
+<blockquote><div>
+
+<p>　　/* the following rules apply only to IE6 */</p>
+
+<p>　　* html{<br>
+　　}</p>
+
+<p>　　* html body{<br>
+　　}</p>
+
+<p>　　* html .foo{<br>
+　　}</p>
+
+</div></blockquote>
+
+<p>IE7专用语句则要写成</p>
+
+<blockquote><div>
+
+<p>　　/* the following rules apply only to IE7 */</p>
+
+<p>　　*+html .foo{<br>
+　　}</p>
+
+</div></blockquote>
+
+<p><strong>11. IE专用语句：方法二</strong></p>
+
+<p>除了IE6以外，所有浏览器都不能识别属性前的下划线。而除了IE7之外，所有浏览器都不能识别属性前的*号，因此可以写出只有这两个浏览器才能读到的语句：</p>
+
+<blockquote><div>
+
+<p>　　.element {  <br>
+　　　　background: red; /* modern browsers */  <br>
+　　　　*background: green; /* IE 7 and below */  <br>
+　　　　_background: blue; /* IE6 exclusively */  <br>
+　　} </p>
+
+</div></blockquote>
+
+<p><strong>12. CSS的优先性</strong></p>
+
+<p>如果同一个容器被多条CSS语句定义，那么哪一个定义<a href="http://www.vanseodesign.com/css/css-specificity-inheritance-cascaade/" target="_blank">优先</a>呢？</p>
+
+<p>基本规则是：</p>
+
+<blockquote><div>
+
+<p>　　行内样式 &gt; id样式 &gt; class样式 &gt; 标签名样式</p>
+
+</div></blockquote>
+
+<p>比如，有一个元素：</p>
+
+<blockquote><div>　　&lt;div id="ID" class="CLASS" style="color:black;"&gt;&lt;/div&gt;</div></blockquote>
+
+<p>行内样式是最优先的，然后其他设置的优先性，从低到高依次为：</p>
+
+<blockquote><div>
+
+<p>　　div &lt; .class &lt; div.class &lt; #id &lt; div#id &lt; #id.class &lt; div#id.class</p>
+
+</div></blockquote>
+
+<p><strong>13. IE6的min-height</strong></p>
+
+<p>IE6不支持min-height，有两种方法可以解决这个问题：</p>
+
+<p>方法一：</p>
+
+<blockquote><div>
+
+<p>　　.element {  <br>
+　　　　min-height: 500px; <br>
+　　　　height: auto !important;  <br>
+　　　　height: 500px;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p>共有三条CSS语句，第一句是针对其他浏览器设置最小高度，第三句是针对IE设置最小高度，第二句则是让其他浏览器覆盖第三句的设置。</p>
+
+<p>方法二：</p>
+
+<blockquote><div>
+
+<p>　　.element {  <br>
+　　　　min-height: 500px  <br>
+　　　　_height: 500px  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p>_height只有IE6能读取。</p>
+
+<p><strong>14. font-size基准</strong></p>
+
+<p>浏览器的缺省字体大小是16px，你可以先将基准字体大小设为10px：</p>
+
+<blockquote><div>
+
+<p>　　body {font-size:62.5%;}  </p>
+
+</div></blockquote>
+
+<p>后面统一采用em作为字体单位，2.4em就表示24px。</p>
+
+<blockquote><div>
+
+<p>　　h1 {font-size: 2.4 em}</p>
+
+</div></blockquote>    
+
+<p><strong>15. Text-transform和Font Variant</strong></p>
+
+<p>Text-transform用于将所有字母变成小写字母、大写字母或首字母大写：</p>
+
+<blockquote><div>
+
+<p>　　p {text-transform: uppercase}  <br>
+　　p {text-transform: lowercase}  <br>
+　　p {text-transform: capitalize}</p>
+
+</div></blockquote>
+
+<p>Font Variant用于将字体变成小型的大写字母（即与小写字母等高的大写字母）。</p>
+
+<blockquote><div>
+
+<p>　　p {font-variant: small-caps}</p>
+
+</div></blockquote>
+
+<p><strong>16. CSS重置</strong></p>
+
+<p>CSS重置用于取消浏览器的内置样式，请参考<a href="http://developer.yahoo.com/yui/reset/" target="_blank">YUI</a>和<a href="http://meyerweb.com/eric/thoughts/2007/05/01/reset-reloaded/" target="_blank">Eric Meyer</a>的样式表。</p>
+
+<p><strong>17. 用图片充当列表标志</strong></p>
+
+<p>默认情况下，浏览器使用一个黑圆圈作为列表标志，可以用图片取代它：</p>
+
+<blockquote><div>
+
+<p>　　ul {list-style: none}  </p>
+
+<p>　　ul li {  <br>
+　　　　background-image: url("path-to-your-image");  <br>
+　　　　background-repeat: none;  <br>
+　　　　background-position: 0 0.5em;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p><strong>18. 透明</strong></p>
+
+<p>将一个容器设为透明，可以使用下面的代码：</p>
+
+<blockquote><div>
+
+<p>　　.element {  <br>
+　　　　filter:alpha(opacity=50);  <br>
+　　　　-moz-opacity:0.5;  <br>
+　　　　-khtml-opacity: 0.5;  <br>
+　　　　opacity: 0.5;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p>在这四行CSS语句中，第一行是IE专用的，第二行用于Firefox，第三行用于webkit核心的浏览器，第四行用于Opera。<br>
+ <br>
+<strong>19. CSS三角形</strong></p>
+
+<p>如何使用CSS生成一个三角形？</p>
+
+<p>先编写一个空元素</p>
+
+<blockquote><div>
+
+<p>　　&lt;div class="triangle"&gt;&lt;/div&gt;  </p>
+
+</div></blockquote>
+
+<p>然后，将它四个边框中的三个边框设为透明，剩下一个设为可见，就可以生成三角形效果：</p>
+
+<blockquote><div>
+
+<p>　　.triangle {  <br>
+　　　　border-color: transparent transparent green transparent;  <br>
+　　　　border-style: solid;  <br>
+　　　　border-width: 0px 300px 300px 300px;  <br>
+　　　　height: 0px;  <br>
+　　　　width: 0px;  <br>
+　　} </p>
+
+</div></blockquote> 
+
+<p><strong>20. 禁止自动换行</strong></p>
+
+<p>如果你希望文字在一行中显示完成，不要自动换行，CSS命令如下：</p>
+
+<blockquote><div>
+
+<p>　　h1 { white-space:nowrap; }  </p>
+
+</div></blockquote>
+
+<p><strong>21. 用图片替换文字</strong></p>
+
+<p>有时我们需要在标题栏中使用图片，但是又必须保证搜索引擎能够读到标题，CSS语句可以这样写：</p>
+
+<blockquote><div>
+
+<p>　　h1 {  <br>
+　　　　text-indent:-9999px;  <br>
+　　　　background:url("h1-image.jpg") no-repeat;  <br>
+　　　　width:200px;  <br>
+　　　　height:50px;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p><strong>22. 获得焦点的表单元素</strong></p>
+
+<p>当一个表单元素获得焦点时，可以将其突出显示：</p>
+
+<blockquote><div>
+
+<p>　　input:focus { border: 2px solid green; }  </p>
+
+</div></blockquote>
+
+<p><strong>23. !important规则</strong></p>
+
+<p>多条CSS语句互相冲突时，具有!important的语句将覆盖其他语句。由于IE不支持!important，所以也可以利用它区分不同的浏览器。</p>
+
+<blockquote><div>
+
+<p>　　h1 {  <br>
+　　　　color: red !important;  <br>
+　　　　color: blue;  <br>
+　　}</p>
+
+</div></blockquote>
+
+<p>上面这段语句的结果是，其他浏览器都显示红色标题，只有IE显示蓝色标题。</p>
+
+<p><strong>24. CSS提示框</strong></p>
+
+<p>当鼠标移动到链接上方，会自动出现一个提示框。</p>
+
+<blockquote><div>
+
+<p>　　&lt;a class="tooltip" href="#"&gt;链接文字 &lt;span&gt;提示文字&lt;/span&gt;&lt;/a&gt;</p>
+
+</div></blockquote>
+
+<p>CSS这样写：</p>
+
+<blockquote><div>
+
+<p>　　a.tooltip {position: relative}  <br>
+　　a.tooltip span {display:none; padding:5px; width:200px;}  <br>
+　　a:hover {background:#fff;} /*background-color is a must for IE6*/  <br>
+　　a.tooltip:hover span{display:inline;  position:absolute;}  </p>
+
+</div></blockquote>
+
+<p><strong>25. 固定位置的页首</strong></p>
+
+<p>当页面滚动时，有时需要页首在位置固定不变，CSS语句可以这样写，效果参见<a href="http://limpid.nl/lab/css/fixed/header" target="_blank">http://limpid.nl/lab/css/fixed/header</a>：</p>
+
+<blockquote><div>
+
+<p>　　body{ margin:0;padding:100px 0 0 0;}</p>
+
+<p>　　div#header{<br>
+　　　　position:absolute;<br>
+　　　　top:0;<br>
+　　　　left:0;<br>
+　　　　width:100%;<br>
+　　　　height:&lt;length&gt;;<br>
+　　}</p>
+
+<p>　　@media screen{<br>
+　　　　body&gt;div#header{position: fixed;}<br>
+　　}</p>
+
+<p>　　* html body{overflow:hidden;} </p>
+
+<p>　　* html div#content{height:100%;overflow:auto;}</p>
+
+</div></blockquote>
+
+<p>IE6的另一种写法（用于固定位置的页脚）：</p>
+
+<blockquote>
+
+<p>　　* html #footer {<br>
+　　　　position:absolute;<br>
+　　　　top:expression((0-(footer.offsetHeight)+(document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight)+(ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop))+'px');<br>
+}</p>
+
+</blockquote>
+
+<p><strong>26. 在IE6中设置PNG图片的透明效果</strong></p>
+
+<blockquote>
+
+<p>　　.classname {</p>
+
+<p>　　　　background: url(image.png);</p>
+
+<p>　　　　_background: none;</p>
+
+<p>　　　　_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader<br>
+　　　　　　　　(src='image.png', sizingMethod='crop');</p>
+
+<p>　　}</p>
+
+</blockquote>
+
+<p><strong>27. 各类浏览器的专用语句</strong></p>
+
+<blockquote>
+
+<p>　　/* IE6 and below */<br>
+　　* html #uno  { color: red }<br>
+ <br>
+　　/* IE7 */<br>
+　　*:first-child+html #dos { color: red } <br>
+ <br>
+　　/* IE7, FF, Saf, Opera  */<br>
+　　html&gt;body #tres { color: red }<br>
+ <br>
+　　/* IE8, FF, Saf, Opera (Everything but IE 6,7) */<br>
+　　html&gt;/**/body #cuatro { color: red }<br>
+ <br>
+　　/* Opera 9.27 and below, safari 2 */<br>
+　　html:first-child #cinco { color: red }<br>
+ <br>
+　　/* Safari 2-3 */<br>
+　　html[xmlns*=""] body:last-child #seis { color: red }<br>
+ <br>
+　　/* safari 3+, chrome 1+, opera9+, ff 3.5+ */<br>
+　　body:nth-of-type(1) #siete { color: red }<br>
+ <br>
+　　/* safari 3+, chrome 1+, opera9+, ff 3.5+ */<br>
+　　body:first-of-type #ocho {  color: red }<br>
+ <br>
+　　/* saf3+, chrome1+ */<br>
+　　@media screen and (-webkit-min-device-pixel-ratio:0) {<br>
+　　　　#diez  { color: red  }<br>
+　　}<br>
+ <br>
+　　/* iPhone / mobile webkit */<br>
+　　@media screen and (max-device-width: 480px) {<br>
+　　　　#veintiseis { color: red  }<br>
+　　}<br>
+ <br>
+　　/* Safari 2 - 3.1 */<br>
+　　html[xmlns*=""]:root #trece  { color: red  }<br>
+ <br>
+　　/* Safari 2 - 3.1, Opera 9.25 */<br>
+　　*|html[xmlns*=""] #catorce { color: red  }<br>
+ <br>
+　　/* Everything but IE6-8 */<br>
+　　:root *&gt; #quince { color: red  }<br>
+ <br>
+　　/* IE7 */<br>
+　　*+html #dieciocho {  color: red }<br>
+ <br>
+　　/* Firefox only. 1+ */<br>
+　　#veinticuatro,  x:-moz-any-link  { color: red }<br>
+ <br>
+　　/* Firefox 3.0+ */<br>
+　　#veinticinco,  x:-moz-any-link, x:default  { color: red  }<br>
+ <br>
+　　/***** Attribute Hacks ******/<br>
+ <br>
+　　/* IE6 */<br>
+　　#once { _color: blue }<br>
+ <br>
+　　/* IE6, IE7 */<br>
+　　#doce { *color: blue; /* or #color: blue */ }<br>
+ <br>
+　　/* Everything but IE6 */<br>
+　　#diecisiete { color/**/: blue }<br>
+ <br>
+　　/* IE6, IE7, IE8 */<br>
+　　#diecinueve { color: blue\9; }<br>
+ <br>
+　　/* IE7, IE8 */<br>
+　　#veinte { color/*\**/: blue\9; }<br>
+ <br>
+　　/* IE6, IE7 -- acts as an !important */<br>
+　　#veintesiete { color: blue !ie; } /* string after ! can be anything */</p>
+
+</blockquote>
+
+<p><strong>28. 容器的水平和垂直居中</strong></p>
+
+<p>HTML代码如下：</p>
+
+<blockquote>
+
+<p>　　&lt;figure class='logo'&gt;</p>
+
+<p>　　　　&lt;span&gt;&lt;/span&gt;</p>
+
+<p>　　　　&lt;img class='photo'/&gt;</p>
+
+<p>　　&lt;/figure&gt;</p>
+
+</blockquote>
+
+<p>CSS代码如下：</p>
+
+<blockquote>
+
+<p>　　.logo {<br>
+　　　　display: block;<br>
+　　　　text-align: center;<br>
+　　　　display: block;<br>
+　　　　text-align: center;<br>
+　　　　vertical-align: middle;<br>
+　　　　border: 4px solid #dddddd;<br>
+　　　　padding: 4px;<br>
+　　　　height: 74px;<br>
+　　　　width: 74px; }</p>
+
+<p>　　.logo * {<br>
+　　　　display: inline-block;<br>
+　　　　height: 100%;<br>
+　　　　vertical-align: middle; }</p>
+
+<p>　　.logo .photo {<br>
+　　　　height: auto;<br>
+　　　　width: auto;<br>
+　　　　max-width: 100%;<br>
+　　　　max-height: 100%; }</p>
+
+</blockquote>
+
+<p><strong>29. CSS阴影</strong></p>
+
+<p>外阴影：</p>
+
+<blockquote>
+
+<p>　　.shadow {<br>
+　　　　-moz-box-shadow: 5px 5px 5px #ccc;<br>
+　　　　-webkit-box-shadow: 5px 5px 5px #ccc;<br>
+　　　　box-shadow: 5px 5px 5px #ccc;<br>
+　　}</p>
+
+</blockquote>
+
+<p>内阴影：</p>
+
+<blockquote>
+
+<p>　　.shadow {<br>
+　　　　-moz-box-shadow:inset 0 0 10px #000000;<br>
+　　　　-webkit-box-shadow:inset 0 0 10px #000000;<br>
+　　　　box-shadow:inset 0 0 10px #000000;<br>
+　　}</p>
+
+</blockquote>
+
+<p><strong>30. 取消IE文本框的滚动条</strong></p>
+
+<blockquote>
+
+<p>　　textarea { overflow: auto; }</p>
+
+</blockquote>
+
+<p><strong>31. 图片预加载</strong></p>
+
+<p>请参考<a href="http://perishablepress.com/press/2009/12/28/3-ways-preload-images-css-javascript-ajax/" target="_blank">3 Ways to Preload Images with CSS, JavaScript, or Ajax</a>。</p>
+
+<p><strong>32. CSS重置</strong></p>
+
+<p>请参考<a href="http://sixrevisions.com/css/should-you-reset-your-css/" target="_blank">Should You Reset Your CSS?</a>。</p>
+
+<p>（完）</p>
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS使用技巧 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2010-03-31T15:33:47+08:00">2010年3月31日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（35条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-203567" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xiaoxiaozi.com" href="http://www.xiaoxiaozi.com/" target="_blank" rel="nofollow">simaopig</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203567">
+            <p>先回后看，既然持续更新，当然要常期关注。</p>
+
+<p>正要学CSS，这些技巧对我很实用。呵</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 31, 2010  5:59 PM">2010年3月31日 17:59</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203567">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用simaopig的这条留言" onclick="return CommentQuote(&#39;comment-quote-203567&#39;,&#39;simaopig&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203569" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">chaos</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203569">
+            <p>一些技巧要求HTML文档是标准模式才行<br>
+也就是在文档头加上DOCTYPE注释</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 31, 2010  6:53 PM">2010年3月31日 18:53</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203569">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用chaos的这条留言" onclick="return CommentQuote(&#39;comment-quote-203569&#39;,&#39;chaos&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203574" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://sthoo.com" href="http://sthoo.com/" target="_blank" rel="nofollow">stonehoo</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203574">
+            <p>我还是先去学习些css的基础知识吧。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 31, 2010  8:23 PM">2010年3月31日 20:23</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203574">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用stonehoo的这条留言" onclick="return CommentQuote(&#39;comment-quote-203574&#39;,&#39;stonehoo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203575" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://oldhsa.com" href="http://oldhsa.com/" target="_blank" rel="nofollow">sapjax</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203575">
+            <p>“如果有n行文字，那么将行高设为容器高度的n分之一即可。”<br>
+这个貌似是不可行的，行高会应用到每一行，而不是整段的文字。</p>
+
+<p>另外opacity的那个，webkit核心的应该是-webkit-<br>
+而现在firefox，opera和webkit核心的safari、chrome都可以直接用opacity:50%;不需要加私有属性的标记。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 31, 2010  8:27 PM">2010年3月31日 20:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203575">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用sapjax的这条留言" onclick="return CommentQuote(&#39;comment-quote-203575&#39;,&#39;sapjax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203576" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Zz
+</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203576">
+            <p>对我有用，谢谢！<br>
+很多是以前就会的，今天又复习一遍。呵呵</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 31, 2010  9:08 PM">2010年3月31日 21:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203576">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Zz
+的这条留言" onclick="return CommentQuote(&#39;comment-quote-203576&#39;,&#39;Zz
+&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203591" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">史诗在线</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203591">
+            <p>　　拜托，现在可是多事之秋，这个时候升级网志不是给自己添乱吗？有时间的话多写几篇文章，抓一下社会热点，等Google和Godaddy的话题过去再升级网志不行吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010 12:28 AM">2010年4月 1日 00:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203591">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用史诗在线的这条留言" onclick="return CommentQuote(&#39;comment-quote-203591&#39;,&#39;史诗在线&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203597" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://tigao.tk" href="http://tigao.tk/" target="_blank" rel="nofollow">小刚</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203597">
+            <p>本人将持续关注</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010  3:22 AM">2010年4月 1日 03:22</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203597">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用小刚的这条留言" onclick="return CommentQuote(&#39;comment-quote-203597&#39;,&#39;小刚&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203621" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">kardos</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203621">
+            <p>学习中，很有用，css很神奇，持续关注~~~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010  9:08 AM">2010年4月 1日 09:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203621">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用kardos的这条留言" onclick="return CommentQuote(&#39;comment-quote-203621&#39;,&#39;kardos&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203629" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://zhiwei.in" href="http://zhiwei.in/" target="_blank" rel="nofollow">zhiwei</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203629">
+            <p>晕，看样子不管什么都得对IE6重新写一遍特殊对待。IE6，害人不浅啊。<br>
+另外问一下博主，如果我想更改一下模板中段间距应该改哪里呢？我Google了一下，没有找到满意的答案</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010 12:49 PM">2010年4月 1日 12:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203629">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用zhiwei的这条留言" onclick="return CommentQuote(&#39;comment-quote-203629&#39;,&#39;zhiwei&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203632" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">老犁</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203632">
+            <p>text-align一般只对ie有效的。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010  1:09 PM">2010年4月 1日 13:09</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203632">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用老犁的这条留言" onclick="return CommentQuote(&#39;comment-quote-203632&#39;,&#39;老犁&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203659" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">特情人员</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203659">
+            <p>IE6真应该从机器上删除了，太久远了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  1, 2010  5:41 PM">2010年4月 1日 17:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203659">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用特情人员的这条留言" onclick="return CommentQuote(&#39;comment-quote-203659&#39;,&#39;特情人员&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203787" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.shimuuu.com" href="http://www.shimuuu.com/" target="_blank" rel="nofollow">诗沐</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203787">
+            <blockquote>
+<pre>引用zhiwei的发言：</pre>
+
+<p>如果我想更改一下模板中段间距应该改哪里呢？我Google了一下，没有找到满意的答案</p>
+
+</blockquote>
+
+<p>如果是一段文本中的行高，可以在p标签上用line-height来设定；<br>
+如果是多段文本之间的距离，你可以在p标签上设置margin属性。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  2, 2010 10:51 PM">2010年4月 2日 22:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203787">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用诗沐的这条留言" onclick="return CommentQuote(&#39;comment-quote-203787&#39;,&#39;诗沐&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203852" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://yeahcao.blog.hexun.com" href="http://yeahcao.blog.hexun.com/" target="_blank" rel="nofollow">野草博客</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203852">
+            <p>关于“容器的水平居中”问题，野草遇到了不少问题，参见：<br>
+《如何将一个div区块水平居中？》<br>
+<a href="http://yeahcao.blog.hexun.com/42891545_d.html" rel="nofollow">http://yeahcao.blog.hexun.com/42891545_d.html</a></p>
+
+<p>《分享：在和讯博客中利用div将头部广告位居中排版的方法》<br>
+<a href="http://yeahcao.blog.hexun.com/43417832_d.html" rel="nofollow">http://yeahcao.blog.hexun.com/43417832_d.html</a></p>
+
+<p>主要问题就是：IE的兼容问题……<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  3, 2010  3:56 PM">2010年4月 3日 15:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203852">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用野草博客的这条留言" onclick="return CommentQuote(&#39;comment-quote-203852&#39;,&#39;野草博客&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-203892" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">tzlogin</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-203892">
+            <p> ！important的描述有错误，ie7.8还是支持的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  4, 2010  1:36 AM">2010年4月 4日 01:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-203892">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用tzlogin的这条留言" onclick="return CommentQuote(&#39;comment-quote-203892&#39;,&#39;tzlogin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-204894" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.51obj.cn/" href="http://www.51obj.cn/" target="_blank" rel="nofollow">walkingp</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-204894">
+            <p>其中透明的 CSS大不必使用那么多，只需要filter:alpha(opacity=50);和opacity:0.5;即可；<br>
+　.element { <br>
+　　　　filter:alpha(opacity=50); <br>
+　　　　opacity: 0.5; <br>
+　　}<br>
+我在ie6、7、8和firefox、safari、opera和chrome上测试过的。<br>
+:)</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 17, 2010 10:01 PM">2010年4月17日 22:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-204894">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用walkingp的这条留言" onclick="return CommentQuote(&#39;comment-quote-204894&#39;,&#39;walkingp&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-205169" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Zz</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-205169">
+            <p>您好。在第十条里面提到了：</p>
+
+<blockquote>
+
+<p>由于IE6不把html视为文档的根元素，所以利用这一点，可以写出只有IE6才能读到的语句：</p>
+
+<p>    　　/* the following rules apply only to IE6 */</p>
+
+<p>    　　* html{<br>
+    　　}</p>
+
+<p>    　　* html body{<br>
+    　　}</p>
+
+<p>    　　* html .foo{<br>
+    　　}</p>
+
+</blockquote>
+
+<p>但是紧接着在第11条里又提到了：</p>
+
+<blockquote>
+
+<p>而除了IE7之外，所有浏览器都不能识别属性前的*号</p>
+
+</blockquote>
+
+<p>第10条说专门针对IE6的例子加了*，而第11条里说只有IE7才能识别*，这不是矛盾了吗？<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 29, 2010  2:27 PM">2010年4月29日 14:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-205169">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Zz的这条留言" onclick="return CommentQuote(&#39;comment-quote-205169&#39;,&#39;Zz&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-205181" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Ruan YiFeng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-205181">
+            <blockquote>
+<pre>引用Zz的发言：</pre>
+
+<p>第10条说专门针对IE6的例子加了*，而第11条里说只有IE7才能识别*，这不是矛盾了吗？</p>
+
+</blockquote>
+
+<p>没有矛盾啊。一个是针对元素选择器，另一个是针对属性值。<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 30, 2010 12:16 AM">2010年4月30日 00:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-205181">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Ruan YiFeng的这条留言" onclick="return CommentQuote(&#39;comment-quote-205181&#39;,&#39;Ruan YiFeng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-205290" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">liuyunclouder</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-205290">
+            <p>哈哈，牛叉的技巧</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  5, 2010  3:54 PM">2010年5月 5日 15:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-205290">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用liuyunclouder的这条留言" onclick="return CommentQuote(&#39;comment-quote-205290&#39;,&#39;liuyunclouder&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-205343" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">杰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-205343">
+            <p>还蛮好的！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  7, 2010 10:32 AM">2010年5月 7日 10:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-205343">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用杰的这条留言" onclick="return CommentQuote(&#39;comment-quote-205343&#39;,&#39;杰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-206262" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">zhwily</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-206262">
+            <p>第5条，如果是IE7+，firefox,　img {max-width: 100%} 可以保证如果图片没有超过容器，可以显示正常图片大小，如果超过容器，以容器为准。<br>
+但是IE6中　img {width: 100%} ，不过图片的大小如果，都是以容器为准，都会成100%的。<br>
+这个max-width没有在IE6中实现吧？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 24, 2010  3:29 PM">2010年6月24日 15:29</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-206262">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用zhwily的这条留言" onclick="return CommentQuote(&#39;comment-quote-206262&#39;,&#39;zhwily&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-210072" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://暂没有" href="http://xn--elvrl96l/" target="_blank" rel="nofollow">ZhangYajun</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-210072">
+            <p>太感谢了，学到了很多东西!</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 18, 2010 11:45 AM">2010年12月18日 11:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-210072">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用ZhangYajun的这条留言" onclick="return CommentQuote(&#39;comment-quote-210072&#39;,&#39;ZhangYajun&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-239969" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">luf</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-239969">
+            <p>生成三角形的方法在gg chrome 和Oprea中无效</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 17, 2011  9:27 PM">2011年11月17日 21:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-239969">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用luf的这条留言" onclick="return CommentQuote(&#39;comment-quote-239969&#39;,&#39;luf&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-239972" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">luf</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-239972">
+            <p><br>
+<br>
+<br>
+triangle<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+.triangle { <br>
+　　　　border-color: transparent transparent green transparent; <br>
+　　　　border-style: solid; <br>
+　　　　border-width: 100px 300px 300px 300px; <br>
+　　　　height: 100px; <br>
+　　　　width: 100px; <br>
+　　}<br>
+<br>
+<br>
+<br>
+不信大家试试上面的例子！<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 17, 2011  9:40 PM">2011年11月17日 21:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-239972">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用luf的这条留言" onclick="return CommentQuote(&#39;comment-quote-239972&#39;,&#39;luf&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-270151" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">JXue</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-270151">
+            <p>CSS的优先性 不完全 应该加上伪类。伪类基本最低。css的优先级应该是按照权重来计算的。只能说通常情况下按照楼主的优先级是正确的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 25, 2013  5:14 PM">2013年3月25日 17:14</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-270151">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用JXue的这条留言" onclick="return CommentQuote(&#39;comment-quote-270151&#39;,&#39;JXue&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-296419" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">lejsure</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-296419">
+            <p>24.方法是不是多余了？直接写个title就会有提示文字啊，而且里面提到的方法在chorme firefox里面的效果是完全不同的，不兼容？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  6, 2014  2:27 PM">2014年1月 6日 14:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-296419">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用lejsure的这条留言" onclick="return CommentQuote(&#39;comment-quote-296419&#39;,&#39;lejsure&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-300999" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Jonathan</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-300999">
+            <p>第十九个，生成三角形这个，为甚么测试的时候没有成功？chrome IE firefox都不可以，没有显示任何内容</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 25, 2014  9:32 AM">2014年2月25日 09:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-300999">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Jonathan的这条留言" onclick="return CommentQuote(&#39;comment-quote-300999&#39;,&#39;Jonathan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-342371" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jin</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-342371">
+            <p><em>很好的文章，很好的博客，是我学习的榜样</em></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 31, 2014 10:17 AM">2014年10月31日 10:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-342371">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用jin的这条留言" onclick="return CommentQuote(&#39;comment-quote-342371&#39;,&#39;jin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-352902" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Ming</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-352902">
+            <p>生成三角形的那个 可以啊 直接复制过来 有缩进问题吧，自己排一下就可以了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 24, 2015  9:12 AM">2015年11月24日 09:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-352902">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Ming的这条留言" onclick="return CommentQuote(&#39;comment-quote-352902&#39;,&#39;Ming&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-354414" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.ibesttravel.com" href="http://www.ibesttravel.com/" target="_blank" rel="nofollow">Yu Mathre</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-354414">
+            <p> Only  wanna  tell  that this is  invaluable , Thanks for taking your time to write this.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February  1, 2016  4:05 PM">2016年2月 1日 16:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-354414">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Yu Mathre的这条留言" onclick="return CommentQuote(&#39;comment-quote-354414&#39;,&#39;Yu Mathre&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-360084" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://gotoandlearn.net" href="http://gotoandlearn.net/" target="_blank" rel="nofollow">zhishaofei3</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-360084">
+            <p>background-repeat: none; ??</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2016 12:39 PM">2016年7月 3日 12:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-360084">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用zhishaofei3的这条留言" onclick="return CommentQuote(&#39;comment-quote-360084&#39;,&#39;zhishaofei3&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-360085" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://gotoandlearn.net" href="http://gotoandlearn.net/" target="_blank" rel="nofollow">zhishaofei3</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-360085">
+            <p>ie不支持!important?</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2016 12:42 PM">2016年7月 3日 12:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-360085">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用zhishaofei3的这条留言" onclick="return CommentQuote(&#39;comment-quote-360085&#39;,&#39;zhishaofei3&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-369397" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">隔壁小杰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-369397">
+            <p>4. 容器的垂直居中<br>
+我试验了下,将top设置成25%这样,是不是更加简单有效呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 29, 2016  1:42 PM">2016年11月29日 13:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-369397">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用隔壁小杰的这条留言" onclick="return CommentQuote(&#39;comment-quote-369397&#39;,&#39;隔壁小杰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378563" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">惠瑛</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378563">
+            <p>div {<br>
+   display: flex; <br>
+   align-items: center; /*垂直方向*/<br>
+   justify-content: center; /*水平方向*/<br>
+}</p>
+
+<p>这个是我接触flex之后，经常用到的语法，用来居中;<br>
+阮老师的课程虽然发布在2010年，但是到现在17年了，这些用法还是很精辟又实用呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  7, 2017  6:27 PM">2017年7月 7日 18:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-378563">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用惠瑛的这条留言" onclick="return CommentQuote(&#39;comment-quote-378563&#39;,&#39;惠瑛&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-383198" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://121074954@qq.com" href="http://121074954@qq.com/" target="_blank" rel="nofollow">WanYi</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-383198">
+            <blockquote>
+<pre>引用惠瑛的发言：</pre>
+
+<p>div {<br>
+ display: flex; <br>
+ align-items: center; /*垂直方向*/<br>
+ justify-content: center; /*水平方向*/<br>
+}</p>
+
+<p>这个是我接触flex之后，经常用到的语法，用来居中;<br>
+阮老师的课程虽然发布在2010年，但是到现在17年了，这些用法还是很精辟又实用呢</p>
+
+</blockquote>
+
+<p>flex布局需要选择主轴方向，属性为flex-direction,值为row/column,justify-content不能说指水平方向。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 13, 2017  3:07 PM">2017年12月13日 15:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-383198">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用WanYi的这条留言" onclick="return CommentQuote(&#39;comment-quote-383198&#39;,&#39;WanYi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391847" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.fanguvw.xyz" href="http://www.fanguvw.xyz/" target="_blank" rel="nofollow">Fang</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391847">
+            <p>第17条错误，那是设置了列表的背景非列表标志，应用：list-style-image:url("your-image-path");望早入改正，以免向我这样的新手错误学习，还好我看一条就实践一条。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August  5, 2018  2:55 PM">2018年8月 5日 14:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-391847">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2010/03/css_cookbook.html#comment-text" title="引用Fang的这条留言" onclick="return CommentQuote(&#39;comment-quote-391847&#39;,&#39;Fang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1360">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS使用技巧 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS使用技巧 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS使用技巧 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS使用技巧 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS使用技巧 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame141" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS使用技巧 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

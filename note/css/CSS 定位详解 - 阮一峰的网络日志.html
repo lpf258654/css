@@ -1,0 +1,2094 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0056)http://www.ruanyifeng.com/blog/2019/11/css-position.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS 定位详解 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS 定位详解 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS 定位详解 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2011/09/curl.html">
+<dc:title>curl网站开发指南</dc:title>
+<dc:description>我一向以为，curl只是一个编程用的函数库。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2011-09-04T11:20:46+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS 定位详解 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2019/11/fault-tolerance.html" title="容错，高可用和灾备">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2019/11/python-asyncio.html" title="Python 异步编程入门">
+    
+    <title>CSS 定位详解 - 阮一峰的网络日志</title>
+<script src="./CSS 定位详解 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 定位详解 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS 定位详解 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 定位详解 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS 定位详解 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS 定位详解 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-2134" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2019/11/fault-tolerance.html" title="容错，高可用和灾备">容错，高可用和灾备&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2019/11/python-asyncio.html" title="Python 异步编程入门">Python&nbsp;异步编程</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2019/11/fault-tolerance.html" title="容错，高可用和灾备">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2019/11/python-asyncio.html" title="Python 异步编程入门">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS 定位详解</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 定位详解 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2019/11/"><abbr class="published" title="2019-11-19T09:23:51+08:00">2019年11月19日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>CSS 有两个最重要的基本属性，前端开发必须掌握：<code>display</code> 和 <code>position</code>。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p><code>display</code>属性指定网页的布局。两个重要的布局，我已经介绍过了：<a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank">弹性布局<code>flex</code></a>和<a href="http://www.ruanyifeng.com/blog/2019/03/grid-layout-tutorial.html" target="_blank">网格布局<code>grid</code></a>。</p>
+
+<p>本文介绍非常有用的<code>position</code>属性。我希望通过10分钟的阅读，帮助大家轻松掌握网页定位，说清楚浏览器如何计算网页元素的位置，尤其是新引进的<code>sticky</code>定位。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111718.jpg" alt="" title=""></p>
+
+<blockquote>
+  <p>本文由国内最大的在线教育平台之一<a href="https://ke.qq.com/?utm=ruanyifeng" target="_blank">"腾讯课堂"</a>赞助。他们现在启动了<a href="https://edu.qq.com/a/20190119/005414.htm" target="_blank">"腾讯课堂101计划"</a>，推广平台上的课程资源，有不少优质内容。希望提高前端技术水平的同学，可以留意一下本文结尾的免费课程信息。</p>
+</blockquote>
+
+<h2>一、position 属性的作用</h2>
+
+<p><code>position</code>属性用来指定一个元素在网页上的位置，一共有5种定位方式，即<code>position</code>属性主要有五个值。</p>
+
+<blockquote>
+  <ul>
+<li><code>static</code></li>
+<li><code>relative</code></li>
+<li><code>fixed</code></li>
+<li><code>absolute</code></li>
+<li><code>sticky</code></li>
+</ul>
+</blockquote>
+
+<p>下面就依次介绍这五个值。最后一个<code>sticky</code>是2017年浏览器才支持的，本文将重点介绍。</p>
+
+<h2>二、static 属性值</h2>
+
+<p><code>static</code>是<code>position</code>属性的默认值。如果省略<code>position</code>属性，浏览器就认为该元素是<code>static</code>定位。</p>
+
+<p>这时，浏览器会按照源码的顺序，决定每个元素的位置，这称为"正常的页面流"（normal flow）。每个块级元素占据自己的区块（block），元素与元素之间不产生重叠，这个位置就是元素的默认位置。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111720.jpg" alt="" title=""></p>
+
+<p>注意，<code>static</code>定位所导致的元素位置，是浏览器自主决定的，所以这时<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性无效。</p>
+
+<h2>三、relative，absolute，fixed</h2>
+
+<p><code>relative</code>、<code>absolute</code>、<code>fixed</code>这三个属性值有一个共同点，都是相对于某个基点的定位，不同之处仅仅在于基点不同。所以，只要理解了它们的基点是什么，就很容易掌握这三个属性值。</p>
+
+<p>这三种定位都不会对其他元素的位置产生影响，因此元素之间可能产生重叠。</p>
+
+<h3>3.1 relative 属性值</h3>
+
+<p><code>relative</code>表示，相对于默认位置（即<code>static</code>时的位置）进行偏移，即定位基点是元素的默认位置。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111721.jpg" alt="" title=""></p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111722.jpg" alt="" title=""></p>
+
+<p>它必须搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用，用来指定偏移的方向和距离。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111723.jpg" alt="" title=""></p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">div </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>div</code>元素从默认位置向下偏移<code>20px</code>（即距离顶部<code>20px</code>）。</p>
+
+<h3>3.2 absolute 属性值</h3>
+
+<p><code>absolute</code>表示，相对于上级元素（一般是父元素）进行偏移，即定位基点是父元素。</p>
+
+<p>它有一个重要的限制条件：定位基点（一般是父元素）不能是<code>static</code>定位，否则定位基点就会变成整个网页的根元素<code>html</code>。另外，<code>absolute</code>定位也必须搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111801.jpg" alt="" title=""></p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token comment" spellcheck="true">/*
+  HTML 代码如下
+  &lt;div id="father"&gt;
+    &lt;div id="son"&gt;&lt;/div&gt;
+  &lt;/div&gt;
+*/</span>
+
+<span class="token selector">#father </span><span class="token punctuation">{</span>
+  <span class="token property">positon</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">#son </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，父元素是<code>relative</code>定位，子元素是<code>absolute</code>定位，所以子元素的定位基点是父元素，相对于父元素的顶部向下偏移<code>20px</code>。如果父元素是<code>static</code>定位，上例的子元素就是距离网页的顶部向下偏移<code>20px</code>。</p>
+
+<p>注意，<code>absolute</code>定位的元素会被"正常页面流"忽略，即在"正常页面流"中，该元素所占空间为零，周边元素不受影响。</p>
+
+<h3>3.3 fixed 属性值</h3>
+
+<p><code>fixed</code>表示，相对于视口（viewport，浏览器窗口）进行偏移，即定位基点是浏览器窗口。这会导致元素的位置不随页面滚动而变化，好像固定在网页上一样。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111802.jpg" alt="" title=""></p>
+
+<p>它如果搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用，表示元素的初始位置是基于视口计算的，否则初始位置就是元素的默认位置。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">div </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> fixed<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>div</code>元素始终在视口顶部，不随网页滚动而变化。</p>
+
+<h2>四、sticky 属性值</h2>
+
+<p><code>sticky</code>跟前面四个属性值都不一样，它会产生动态效果，很像<code>relative</code>和<code>fixed</code>的结合：一些时候是<code>relative</code>定位（定位基点是自身默认位置），另一些时候自动变成<code>fixed</code>定位（定位基点是视口）。</p>
+
+<p>因此，它能够形成"动态固定"的效果。比如，网页的搜索工具栏，初始加载时在自己的默认位置（<code>relative</code>定位）。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111604.jpg" alt="" title=""></p>
+
+<p>页面向下滚动时，工具栏变成固定位置，始终停留在页面头部（<code>fixed</code>定位）。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111605.jpg" alt="" title=""></p>
+
+<p>等到页面重新向上滚动回到原位，工具栏也会回到默认位置。</p>
+
+<p><code>sticky</code>生效的前提是，必须搭配<code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>这四个属性一起使用，不能省略，否则等同于<code>relative</code>定位，不产生"动态固定"的效果。原因是这四个属性用来定义"偏移距离"，浏览器把它当作<code>sticky</code>的生效门槛。</p>
+
+<p>它的具体规则是，当页面滚动，父元素开始脱离视口时（即部分不可见），只要与<code>sticky</code>元素的距离达到生效门槛，<code>relative</code>定位自动切换为<code>fixed</code>定位；等到父元素完全脱离视口时（即完全不可见），<code>fixed</code>定位自动切换回<code>relative</code>定位。</p>
+
+<p>请看下面的示例代码。（注意，除了已被淘汰的 IE 以外，其他浏览器目前都支持<code>sticky</code>。但是，Safari 浏览器需要加上浏览器前缀<code>-webkit-</code>。）</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">#toolbar </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> -webkit-sticky<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* safari 浏览器 */</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> sticky<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* 其他浏览器 */</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，页面向下滚动时，<code>#toolbar</code>的父元素开始脱离视口，一旦视口的顶部与<code>#toolbar</code>的距离小于<code>20px</code>（门槛值），<code>#toolbar</code>就自动变为<code>fixed</code>定位，保持与视口顶部<code>20px</code>的距离。页面继续向下滚动，父元素彻底离开视口（即整个父元素完全不可见），<code>#toolbar</code>恢复成<code>relative</code>定位。</p>
+
+<h2>五、 sticky 的应用</h2>
+
+<p><code>sticky</code>定位可以实现一些很有用的效果。除了上面提到"动态固定"效果，这里再介绍两个。</p>
+
+<h2>5.1 堆叠效果</h2>
+
+<p>堆叠效果（stacking）指的是页面滚动时，下方的元素覆盖上方的元素。下面是一个图片堆叠的例子，下方的图片会随着页面滚动，覆盖上方的图片（查看 <a href="https://jsbin.com/fegiqoquki/edit?html,css,output" target="_blank">demo</a>）。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111609.jpg" alt="" title=""></p>
+
+<p>HTML 代码就是几张图片。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pic1.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pic2.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>pic3.jpg<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>CSS 代码极其简单，只要两行。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">div </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> sticky<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>它的原理是页面向下滚动时，每张图片都会变成<code>fixed</code>定位，导致后一张图片重叠在前一张图片上面。详细解释可以看<a href="https://dev.to/vinceumo/slide-stacking-effect-using-position-sticky-91f" target="_blank">这里</a>。</p>
+
+<h3>5.2 表格的表头锁定</h3>
+
+<p>大型表格滚动的时候，表头始终固定，也可以用<code>sticky</code>实现（查看 <a href="https://jsbin.com/decemanohe/edit?html,css,output" target="_blank">demo</a>）。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111610.jpg" alt="" title=""></p>
+
+<p>CSS 代码也很简单。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">th </span><span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> sticky<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span> 
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>需要注意的是，<code>sticky</code>必须设在<code>&lt;th&gt;</code>元素上面，不能设在<code>&lt;thead&gt;</code>和<code>&lt;tr&gt;</code>元素，因为这两个元素没有<code>relative</code>定位，也就无法产生<code>sticky</code>效果。详细解释可以看<a href="https://css-tricks.com/position-sticky-and-table-headers/" target="_blank">这里</a>。</p>
+
+<p>（正文完）</p>
+
+<h2>免费前端全栈课程</h2>
+
+<p>初学者刚接触前端，往往会被一大堆技术名词、框架和工具，搞得眼花缭乱。</p>
+
+<p>到底哪些技术是目前的主流技术栈，既能用于公司的开发实务，又能为自己的简历增添亮点？</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111505.jpg" alt="" title=""></p>
+
+<p>下面就是一套目前主流的前端技术栈。</p>
+
+<p>（1）Node.js：服务器端的 JavaScript 运行环境，不管哪种前端开发，都必不可少的底层环境。</p>
+
+<p>（2）Webpack：语法转换工具，把 ES6/TypeScript/JSX 语法转成浏览器可以运行的代码。</p>
+
+<p>（3）Koa2：一个非常流行、简洁强大的 Node.js 后端的 Web 开发框架。</p>
+
+<p>（4）MongoDB：目前应用最广泛的非关系数据库之一，功能丰富，用法较简单。</p>
+
+<p>（5）Vue 全家桶：</p>
+
+<blockquote>
+  <ul>
+<li>Vue：前端基础框架</li>
+<li>Vuex：配套的前端状态管理库。</li>
+<li>Vue Router：官方的路由插件，构建单页面应用必不可少。</li>
+<li>Vue CLI：脚手架工具，帮你快速上手 Vue 开发，无需再花多余时间去实现项目架构。</li>
+<li>Vant：有赞前端团队开发的轻量级移动端 Vue 组件库，让你快速使用已经封装好的各种页面组件。</li>
+</ul>
+</blockquote>
+
+<p>看到这个名单，你是不是感到有点头大，全部掌握它们需要多少时间啊？</p>
+
+<p>现在，腾讯课堂就有一门这样的课程，内容包含了所有这些工具，教你怎么用它们从头完成一个全栈项目，亲手做出一个手机端的移动商城，是由 <strong>慕课网的精英讲师--谢成老师讲授</strong> 。</p>
+
+<p>这个课程原价98元， <strong>活动期间，只要1块钱哦！</strong> 微信扫描下面的二维码，就可以领取优惠券，享受1元听课的福利。</p>
+
+<p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2019111803.jpg" alt="" title=""></p>
+
+<p>该课程的制作单位是青盟科技。它是《腾讯课堂101计划》重点推广的优质机构，已有7年 IT 行业教学经验，培养收费学员2000+，有超过72%的学员都进入到名企大厂。如果你想了解课程的详细内容，获取课程大纲，或者想接受系统的前端培训，可以登录腾讯课堂查看"青盟科技"。 </p>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS 定位详解 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2019-11-19T09:23:51+08:00">2019年11月19日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.02.23: <a href="http://www.ruanyifeng.com/blog/2020/02/sparql.html">RDF 和 SPARQL 初探：以维基数据为例</a></strong>
+
+                           <div class="entry-body">
+                              维基百科有一个姐妹项目，叫做"维基数据"（Wikidata）。你可以从维基百科左侧边栏点进去。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（42条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-414615" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.deathghost.cn" href="http://www.deathghost.cn/" target="_blank" rel="nofollow">DeathGhost</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414615">
+            <p>哈哈，有前端知识了，这个应该能看懂了我。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:44 AM">2019年11月19日 09:44</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414615">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用DeathGhost的这条留言" onclick="return CommentQuote(&#39;comment-quote-414615&#39;,&#39;DeathGhost&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414616" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.deathghost.cn" href="http://www.deathghost.cn/" target="_blank" rel="nofollow">DeathGhost</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414616">
+            <p>sticky 还是比较方便的。比fixed</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:47 AM">2019年11月19日 09:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414616">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用DeathGhost的这条留言" onclick="return CommentQuote(&#39;comment-quote-414616&#39;,&#39;DeathGhost&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414617" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">littlePuppy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414617">
+            <p>sticky学习了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:47 AM">2019年11月19日 09:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414617">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用littlePuppy的这条留言" onclick="return CommentQuote(&#39;comment-quote-414617&#39;,&#39;littlePuppy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414620" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">xu</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414620">
+            <p><br>
+ 元素绝对定位absolute的情况下，即使父元素是静态定位static，它相对的基点也不一定是html，有可能是有定位过（static除外）的祖先元素。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:54 AM">2019年11月19日 09:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414620">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用xu的这条留言" onclick="return CommentQuote(&#39;comment-quote-414620&#39;,&#39;xu&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414621" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://bigma.cc" href="http://bigma.cc/" target="_blank" rel="nofollow">windy</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414621">
+            <p>很好用的属性，但是要兼容ie11(怨念~)</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:55 AM">2019年11月19日 09:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414621">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用windy的这条留言" onclick="return CommentQuote(&#39;comment-quote-414621&#39;,&#39;windy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414622" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://lipinghai.cn" href="http://lipinghai.cn/" target="_blank" rel="nofollow">李昂</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414622">
+            <p>清晰简洁明了，感谢阮老师</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:55 AM">2019年11月19日 09:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414622">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用李昂的这条留言" onclick="return CommentQuote(&#39;comment-quote-414622&#39;,&#39;李昂&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414623" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://bigma.cc" href="https://bigma.cc/" target="_blank" rel="nofollow">bigma</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414623">
+            <blockquote>
+<pre>引用xu的发言：</pre>
+
+<p><br>
+ 元素绝对定位absolute的情况下，即使父元素是静态定位static，它相对的基点也不一定是html，有可能是有定位过（static除外）的祖先元素。</p>
+
+</blockquote>
+
+<p>其实就是向上找，直到找到一个不是static定位的元素为止</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  9:57 AM">2019年11月19日 09:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414623">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用bigma的这条留言" onclick="return CommentQuote(&#39;comment-quote-414623&#39;,&#39;bigma&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414624" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">史大林</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414624">
+            <p>用position：sticky来固定表单的顶部看起来很美好，但是浏览器的兼容性会导致各种各样的问题。用caniuse查下就知道。之前做过类似的一个需求，最好的办法还是用js来固定，当初用的table-fixed-header这个jq插件。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 10:05 AM">2019年11月19日 10:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414624">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用史大林的这条留言" onclick="return CommentQuote(&#39;comment-quote-414624&#39;,&#39;史大林&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414626" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">关宇</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414626">
+            <p>阮老师，absolute有点问题：<br>
+“父元素不能是static定位，否则定位基点就会变成整个网页的根元素html”</p>
+
+<p>这么描述准确些：<br>
+“相对于距离最近的有定位属性（一般是relative）的上级元素（一般是父元素）进行偏移，即定位基点是上级元素”</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 10:30 AM">2019年11月19日 10:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414626">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用关宇的这条留言" onclick="return CommentQuote(&#39;comment-quote-414626&#39;,&#39;关宇&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414627" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jarvis</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414627">
+            <p>学到了sticky</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 10:42 AM">2019年11月19日 10:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414627">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用jarvis的这条留言" onclick="return CommentQuote(&#39;comment-quote-414627&#39;,&#39;jarvis&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414630" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">阮一峰</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414630">
+            <p>@xu，@关宇：</p>
+
+<p>谢谢指出。我稍微改了一下，说明 absolute 定位的基点不能是 static 定位。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 10:56 AM">2019年11月19日 10:56</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414630">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用阮一峰的这条留言" onclick="return CommentQuote(&#39;comment-quote-414630&#39;,&#39;阮一峰&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414631" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">浪过扬帆</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414631">
+            <p>前排先赞一个再看，文章还热乎着呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 11:53 AM">2019年11月19日 11:53</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414631">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用浪过扬帆的这条留言" onclick="return CommentQuote(&#39;comment-quote-414631&#39;,&#39;浪过扬帆&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414632" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">大脑袋比目鱼</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414632">
+            <p>内容很精彩，可以再结合MDN <a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/position" rel="nofollow">https://developer.mozilla.org/zh-CN/docs/Web/CSS/position</a><br>
+看，理解更好。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019 12:17 PM">2019年11月19日 12:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414632">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用大脑袋比目鱼的这条留言" onclick="return CommentQuote(&#39;comment-quote-414632&#39;,&#39;大脑袋比目鱼&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414635" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://www.nicksonlvqq.cn/" href="https://www.nicksonlvqq.cn/" target="_blank" rel="nofollow">cl2</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414635">
+            <p>sticky, 学习了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  2:47 PM">2019年11月19日 14:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414635">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用cl2的这条留言" onclick="return CommentQuote(&#39;comment-quote-414635&#39;,&#39;cl2&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414636" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">方应杭的学生</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414636">
+            <p>fixed 要小心 transform</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  3:24 PM">2019年11月19日 15:24</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414636">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用方应杭的学生的这条留言" onclick="return CommentQuote(&#39;comment-quote-414636&#39;,&#39;方应杭的学生&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414637" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">hewei</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414637">
+            <p>IE11 居然不支持 sticky 。否则做个双吸顶效果舒服一步到位了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  3:32 PM">2019年11月19日 15:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414637">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用hewei的这条留言" onclick="return CommentQuote(&#39;comment-quote-414637&#39;,&#39;hewei&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414643" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">JavenLeung</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414643">
+            <p>关于“absolute 定位的基点不能是 static 定位”那里，现在改的这个版本还是不太清晰，容易理解错</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  4:55 PM">2019年11月19日 16:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414643">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用JavenLeung的这条留言" onclick="return CommentQuote(&#39;comment-quote-414643&#39;,&#39;JavenLeung&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414645" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Arman</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414645">
+            <p>Absolute相对定位的元素应该是第一个非static定位的祖先元素或根元素吧</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  6:25 PM">2019年11月19日 18:25</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414645">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Arman的这条留言" onclick="return CommentQuote(&#39;comment-quote-414645&#39;,&#39;Arman&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414646" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://www.misterma.com" href="https://www.misterma.com/" target="_blank" rel="nofollow">Mr. Ma</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414646">
+            <p>Bootstrap4 中的导航条也用到了 sticky 定位，不过 IE 还是用不了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 19, 2019  7:30 PM">2019年11月19日 19:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414646">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Mr. Ma的这条留言" onclick="return CommentQuote(&#39;comment-quote-414646&#39;,&#39;Mr. Ma&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414648" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Chao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414648">
+            <p>阮老师的文章就是硬</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 20, 2019  2:52 AM">2019年11月20日 02:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414648">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Chao的这条留言" onclick="return CommentQuote(&#39;comment-quote-414648&#39;,&#39;Chao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414649" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://taohuiyong.cn" href="http://taohuiyong.cn/" target="_blank" rel="nofollow">陶某人</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414649">
+            <p>涨知识了，之前没用过，用来试试</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 20, 2019  9:27 AM">2019年11月20日 09:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414649">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用陶某人的这条留言" onclick="return CommentQuote(&#39;comment-quote-414649&#39;,&#39;陶某人&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414662" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">国际庄hello范儿</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414662">
+            <p>简单易懂，解了长期的疑惑。。。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 20, 2019  1:52 PM">2019年11月20日 13:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414662">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用国际庄hello范儿的这条留言" onclick="return CommentQuote(&#39;comment-quote-414662&#39;,&#39;国际庄hello范儿&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414665" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://konfan.net/#/blog" href="https://konfan.net/#/blog" target="_blank" rel="nofollow">心斩心</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414665">
+            <p>absolute定位基于最近的非static祖先元素。<br>
+mdn的解释可以看这儿：https://developer.mozilla.org/zh-CN/docs/Web/CSS/position</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 20, 2019  5:10 PM">2019年11月20日 17:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414665">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用心斩心的这条留言" onclick="return CommentQuote(&#39;comment-quote-414665&#39;,&#39;心斩心&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414672" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">John Hoo</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414672">
+            <p>demo里面的th, 只设置了sticky和top属性, 没有设置所有的定位属性诶?</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 21, 2019  9:52 AM">2019年11月21日 09:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414672">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用John Hoo的这条留言" onclick="return CommentQuote(&#39;comment-quote-414672&#39;,&#39;John Hoo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414673" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">John Hoo</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414673">
+            <blockquote>
+<pre>引用John Hoo的发言：</pre>
+
+<p>demo里面的th, 只设置了sticky和top属性, 没有设置所有的定位属性诶?</p>
+
+</blockquote>
+
+<p>刚刚理解错了,再读一遍就理解了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 21, 2019  9:54 AM">2019年11月21日 09:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414673">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用John Hoo的这条留言" onclick="return CommentQuote(&#39;comment-quote-414673&#39;,&#39;John Hoo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414683" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://www.liugezhou.online" href="https://www.liugezhou.online/" target="_blank" rel="nofollow">liugezhou</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414683">
+            <p>sticky大法好</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 21, 2019  4:42 PM">2019年11月21日 16:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414683">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用liugezhou的这条留言" onclick="return CommentQuote(&#39;comment-quote-414683&#39;,&#39;liugezhou&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414684" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">刘骏佳</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414684">
+            <p>我发现表格的demo切换时会有轻微的抖动，这个问题是怎么导致的？该如何解决呢？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 21, 2019  7:04 PM">2019年11月21日 19:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414684">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用刘骏佳的这条留言" onclick="return CommentQuote(&#39;comment-quote-414684&#39;,&#39;刘骏佳&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414734" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://traceless.xin" href="http://traceless.xin/" target="_blank" rel="nofollow">Traceless</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414734">
+            <p>toolbar的overflow属性必须设置为visible，否则sticky不生效</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 23, 2019  5:49 PM">2019年11月23日 17:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414734">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Traceless的这条留言" onclick="return CommentQuote(&#39;comment-quote-414734&#39;,&#39;Traceless&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414763" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Neil Ning</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414763">
+            <p>当设置position = absolute时，如果其祖先元素都没有设置定位，并且也没有为当前元素设置任何left/top/right/bottom的值， 其效果跟position = relative是一样的，元素并不会相对于根元素定位而出现在浏览器的左上角。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 26, 2019 11:40 AM">2019年11月26日 11:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414763">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Neil Ning的这条留言" onclick="return CommentQuote(&#39;comment-quote-414763&#39;,&#39;Neil Ning&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414774" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://www.ivu4e.com/" href="https://www.ivu4e.com/" target="_blank" rel="nofollow">微wx笑</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414774">
+            <p>一直以为"动态固定"效果只能基于js实现，原来sticky也可以，调试的时候看到这个不知道什么作用，终于了解了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 26, 2019  8:03 PM">2019年11月26日 20:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414774">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用微wx笑的这条留言" onclick="return CommentQuote(&#39;comment-quote-414774&#39;,&#39;微wx笑&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414789" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">melon</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414789">
+            <p>文章结尾出放的文章对于webpack的介绍有误。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 27, 2019  5:51 PM">2019年11月27日 17:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414789">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用melon的这条留言" onclick="return CommentQuote(&#39;comment-quote-414789&#39;,&#39;melon&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414798" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">save</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414798">
+            <p>温故而知新</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 28, 2019  5:54 PM">2019年11月28日 17:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414798">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用save的这条留言" onclick="return CommentQuote(&#39;comment-quote-414798&#39;,&#39;save&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414838" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">gehaoyu</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414838">
+            <p>再看无数遍</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 29, 2019  5:45 PM">2019年11月29日 17:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414838">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用gehaoyu的这条留言" onclick="return CommentQuote(&#39;comment-quote-414838&#39;,&#39;gehaoyu&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414843" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">BugLi</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414843">
+            <p>可以提一下 transform 和 fixed</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 30, 2019  3:49 PM">2019年11月30日 15:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414843">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用BugLi的这条留言" onclick="return CommentQuote(&#39;comment-quote-414843&#39;,&#39;BugLi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414850" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">而井</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414850">
+            <p>建议将【sticky生效的前提是，必须搭配top、bottom、left、right这四个属性一起使用，不能省略，否则等同于relative定位，不产生"动态固定"的效果】</p>
+
+<p>修改为【sticky生效的前提是，必须搭配top、bottom、left、right这四个属性其中的一个或多个一起使用，不能省略，否则等同于relative定位，不产生"动态固定"的效果】，</p>
+
+<p>否则容易产生歧义，会有人理解成要用sticky来达到“动态固定”的效果，必须同时设置四个属性。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  1, 2019 12:22 PM">2019年12月 1日 12:22</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414850">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用而井的这条留言" onclick="return CommentQuote(&#39;comment-quote-414850&#39;,&#39;而井&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414869" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Fighting_xiaobai</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414869">
+            <p>sticky会了会了，感谢阮大大不吝赐教！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  4, 2019 10:19 AM">2019年12月 4日 10:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414869">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Fighting_xiaobai的这条留言" onclick="return CommentQuote(&#39;comment-quote-414869&#39;,&#39;Fighting_xiaobai&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414872" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">康康康康康</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414872">
+            <p>原文：页面继续向下滚动，父元素彻底离开视口（即整个父元素完全不可见），#toolbar恢复成relative定位。<br>
+这一段感觉有点问题，应该是：当页面回滚到阈值一下，#toolbar 才会恢复成 relative 定位吧。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  4, 2019 10:47 AM">2019年12月 4日 10:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414872">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用康康康康康的这条留言" onclick="return CommentQuote(&#39;comment-quote-414872&#39;,&#39;康康康康康&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414873" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">康康康康康</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414873">
+            <blockquote>
+<pre>引用康康康康康的发言：</pre>
+
+<p>原文：页面继续向下滚动，父元素彻底离开视口（即整个父元素完全不可见），#toolbar恢复成relative定位。<br>
+这一段感觉有点问题，应该是：当页面回滚到阈值一下，#toolbar 才会恢复成 relative 定位吧。</p>
+
+</blockquote>
+
+<p>不好意思 是我理解错了，阮老师想表达的和我的并不是一个意思。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  4, 2019 11:07 AM">2019年12月 4日 11:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-414873">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用康康康康康的这条留言" onclick="return CommentQuote(&#39;comment-quote-414873&#39;,&#39;康康康康康&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-415010" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://mirrortom.date" href="http://mirrortom.date/" target="_blank" rel="nofollow">mirror</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-415010">
+            <p>你好 阮讲师:<br>
+这一点有些疑惑<br>
+"sticky生效的前提是，必须搭配top、bottom、left、right这四个属性一起使用，不能省略"<br>
+--</p>
+
+<p>我在测试使用sticky定位时,只是写了top一个属性,也能有效.这个是怎么回事呢.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 10, 2019 11:51 AM">2019年12月10日 11:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-415010">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用mirror的这条留言" onclick="return CommentQuote(&#39;comment-quote-415010&#39;,&#39;mirror&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-415062" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">gz668</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-415062">
+            <p>absolute和fixed定位会脱离“正常页面流”，导致下面的块元素上移，也就是对周围元素位置产生了影响，而文中所说不会对周围元素产生影响，这里应该怎么理解呢？有点疑惑。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 12, 2019  8:39 PM">2019年12月12日 20:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-415062">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用gz668的这条留言" onclick="return CommentQuote(&#39;comment-quote-415062&#39;,&#39;gz668&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-415169" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://3d.celwk.com/" href="http://3d.celwk.com/" target="_blank" rel="nofollow">Can</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-415169">
+            <p>"sticky生效的前提是，必须搭配top、bottom、left、right这四个属性一起使用，不能省略，否则等同于relative定位，不产生"动态固定"的效果。"</p>
+
+<p>你的实例都不用搭配啊，不也生效吗？？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 16, 2019  5:41 PM">2019年12月16日 17:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-415169">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用Can的这条留言" onclick="return CommentQuote(&#39;comment-quote-415169&#39;,&#39;Can&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-415638" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">tomatoyyk</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-415638">
+            <p>补充一点,粘性定位的祖先元素不能有overflow hidden,不然会失效,之前踩过这个坑</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January  2, 2020  6:08 PM">2020年1月 2日 18:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-415638">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2019/11/css-position.html#comment-text" title="引用tomatoyyk的这条留言" onclick="return CommentQuote(&#39;comment-quote-415638&#39;,&#39;tomatoyyk&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="2134">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS 定位详解 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS 定位详解 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS 定位详解 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS 定位详解 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 定位详解 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame693" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS 定位详解 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

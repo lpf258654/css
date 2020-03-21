@@ -1,0 +1,1899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0053)http://www.ruanyifeng.com/blog/2017/04/css_in_js.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS in JS 简介 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS in JS 简介 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS in JS 简介 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2011/09/curl.html">
+<dc:title>curl网站开发指南</dc:title>
+<dc:description>我一向以为，curl只是一个编程用的函数库。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2011-09-04T11:20:46+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS in JS 简介 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2017/03/boundary.html" title="技术的边界">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2017/04/emoji.html" title="Emoji 简介">
+    
+    <title>CSS in JS 简介 - 阮一峰的网络日志</title>
+<script src="./CSS in JS 简介 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS in JS 简介 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS in JS 简介 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS in JS 简介 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS in JS 简介 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS in JS 简介 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1928" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2017/03/boundary.html" title="技术的边界">技术的边界&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2017/04/emoji.html" title="Emoji 简介">Emoji&nbsp;简介&nbsp;&nbsp;&nbsp;</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/03/boundary.html" title="技术的边界">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/04/emoji.html" title="Emoji 简介">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS in JS 简介</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS in JS 简介 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2017/04/"><abbr class="published" title="2017-04-05T00:15:51+08:00">2017年4月 5日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>1、</p>
+
+<p>以前，网页开发有一个原则，叫做<a href="https://en.wikipedia.org/wiki/Separation_of_concerns#HTML.2C_CSS.2C_JavaScript" target="_blank">"关注点分离"</a>（separation of concerns）。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040604.jpg" alt="" title=""></p>
+
+<p>它的意思是，各种技术只负责自己的领域，不要混合在一起，形成耦合。对于网页开发来说，主要是三种技术分离。</p>
+
+<p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040605.jpg" alt="" title=""></p>
+
+<blockquote>
+  <ul>
+<li>HTML 语言：负责网页的结构，又称语义层</li>
+<li>CSS 语言：负责网页的样式，又称视觉层</li>
+<li>JavaScript 语言：负责网页的逻辑和交互，又称逻辑层或交互层</li>
+</ul>
+</blockquote>
+
+<p>简单说，就是一句话，不要写"行内样式"（inline style）和"行内脚本"（inline script）。比如，下面代码就很糟糕（查看<a href="http://jsbin.com/wagizup/1/edit?html,output" target="_blank">完整代码</a>）。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span> <span class="token attr-name">style</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>color:red;font-size:46px;<span class="token punctuation">"</span></span>  <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>alert('Hi')<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  Hello World
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>2、</p>
+
+<p><a href="http://www.ruanyifeng.com/blog/2015/03/react.html" target="_blank">React</a> 出现以后，这个原则不再适用了。因为，React 是组件结构，强制要求把 HTML、CSS、JavaScript 写在一起。</p>
+
+<p>上面的例子使用 React 改写如下（查看<a href="http://jsbin.com/xicelin/1/edit?html,js,output" target="_blank">完整代码</a>）。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const style <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">'color'</span><span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+  <span class="token string">'fontSize'</span><span class="token punctuation">:</span> <span class="token string">'46px'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+const clickHandler <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token function">alert<span class="token punctuation">(</span></span><span class="token string">'hi'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> 
+
+ReactDOM<span class="token punctuation">.</span><span class="token function">render<span class="token punctuation">(</span></span>
+  <span class="token operator">&lt;</span>h1 style<span class="token operator">=</span><span class="token punctuation">{</span>style<span class="token punctuation">}</span> onclick<span class="token operator">=</span><span class="token punctuation">{</span>clickHandler<span class="token punctuation">}</span><span class="token operator">&gt;</span>
+     Hello<span class="token punctuation">,</span> world<span class="token operator">!</span>
+  <span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'example'</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>上面代码在一个文件里面，封装了结构、样式和逻辑，完全违背了"关注点分离"的原则，很多人不适应。</p>
+
+<p>但是，这有利于组件的隔离。每个组件包含了所有需要用到的代码，不依赖外部，组件之间没有耦合，很方便复用。所以，随着 React 的走红和组件模式深入人心，这种"关注点混合"的新写法逐渐成为主流。</p>
+
+<p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040601.png" alt="" title=""></p>
+
+<p>3、</p>
+
+<p>表面上，React 的写法是 HTML、CSS、JavaScript 混合在一起。但是，实际上不是。现在其实是用 JavaScript 在写 HTML 和 CSS。</p>
+
+<p>React 在 JavaScript 里面实现了对 HTML 和 CSS 的封装，我们通过封装去操作 HTML 和 CSS。也就是说，网页的结构和样式都通过 JavaScript 操作。</p>
+
+<p>4、</p>
+
+<p>React 对 HTML 的封装是 <a href="https://jsx.github.io/" target="_blank">JSX 语言</a> ，这个在各种 React 教程都有详细介绍，本文不再涉及了，下面来看 React 对 CSS 的封装。</p>
+
+<p>React 对 CSS 封装非常简单，就是沿用了 DOM 的 <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style" target="_blank">style 属性对象</a>，这个在前面已经看到过了。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const style <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">'color'</span><span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+  <span class="token string">'fontSize'</span><span class="token punctuation">:</span> <span class="token string">'46px'</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>上面代码中，CSS 的<code>font-size</code>属性要写成<code>fontSize</code>，这是 JavaScript 操作 CSS 属性的<a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference" target="_blank">约定</a>。</p>
+
+<p>由于 CSS 的封装非常弱，导致了一系列的第三方库，用来加强 React 的 CSS 操作。它们统称为 CSS in JS，意思就是使用 JS 语言写 CSS。根据不完全统计，各种 CSS in JS 的库至少有<a href="https://github.com/MicheleBertoli/css-in-js" target="_blank">47种</a>。老实说，现在也看不出来，哪一个库会变成主流。</p>
+
+<p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040602.jpg" alt="" title=""></p>
+
+<p>你可能会问，它们与"CSS 预处理器"（比如 Less 和 <a href="http://www.ruanyifeng.com/blog/2012/06/sass.html" target="_blank">Sass</a>，包括 PostCSS）有什么区别？回答是 CSS in JS 使用 JavaScript 的语法，是 JavaScript 脚本的一部分，不用从头学习一套专用的 API，也不会多一道编译步骤。</p>
+
+<p>5、</p>
+
+<p>上周，我看到一个新的 CSS in JS 库，叫做 <a href="https://polished.js.org/" target="_blank">polished.js</a>。它将一些常用的 CSS 属性封装成函数，用起来非常方便，充分体现使用 JavaScript 语言写 CSS 的优势。</p>
+
+<p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040606.png" alt="" title=""></p>
+
+<p>我觉得这个库很值得推荐，这篇文章的主要目的，就是想从这个库来看怎么使用 CSS in JS。</p>
+
+<p>首先，加载 polished.js。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const polished <span class="token operator">=</span> <span class="token function">require<span class="token punctuation">(</span></span><span class="token string">'polished'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>如果是浏览器，插入下面的脚本。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token script"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span><a class="token url-link" href="https://unpkg.com/polished">https://unpkg.com/polished</a>@1.0.0/dist/polished.min.js<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span></span>
+</code></pre></blockquote>
+
+<p><code>polished.js</code>目前有50多个方法，比如<code>clearfix</code>方法用来清理浮动。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const styles <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>polished<span class="token punctuation">.</span><span class="token function">clearFix<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>clearFix</code>就是一个普通的 JavaScript 函数，返回一个对象。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+polished<span class="token punctuation">.</span><span class="token function">clearFix<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token comment" spellcheck="true">
+// {
+</span><span class="token comment" spellcheck="true">//  &amp;::after: {
+</span><span class="token comment" spellcheck="true">//    clear: "both",
+</span><span class="token comment" spellcheck="true">//    content: "",
+</span><span class="token comment" spellcheck="true">//    display: "table"
+</span><span class="token comment" spellcheck="true">//  }
+</span><span class="token comment" spellcheck="true">// }
+</span></code></pre></blockquote>
+
+<p>"展开运算符"（<code>...</code>）将<code>clearFix</code>返回的对象展开，便于与其他 CSS 属性混合。然后，将样式对象赋给 React 组件的<code>style</code>属性，这个组件就能清理浮动了。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+ReactDOM<span class="token punctuation">.</span><span class="token function">render<span class="token punctuation">(</span></span>
+  <span class="token operator">&lt;</span>h1 style<span class="token operator">=</span><span class="token punctuation">{</span>style<span class="token punctuation">}</span><span class="token operator">&gt;</span>Hello<span class="token punctuation">,</span> React<span class="token operator">!</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">&gt;</span><span class="token punctuation">,</span>
+  document<span class="token punctuation">.</span><span class="token function">getElementById<span class="token punctuation">(</span></span><span class="token string">'example'</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>从这个例子，大家应该能够体会<code>polished.js</code>的用法。</p>
+
+<p>6、</p>
+
+<p>下面再看几个很有用的函数。</p>
+
+<p><code>ellipsis</code>将超过指定长度的文本，使用省略号替代（查看<a href="https://jsbin.com/heyuri/edit?js,output" target="_blank">完整代码</a>）。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const styles <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>polished<span class="token punctuation">.</span><span class="token function">ellipsis<span class="token punctuation">(</span></span><span class="token string">'200px'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">
+// 返回值
+</span><span class="token comment" spellcheck="true">// {
+</span><span class="token comment" spellcheck="true">//   'display': 'inline-block',
+</span><span class="token comment" spellcheck="true">//   'max-width': '250px',
+</span><span class="token comment" spellcheck="true">//   'overflow': 'hidden',
+</span><span class="token comment" spellcheck="true">//   'text-overflow': 'ellipsis',
+</span><span class="token comment" spellcheck="true">//   'white-space': 'nowrap',
+</span><span class="token comment" spellcheck="true">//   'word-wrap': 'normal'
+</span><span class="token comment" spellcheck="true">// }
+</span></code></pre></blockquote>
+
+<p><code>hideText</code>用于隐藏文本，显示图片。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const styles <span class="token operator">=</span> <span class="token punctuation">{</span>
+  <span class="token string">'background-image'</span><span class="token punctuation">:</span> <span class="token string">'url(logo.png)'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>polished<span class="token punctuation">.</span><span class="token function">hideText<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// 返回值
+</span><span class="token comment" spellcheck="true">// {
+</span>  <span class="token string">'background-image'</span><span class="token punctuation">:</span> <span class="token string">'url(logo.png)'</span><span class="token punctuation">,</span>
+  <span class="token string">'text-indent'</span><span class="token punctuation">:</span> <span class="token string">'101%'</span><span class="token punctuation">,</span>
+  <span class="token string">'overflow'</span><span class="token punctuation">:</span> <span class="token string">'hidden'</span><span class="token punctuation">,</span>
+  <span class="token string">'white-space'</span><span class="token punctuation">:</span> <span class="token string">'nowrap'</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p><code>hiDPI</code>指定高分屏样式。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const styles <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token punctuation">[</span>polished<span class="token punctuation">.</span><span class="token function">hiDPI<span class="token punctuation">(</span></span><span class="token number">1.5</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+   width<span class="token punctuation">:</span> <span class="token string">'200px'</span><span class="token punctuation">,</span>
+ <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// 返回值
+</span><span class="token comment" spellcheck="true">//'@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+</span><span class="token comment" spellcheck="true">// only screen and (min--moz-device-pixel-ratio: 1.5),
+</span><span class="token comment" spellcheck="true">// only screen and (-o-min-device-pixel-ratio: 1.5/1),
+</span><span class="token comment" spellcheck="true">// only screen and (min-resolution: 144dpi),
+</span><span class="token comment" spellcheck="true">// only screen and (min-resolution: 1.5dppx)': {
+</span><span class="token comment" spellcheck="true">//  'width': '200px',
+</span><span class="token comment" spellcheck="true">//}
+</span></code></pre></blockquote>
+
+<p><code>retinaImage</code>为高分屏和低分屏设置不同的背景图。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const styles <span class="token operator">=</span> <span class="token punctuation">{</span>
+ <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>polished<span class="token punctuation">.</span><span class="token function">retinaImage<span class="token punctuation">(</span></span><span class="token string">'my-img'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// 返回值
+</span><span class="token comment" spellcheck="true">//   backgroundImage: 'url(my-img.png)',
+</span><span class="token comment" spellcheck="true">//  '@media only screen and (-webkit-min-device-pixel-ratio: 1.3),
+</span><span class="token comment" spellcheck="true">//   only screen and (min--moz-device-pixel-ratio: 1.3),
+</span><span class="token comment" spellcheck="true">//   only screen and (-o-min-device-pixel-ratio: 1.3/1),
+</span><span class="token comment" spellcheck="true">//   only screen and (min-resolution: 144dpi),
+</span><span class="token comment" spellcheck="true">//   only screen and (min-resolution: 1.5dppx)': {
+</span><span class="token comment" spellcheck="true">//    backgroundImage: 'url(my-img_2x.png)',
+</span><span class="token comment" spellcheck="true">//  }
+</span></code></pre></blockquote>
+
+<p>7、</p>
+
+<p><code>polished.js</code>提供的其他方法如下，详细用法请参考<a href="https://polished.js.org/docs/" target="_blank">文档</a>。</p>
+
+<blockquote>
+  <ul>
+<li><code>normalize()</code>：样式表初始化</li>
+<li><code>placeholder()</code>：对 placeholder 伪元素设置样式</li>
+<li><code>selection()</code>：对 selection 伪元素设置样式</li>
+<li><code>darken()</code>：调节颜色深浅</li>
+<li><code>lighten()</code>：调节颜色深浅</li>
+<li><code>desaturate()</code>：降低颜色的饱和度</li>
+<li><code>saturate()</code>：增加颜色的饱和度 </li>
+<li><code>opacify()</code>：调节透明度</li>
+<li><code>complement()</code>：返回互补色</li>
+<li><code>grayscale()</code>：将一个颜色转为灰度</li>
+<li><code>rgb()</code>：指定红、绿、蓝三个值，返回一个颜色</li>
+<li><code>rgba()</code>：指定红、绿、蓝和透明度四个值，返回一个颜色</li>
+<li><code>hsl()</code>：指定色调、饱和度和亮度三个值，返回一个颜色</li>
+<li><code>hsla()</code>：指定色调、饱和度、亮度和透明度三个值，返回一个颜色</li>
+<li><code>mix()</code>：混合两种颜色</li>
+<li><code>em()</code>：将像素转为 em</li>
+<li><code>rem()</code>：将像素转为 rem</li>
+</ul>
+</blockquote>
+
+<p>目前，<code>polished.js</code>只是1.0版，以后应该会有越来越多的方法。</p>
+
+<p>8、</p>
+
+<p><code>polished.js</code>还有一个特色：所有函数默认都是柯里化的，因此可以进行函数组合运算，定制出自己想要的函数。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+import <span class="token punctuation">{</span> compose <span class="token punctuation">}</span> from <span class="token string">'ramda'</span><span class="token punctuation">;</span>
+import <span class="token punctuation">{</span> lighten<span class="token punctuation">,</span> desaturate <span class="token punctuation">}</span> from <span class="token string">'polished'</span><span class="token punctuation">;</span>
+
+const tone <span class="token operator">=</span> <span class="token function">compose<span class="token punctuation">(</span></span><span class="token function">lighten<span class="token punctuation">(</span></span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">desaturate<span class="token punctuation">(</span></span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+</code></pre></blockquote>
+
+<p>上面代码使用 Ramda 函数库完成组合运算。Ramda 的用法可以参考我写的<a href="http://www.ruanyifeng.com/blog/2017/03/ramda.html" target="_blank">教程</a>。</p>
+
+<p>（正文完）</p>
+
+<p><a id="udacity" target="_blank"></a>==========</p>
+
+<p>最后，发布一个活动消息。</p>
+
+<p>大家知道，美国最大之一的在线教育网站优达学城（Udacity），一直赞助我的博客。他们正在国内推广<a href="http://cn.udacity.com/course/deep-learning-nanodegree-foundation--nd101/" target="_blank">深度学习课程（中英双语）</a>，有一系列的配套活动。</p>
+
+<p><a href="https://www.zhihu.com/lives/829703867049582592" target="_blank"><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2017040607.png" alt="" title=""></a></p>
+
+<p>4月6日晚上8点，他们邀请<a href="http://deeplycurious.ai/" target="_blank">深度好奇公司</a>（ DeeplyCurious.ai ）的创始人兼 CTO 吕正东博士，举办一场<a href="https://www.zhihu.com/lives/829703867049582592" target="_blank">知乎 Live</a>，探讨深度学习和语言智能，感兴趣的朋友不要错过。</p>
+
+<p>【主讲人】</p>
+
+<p>吕正东博士，曾任职于微软亚洲研究院、华为诺亚方舟实验室等著名研究机构，长期从事机器学习及人工智能的研究，在深度学习、自然语言处理和半监督学习等领域卓有建树，是深度学习领域（尤其是自然语言处理方向）具有世界顶尖水平并享有国际声誉的科学家和技术专家。</p>
+
+<p>【活动内容】</p>
+
+<ul>
+<li>深度学习在自然语言处理方面的新进展</li>
+<li>深度学习是否会主导自然语言处理</li>
+<li>自然语言处理和人工智能的下一个大事件</li>
+<li>我为什么创立深度好奇</li>
+<li>自由提问时间</li>
+</ul>
+
+<p>【时间】</p>
+
+<p>4月6日晚上8点</p>
+
+<p>【网址】</p>
+
+<p><a href="https://www.zhihu.com/lives/829703867049582592" target="_blank">知乎 Live</a></p>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS in JS 简介 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2017-04-05T00:15:51+08:00">2017年4月 5日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.02.23: <a href="http://www.ruanyifeng.com/blog/2020/02/sparql.html">RDF 和 SPARQL 初探：以维基数据为例</a></strong>
+
+                           <div class="entry-body">
+                              维基百科有一个姐妹项目，叫做"维基数据"（Wikidata）。你可以从维基百科左侧边栏点进去。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（34条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-375889" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">魅鬼</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375889">
+            <p>小组件用这种方式还好，如果样式很多，这样写在一块个人认为有些不妥</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017  9:50 AM">2017年4月 5日 09:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375889">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用魅鬼的这条留言" onclick="return CommentQuote(&#39;comment-quote-375889&#39;,&#39;魅鬼&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375890" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://github.com/EYHN" href="https://github.com/EYHN" target="_blank" rel="nofollow">EYHN</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375890">
+            <p>css in js 实现动画非常方便。<br>
+但在使用过程中遇到很麻烦的一点是很多库都没法定义子元素的样式。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 10:43 AM">2017年4月 5日 10:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375890">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用EYHN的这条留言" onclick="return CommentQuote(&#39;comment-quote-375890&#39;,&#39;EYHN&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375891" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ken</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375891">
+            <p>说实话看不出来优势在哪里</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 11:31 AM">2017年4月 5日 11:31</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375891">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用ken的这条留言" onclick="return CommentQuote(&#39;comment-quote-375891&#39;,&#39;ken&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375892" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xttblog.com" href="http://www.xttblog.com/" target="_blank" rel="nofollow">业余草</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375892">
+            <p>一时还习惯不了混合到一起的写法。简单的页面还好，页面太过复杂就不太适合了！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 11:35 AM">2017年4月 5日 11:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375892">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用业余草的这条留言" onclick="return CommentQuote(&#39;comment-quote-375892&#39;,&#39;业余草&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375893" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">skyler</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375893">
+            <p>好多广告 ...</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 11:37 AM">2017年4月 5日 11:37</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375893">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用skyler的这条留言" onclick="return CommentQuote(&#39;comment-quote-375893&#39;,&#39;skyler&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375896" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">戈饭</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375896">
+            <p>写起来很方便</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017  2:40 PM">2017年4月 5日 14:40</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375896">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用戈饭的这条留言" onclick="return CommentQuote(&#39;comment-quote-375896&#39;,&#39;戈饭&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375920" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Kevin</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375920">
+            <p>个人觉得优势还没有凸显，在制作复杂页面时或使用CSS较多时是否会增加浏览器解析的负担，拖慢页面加载的速度？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 10:39 PM">2017年4月 5日 22:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375920">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Kevin的这条留言" onclick="return CommentQuote(&#39;comment-quote-375920&#39;,&#39;Kevin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375921" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://github.com/wangcongyi" href="https://github.com/wangcongyi" target="_blank" rel="nofollow">kid</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375921">
+            <p>支持ssr么？<br>
+不过我个人还是喜欢styled-components 这个库</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  5, 2017 10:43 PM">2017年4月 5日 22:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375921">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用kid的这条留言" onclick="return CommentQuote(&#39;comment-quote-375921&#39;,&#39;kid&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375945" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">好大的火腿</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375945">
+            <p>我写react是用的style-loader!css-loader来模块化</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  6, 2017 11:44 AM">2017年4月 6日 11:44</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375945">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用好大的火腿的这条留言" onclick="return CommentQuote(&#39;comment-quote-375945&#39;,&#39;好大的火腿&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375968" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">CashSun</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375968">
+            <p>react component 并不是html的封装，而是dom元素的数据结构的实现，正因为如此才会有独立的渲染模块，如react-native 和react-dom，负责翻译react 元素。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  6, 2017  8:37 PM">2017年4月 6日 20:37</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375968">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用CashSun的这条留言" onclick="return CommentQuote(&#39;comment-quote-375968&#39;,&#39;CashSun&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-375992" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">飞硕</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-375992">
+            <p>react的做法是不是默认程序员写所有代码？如果负责写样式的和负责写业务逻辑的不是一个人呢？写样式的也要学react？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  7, 2017 10:21 AM">2017年4月 7日 10:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-375992">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用飞硕的这条留言" onclick="return CommentQuote(&#39;comment-quote-375992&#39;,&#39;飞硕&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376014" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xmlplus.cn" href="http://www.xmlplus.cn/" target="_blank" rel="nofollow">曲斗</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376014">
+            <p>React 还是太过麻烦，请看使用本人框架写就的组件，内容改自阮老师文中的 React 组件.</p>
+
+<p>Example: {<br>
+    css: "#example {color: red; font-size: 46px}",<br>
+    xml: "\<br>
+              hello,world<br>
+          ",<br>
+    fun: function (sys, items, opts) {<br>
+        sys.example.on(click, () =&gt; alert('hi'));<br>
+    }<br>
+}</p>
+
+<p>纯 JavaScript，不使用 JSX，代码是不是更清晰，而且同一套代码前后端通跑。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  7, 2017  4:38 PM">2017年4月 7日 16:38</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376014">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用曲斗的这条留言" onclick="return CommentQuote(&#39;comment-quote-376014&#39;,&#39;曲斗&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376019" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://fankezhen.com" href="http://fankezhen.com/" target="_blank" rel="nofollow">HeroTimor</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376019">
+            <p>最近有个Algolia的“Goodbye JavaScript：Introducing CSS API Client”（JS已死，拥抱CSS）阮哥怎么看？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  7, 2017  5:12 PM">2017年4月 7日 17:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376019">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用HeroTimor的这条留言" onclick="return CommentQuote(&#39;comment-quote-376019&#39;,&#39;HeroTimor&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376035" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ericyang</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376035">
+            <p>推荐一下styled-components</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  8, 2017  8:58 AM">2017年4月 8日 08:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376035">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用ericyang的这条留言" onclick="return CommentQuote(&#39;comment-quote-376035&#39;,&#39;ericyang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376043" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">芸暧</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376043">
+            <p>前端的智慧就集中在了来回折腾模式和框架或者工具上了？？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  8, 2017 12:54 PM">2017年4月 8日 12:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376043">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用芸暧的这条留言" onclick="return CommentQuote(&#39;comment-quote-376043&#39;,&#39;芸暧&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376062" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">FlippedOut</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376062">
+            <p>polished.js 返回的是 "max-width" 这种形式的<br>
+直接用在 React 的 style 上面会报<br>
+`Warning: Unsupported style property max-width. Did you mean maxWidth`<br>
+有配置或者转换的方法吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  8, 2017  8:03 PM">2017年4月 8日 20:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376062">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用FlippedOut的这条留言" onclick="return CommentQuote(&#39;comment-quote-376062&#39;,&#39;FlippedOut&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376127" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Jax</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376127">
+            <p>這仍然是 SoC，只是面向換成 Component</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 10, 2017  3:19 PM">2017年4月10日 15:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376127">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Jax的这条留言" onclick="return CommentQuote(&#39;comment-quote-376127&#39;,&#39;Jax&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376409" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.loveo.cc" href="http://www.loveo.cc/" target="_blank" rel="nofollow">墨丶水瓶</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376409">
+            <p>全世界的前端人都认为前端的精髓就是“折腾”? 市面上各种框架火不过一年，然后即便是这样也还是有大量的框架开发者前赴后继，最后都淹死在茫茫的框架海洋中 ... </p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 18, 2017 10:36 AM">2017年4月18日 10:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376409">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用墨丶水瓶的这条留言" onclick="return CommentQuote(&#39;comment-quote-376409&#39;,&#39;墨丶水瓶&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376439" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.xiangrenya.com" href="http://www.xiangrenya.com/" target="_blank" rel="nofollow">项少龙</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376439">
+            <p>关注点的分离，是前端工程化的关键之一。现在主流的前端框架都采用的是组件树的思想。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 19, 2017  9:04 AM">2017年4月19日 09:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-376439">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用项少龙的这条留言" onclick="return CommentQuote(&#39;comment-quote-376439&#39;,&#39;项少龙&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377081" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Yu Er</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377081">
+            <blockquote>
+<pre>引用项少龙的发言：</pre>
+
+<p>关注点的分离，是前端工程化的关键之一。现在主流的前端框架都采用的是组件树的思想。</p>
+
+</blockquote>
+
+<p>因为是一帮面向对象的程序员转前端做这种一锅大杂烩的事情。即使是组件，组件内部应该有分离，这样并不影响与其它组件的独立性。</p>
+
+<p>现在大型项目，已经被程序员整成流水线模式了，非常便捷快捷，一个JS做引子，路由映射组件模块，杠杠得。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 12, 2017  2:49 PM">2017年5月12日 14:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-377081">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Yu Er的这条留言" onclick="return CommentQuote(&#39;comment-quote-377081&#39;,&#39;Yu Er&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377240" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">大智若羽</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377240">
+            <p>css in js 感觉非常适合组件化，css原来的作用是复用class，现在复用组件就相当于复用了class，所以根本没必要按照原来的写法。上面有人说复杂的不好，复杂的应该分为几个组件写最后还是小组件组成。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 17, 2017  5:31 PM">2017年5月17日 17:31</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-377240">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用大智若羽的这条留言" onclick="return CommentQuote(&#39;comment-quote-377240&#39;,&#39;大智若羽&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378274" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">zz</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378274">
+            <p>第5条的清除浮动的 有一点小的瑕疵</p>
+
+<p>应该修改为 style={styles}</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 28, 2017 11:30 PM">2017年6月28日 23:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-378274">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用zz的这条留言" onclick="return CommentQuote(&#39;comment-quote-378274&#39;,&#39;zz&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378424" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://isluo.com" href="http://isluo.com/" target="_blank" rel="nofollow">Logic</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378424">
+            <p>算了吧，这样写太麻烦了<br>
+还不如自己定义好命名空间。<br>
+或者react能实现一套vue那样的scoped就好了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2017 10:36 AM">2017年7月 3日 10:36</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-378424">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Logic的这条留言" onclick="return CommentQuote(&#39;comment-quote-378424&#39;,&#39;Logic&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378498" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">XWang1024</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378498">
+            <p>没有postcss支持，很难受，引工具或者自己写转换逻辑又会加重渲染负担。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  5, 2017  4:47 PM">2017年7月 5日 16:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-378498">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用XWang1024的这条留言" onclick="return CommentQuote(&#39;comment-quote-378498&#39;,&#39;XWang1024&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378892" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.cnbooks.org" href="http://www.cnbooks.org/" target="_blank" rel="nofollow">cen</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378892">
+            <p>假如同时用两个样式怎么办?因为不可能它本身定义的样式一定够用吧！难道要如下这样吗？<br>
+const styles = {<br>
+  ...polished.clearFix(),<br>
+  "height":1px<br>
+};<br>
+那还不如用react本身的做法...个人看法</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 24, 2017  5:20 PM">2017年7月24日 17:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-378892">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用cen的这条留言" onclick="return CommentQuote(&#39;comment-quote-378892&#39;,&#39;cen&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-379080" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.lwoo1999.cn" href="http://www.lwoo1999.cn/" target="_blank" rel="nofollow">LWOO</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-379080">
+            <p>还是太麻烦，比较喜欢`vue`的那一套，不过期待`react`最后能把`css in js`搞成什么样子</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 29, 2017  9:42 PM">2017年7月29日 21:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-379080">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用LWOO的这条留言" onclick="return CommentQuote(&#39;comment-quote-379080&#39;,&#39;LWOO&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382153" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Imcodingcc</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382153">
+            <p>@曲斗：</p>
+
+<p>还是要从各方面考虑， elm也很不错， 但是综合其难度， 并没有人问津， 还有react虚拟dom的机制让性能大幅增加了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  8, 2017  4:11 PM">2017年11月 8日 16:11</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-382153">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Imcodingcc的这条留言" onclick="return CommentQuote(&#39;comment-quote-382153&#39;,&#39;Imcodingcc&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382158" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://me.chjiyun.com" href="http://me.chjiyun.com/" target="_blank" rel="nofollow">chjiyun</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382158">
+            <p>那位大神知道react 如何做按需加载css啊，像 vue和angular4 一样？谢谢了。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  8, 2017  5:07 PM">2017年11月 8日 17:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-382158">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用chjiyun的这条留言" onclick="return CommentQuote(&#39;comment-quote-382158&#39;,&#39;chjiyun&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-383571" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://fe2x.cc" href="http://fe2x.cc/" target="_blank" rel="nofollow">Clarencec</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-383571">
+            <p>从关注点分离到组件树的演变,组合方式也不断变化啊.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 25, 2017  2:13 PM">2017年12月25日 14:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-383571">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Clarencec的这条留言" onclick="return CommentQuote(&#39;comment-quote-383571&#39;,&#39;Clarencec&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-383637" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://redream.cn" href="http://redream.cn/" target="_blank" rel="nofollow">_So_</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-383637">
+            <p>阮老师，在css-in-js写法里，我要实现响应式应该怎么实现呢？比如一行图片，每个为父容器的25%宽，但但父容器宽度小于600px，每个为父容器的50%。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December 26, 2017  7:18 PM">2017年12月26日 19:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-383637">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用_So_的这条留言" onclick="return CommentQuote(&#39;comment-quote-383637&#39;,&#39;_So_&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-388278" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jx</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-388278">
+            <p><br>
+<br>
+试一下我们老师讲的xss攻击<br>
+<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 25, 2018  8:58 PM">2018年4月25日 20:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-388278">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用jx的这条留言" onclick="return CommentQuote(&#39;comment-quote-388278&#39;,&#39;jx&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-390695" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Amecy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-390695">
+            <blockquote>
+<pre>引用飞硕的发言：</pre>
+
+<p>react的做法是不是默认程序员写所有代码？如果负责写样式的和负责写业务逻辑的不是一个人呢？写样式的也要学react？</p>
+
+</blockquote>
+能分得那么细？一个模块的逻辑和样式不应该是同一个人写嘛。
+
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  9, 2018 10:48 AM">2018年7月 9日 10:48</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-390695">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用Amecy的这条留言" onclick="return CommentQuote(&#39;comment-quote-390695&#39;,&#39;Amecy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-394910" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">繁星</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-394910">
+            <p>polished将css封装成函数确实很创新， 但随之而来的多个api的学习成本和可定制化差的缺点</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 10, 2018  5:02 PM">2018年11月10日 17:02</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-394910">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用繁星的这条留言" onclick="return CommentQuote(&#39;comment-quote-394910&#39;,&#39;繁星&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-408262" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">陈</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-408262">
+            <p>为什么这个网站https://codesandbox.io好多样式都不能在浏览器上改（只有标注是style的）<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 15, 2019  5:42 PM">2019年2月15日 17:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-408262">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/04/css_in_js.html#comment-text" title="引用陈的这条留言" onclick="return CommentQuote(&#39;comment-quote-408262&#39;,&#39;陈&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1928">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS in JS 简介 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS in JS 简介 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS in JS 简介 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS in JS 简介 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS in JS 简介 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame517" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS in JS 简介 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

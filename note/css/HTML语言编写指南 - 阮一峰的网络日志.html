@@ -1,0 +1,1454 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0075)http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./HTML语言编写指南 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./HTML语言编写指南 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./HTML语言编写指南 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./HTML语言编写指南 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2009/05/depreciated_masters_degree.html" title="硕士学位的贬值">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2009/05/about_wang_yifan_s_education.html" title="关于王建硕儿子的上学问题">
+    
+    <title>HTML语言编写指南 - 阮一峰的网络日志</title>
+<script src="./HTML语言编写指南 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./HTML语言编写指南 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./HTML语言编写指南 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1232" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2009/05/depreciated_masters_degree.html" title="硕士学位的贬值">硕士学位的贬值&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2009/05/about_wang_yifan_s_education.html" title="关于王建硕儿子的上学问题">关于王建硕儿子的上学问</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2009/05/depreciated_masters_degree.html" title="硕士学位的贬值">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2009/05/about_wang_yifan_s_education.html" title="关于王建硕儿子的上学问题">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">HTML语言编写指南</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./HTML语言编写指南 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2009/05/"><abbr class="published" title="2009-05-17T22:54:35+08:00">2009年5月17日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>制作网页的第一步，就是学会编写HTML语言。</p>
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>HTML是一种标签语言，通过在内容上附加各种标签，达到在浏览器中正确展示的目的。正确地编写HTML，不仅是制作网页的必要条件，也是对网页进一步处理、添加CSS和Javascript效果的前提。</p>
+
+<p>编写HTML语言的关键，就是把标签用对，使它能够正确传达语义信息，不要使用无含义或错误含义的标签。下面就是一份我整理的HTML语言的编写指南。</p>
+
+<p><img src="http://lh6.ggpht.com/_6p3hNkUNWrQ/ShAk7lXbcxI/AAAAAAAABM4/d9nJMITHcTc/s800/bg2009051701.jpg"></p>
+
+<p><strong>一、块级元素</strong></p>
+
+<p><strong>div</strong></p>
+
+<p>含义：页面内容的一个独立组成部分。</p>
+
+<p>常见的用途有三种：1）划分页首、页尾、页边栏或导航栏等等；2）表示页面的分栏；3）将文章进一步分成几个部分，比如正文、评论、文章的元数据等等。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;div id="header"&gt;页面的头部&lt;/div&gt;</p>
+
+</div></blockquote>
+
+<p><strong>h1, h2, h3, h4, h5, h6</strong></p>
+
+<p>含义：内容的标题。</p>
+
+<p>h1是最高一级的标题，下一层标题使用h2，依次类推。除了h1以外，其他5个级别标题在一个页面中都可以出现多次，h1只能出现一次。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;h1&gt;一级标题&lt;/h1&gt;</p>
+
+<p>&lt;h2&gt;二级标题&lt;/h2&gt;</p>
+
+</div></blockquote>
+
+<p><strong>p</strong></p>
+
+<p>含义：表示段落。</p>
+
+<p>它是文章内容的基本组成部分，也可以用来表示诗歌中的一节。p与div的主要区别是，前者表示文本段落，后者表示更广义的段落。</p>
+
+<p>在P标签中，不应该再包含其他块级元素。此外，也不应该使用空的p标签。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;p&gt;这是一个段落。&lt;/p&gt;</p>
+
+</div></blockquote>
+
+<p><strong>blockquote</strong></p>
+
+<p>含义：表示一段引用自其他来源的独立文本。</p>
+
+<p>它引用的文本通常有一定的长度，以块级元素的形式出现。</p>
+
+<p>blockquote应该总是与cite标签配合使用，cite用来指明引用材料的来源。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;blockquote&gt;<br>
+不是在沉默中爆发，就是在沉默中灭亡。<br>
+&lt;cite&gt;鲁迅《为了忘却的纪念》&lt;/cite&gt;<br>
+&lt;/blockquote&gt;</p>
+
+</div></blockquote>
+
+<p>在浏览器的默认样式中，blockquote有文本缩进的效果，但是不要单单因为这个原因，而使用它。</p>
+
+<p>blockquote有两个属性，第一个是cite属性，用来指明引用材料的URI地址；第二个是title属性，用于提供引用材料的相关信息。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;blockquote cite="http://w3c.org/" title="文章的标题，作者，发表日期"&gt;"我正在此处引用W3C的标准。"&lt;/blockquote&gt;</p>
+
+</div></blockquote>
+
+<p><strong>二、行内元素</strong></p>
+
+<p><strong>a</strong></p>
+
+<p>含义：与href属性搭配使用时，链接至外部链接，或者同一页的某个锚点。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;a href="chapter2.html"&gt;第二章&lt;/a&gt; </p>
+
+</div></blockquote>
+
+<p><strong>abbr</strong></p>
+
+<p>含义：表示内容是某个术语或短语的缩写形式，它有一个title属性，用来指明缩写所代表的原始词组。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;abbr title="Europe"&gt;Eur&lt;/abbr&gt;</p>
+
+</div></blockquote>
+
+<p><strong>acronym</strong></p>
+
+<p>含义：表示内容是一个词组的首字母简称，比如BBC、WTO。</p>
+
+<p>它有一个title属性，用来指明属性所代表的原始词组。</p>
+
+<p>acronym与abbr的主要区别是，前者往往是一个可以独立使用的词，而后者不是。这意味着acronym肯定是abbr，但是abbr不一定是acronym。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;acronym title="World Wide Web"&gt;WWW&lt;/acronym&gt;</p>
+
+</div></blockquote>
+
+<p><strong>em</strong></p>
+
+<p>含义：表示强调。</p>
+
+<p>em所指明的内容，应该比其周围的内容更重要。</p>
+
+<p>注意，如果你只是想表示斜体或者引用书名，那就不要使用em标签，而是用CSS命令（font-style:italic）。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;em&gt;我正在强调这句话。&lt;/em&gt;</p>
+
+</div></blockquote>
+
+<p><strong>strong</strong></p>
+
+<p>含义：表示比em更强的强调。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;strong&gt;我正在以更大的强度，强调这句话。&lt;/strong&gt;</p>
+
+</div></blockquote>
+
+<p><strong>address</strong></p>
+
+<p>含义：表示某个特定文档或文档的某个部分的联系信息或联络方式。</p>
+
+<p>注意：1）所有的联络方式都可以用这个标签表示，而不仅仅是地址。2）它是一个块级元素，不要用它来单独标识某个Email地址或电话号码。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;address&gt;<br>
+&lt;a href="../People/张三/"&gt;张三&lt;/a&gt;, <br>
+&lt;a href="../People/李四/"&gt;李四&lt;/a&gt;, <br>
+$ 日期：1999/12/24 23:37:50 $<br>
+&lt;/address&gt;</p>
+
+</div></blockquote>
+
+<p><strong>cite</strong></p>
+
+<p>含义：表示引述的来源。</p>
+
+<p>它用来指明书目信息、个人引语、或者参考文献中的外部资源。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;cite&gt;《哈利波特系列小说》&lt;/cite&gt;的作者是J.K.罗琳。</p>
+
+</div></blockquote>
+
+<p><strong>dfn</strong></p>
+
+<p>含义：用来表示一个定义。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;dfn&gt;Internet Explorer&lt;/dfn&gt;是最常见的浏览器。</p>
+
+</div></blockquote>
+
+<p><strong>del</strong></p>
+
+<p>含义：表示该信息已被删除。</p>
+
+<p>通常用于日期和时间，表示文档已经发生了变化。</p>
+
+<p><strong>ins</strong></p>
+
+<p>含义：与del的作用正好相反，表示修订后插入的内容。</p>
+
+<p><strong>code</strong></p>
+
+<p>含义：表示程序代码。</p>
+
+<p><strong>samp</strong></p>
+
+<p>含义：表示程序代码的输出结果。</p>
+
+<p><strong>kbd</strong></p>
+
+<p>含义：表示由用户键入的文本。</p>
+
+<p>它很少使用，但是在某些场合，你想演示如何使用一个程序，它就会有用。它通常与code和samp结合使用。</p>
+
+<p><strong>var</strong></p>
+
+<p>含义：表示程序中的变量或参数，与code, samp, kbd结合使用。</p>
+
+<p><strong>q</strong></p>
+
+<p>含义：表示一个较短的引语。</p>
+
+<p>注意：浏览器对这个标签的支持很不好，因此不推荐使用。</p>
+
+<p><strong>sub/sup</strong></p>
+
+<p>含义：表示下标/上标。</p>
+
+<p><strong>span</strong></p>
+
+<p>含义：用来标识其他标签不适合表示的内容，是一个通用型的行内标签。</p>
+
+<p><strong>三、列表元素</strong></p>
+
+<p><strong>ul, ol, li</strong></p>
+
+<p>含义：表示一组相同格式的信息。</p>
+
+<p>当你有一张清单的时候，就应该使用列表元素。ul是无序列表，通常前面有一个强调符号；ol是有序列表，前面通常采用数字编号。</p>
+
+<p><strong>dl, dd, dt</strong></p>
+
+<p>含义：表示一个术语列表。</p>
+
+<p>dt表示术语，dd表示该术语的定义，可以为单个术语提供多个定义。</p>
+
+<blockquote><div>
+
+<p>示例：</p>
+
+<p>&lt;dl&gt;<br>
+&lt;dt&gt;虚怀&lt;/dt&gt;<br>
+&lt;dd&gt;胸襟宽大,虚心谦退&lt;/dd&gt;<br>
+&lt;dt&gt;虚荣&lt;/dt&gt;<br>
+&lt;dd&gt;表面上的荣耀；虚假的荣名&lt;/dd&gt;<br>
+&lt;dt&gt;虚构&lt;/dt&gt;<br>
+&lt;dd&gt;凭想像编造出来&lt;/dd&gt;<br>
+&lt;/dl&gt;</p>
+
+</div></blockquote>
+
+<p><strong>四、表格元素</strong></p>
+
+<p>参见我整理的<a href="http://www.ruanyifeng.com/blog/2009/05/html_table_mastering.html" target="_blank">《精通HTML表格的使用》</a>一文。</p>
+
+<p><strong>五、分割元素</strong></p>
+
+<p><strong>br</strong></p>
+
+<p>含义：表示换行。</p>
+
+<p>注意，除了少数场合（比如诗歌中的分行），应该尽量避免使用这个标签，因为它并没有特别的语义含义，而且分行的视觉效果完全可以通过p标签、列表标签和CSS命令达到。</p>
+
+<p><strong>hr</strong></p>
+
+<p>含义：表示两个部分之间用一根水平直线分割。</p>
+
+<p>事实上，不用这个标签，也有办法显示水平直线。这个标签的唯一优势，也许就是在没有CSS的场合，它可以产生视觉分割的效果。</p>
+
+<p><strong>六、不建议使用的元素</strong></p>
+
+<p>以下的标签都没有明确的语义，只涉及到视觉效果，很可能在以后版本的HTML语言中被废除。建议不要使用。</p>
+
+<blockquote><div>
+
+<p>    * big<br>
+    * small<br>
+    * b<br>
+    * i<br>
+    * tt<br>
+    * pre</p>
+
+</div></blockquote>
+
+<p><strong>七、已经被废除的标签</strong></p>
+
+<p>下面的标签已经被废除，不应该继续使用了。</p>
+
+<blockquote><div>
+
+<p>    * applet<br>
+    * center<br>
+    * font<br>
+    * dir<br>
+    * isindex<br>
+    * menu<br>
+    * s<br>
+    * strike<br>
+    * u</p>
+
+</div></blockquote>
+
+<p>[参考文献]</p>
+
+<p>* <a href="http://brainstormsandraves.com/articles/semantics/structure/" target="_blank">Semantics, HTML, XHTML, and Structure </a><br>
+* <a href="http://www.joedolson.com/articles/2008/04/guide-to-semantic-html/" target="_blank">Guide to Semantic Use of HTML Elements</a> <br>
+* <a href="http://www.mozilla.org/contribute/writing/markup" target="_blank">mozilla.org Markup Reference</a> </p>
+
+<p>（完）</p>
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./HTML语言编写指南 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2009-05-17T22:54:35+08:00">2009年5月17日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（18条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-181874" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">le</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181874">
+            <p>非常感谢呀 正打算有时间学学呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 17, 2009 11:48 PM">2009年5月17日 23:48</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181874">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用le的这条留言" onclick="return CommentQuote(&#39;comment-quote-181874&#39;,&#39;le&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181875" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ppleaseme</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181875">
+            <p><a href="https://docs.google.com/Doc?id=d3pv9xk_49f8jkhjg2" rel="nofollow">https://docs.google.com/Doc?id=d3pv9xk_49f8jkhjg2</a></p>
+
+<p><a href="http://www.flickr.com/photos/please-me/" rel="nofollow">http://www.flickr.com/photos/please-me/</a><br>
+我们不曾遇见温总理，请救救白血病儿童！！<br>
+  我叫赵功亮，安徽省宿松县龙潭村人士，是一名普通的农民.<br>
+      今年4月，两岁的小子赵天宇被查处患有白血病All L2 型白血病，整个家庭如晴天霹雳， <br>
+为此我夫妻二人不得不只身离开老家来上海求医，小儿现就诊于上海儿童医学中心。经过医院的准确诊断和初期的化疗，儿子的病情已初步缓解。<br>
+       让人庆幸的是儿童中心的陈静医生介绍说小儿患的是急性淋巴性白血病，属于低微型，完全有机会治愈。听到这样的消息我们真是喜忧参半，高兴的是儿子病经过近 10个疗程的化疗被治愈的肯能你性非常大，而不需要进行什么骨髓的更换，然而更让我们忧郁的是面对高昂的治疗费用，我不知道我们是不是能否坚持到最后。上 月从亲戚处东凑西借来的近三万眼看就要分文不剩，化疗的第一个疗程和住院费已交了两万多，而在上海这给消费高的城市，我们夫妻的生活已是举步维艰，但仍要 给可爱的儿子足够的营养让他有体力能够化疗。尽管这样，面对日益恢复的儿子我总对他又很多的愧疚感，因为到了第三个疗程我们已是无法的支付医药费而不得不 离开医院。每想到此我总是会在深夜流泪。<br>
+      为了小儿的病，家里的一切都仍下，面对念初中的大儿子我们也是无力的照料，家里的地也是扔给了亲戚朋友，现在已是没有来源。家乡以种棉为生，不料去年的棉 花价格大跌，辛苦了一年的劳动只能勉强保住农药种子的成本费用，要不是靠平时打打零工积攒来的几千块钱和亲戚们处借来的，我想我们第一个疗程都不能做，只 有眼睁着看儿子的病情恶化。我们不曾有天津的那位病友的父母的好运气能够遇到总理，我们只有寄希望与社会，希望社会的好心人能够给予我们帮助，帮助我挽回 一个可爱的生命！！感激涕零<br>
+赵功亮：13671832595    上海儿童医学中心上海市东方路1678号血液科    021-38626161 。<br>
+代联信箱 ppleaseme@gmail.com<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 17, 2009 11:52 PM">2009年5月17日 23:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181875">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用ppleaseme的这条留言" onclick="return CommentQuote(&#39;comment-quote-181875&#39;,&#39;ppleaseme&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181883" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">chao</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181883">
+            <p>请教一个问题，既然现在有可视化的网页设计工具了，为什么还需要html？ 为什么网页设计不能像用word那样排版？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  4:03 AM">2009年5月18日 04:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181883">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用chao的这条留言" onclick="return CommentQuote(&#39;comment-quote-181883&#39;,&#39;chao&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181894" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://lifesinger.org/" href="http://lifesinger.org/" target="_blank" rel="nofollow">lifesinger</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181894">
+            <p>dl用来表达对话，是html4规范中的一处horse’s mouth</p>
+
+<p>Typical uses (and hence values) for definition lists include:</p>
+
+<p>    * glossaries, such as the example shown above (term: definition)<br>
+    * event listing (title of event: description of event)<br>
+    * web site directory (web site name with link: description of web site)</p>
+
+<p>Some people use definition lists for the purposes of marking up dialogues (using dt to denote the speakers, and dd for the words they say). This approach has come straight from the horse’s mouth—the W3C HTML recommendation states that "Another application of dl is for marking up dialogs"—but many people argue that it represents bad practice and is somewhat misguided. You may see definitions lists used in this way, but arguably you shouldn’t use them for this purpose, despite what the W3C says, because they’re designed to mark up lists of definitions.</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  8:13 AM">2009年5月18日 08:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181894">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用lifesinger的这条留言" onclick="return CommentQuote(&#39;comment-quote-181894&#39;,&#39;lifesinger&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181896" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">joiho</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181896">
+            <p>可能有代码冗余吧<br>
+可视化工具毕竟不是人脑</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  8:45 AM">2009年5月18日 08:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181896">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用joiho的这条留言" onclick="return CommentQuote(&#39;comment-quote-181896&#39;,&#39;joiho&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181897" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.niubaobao.org" href="http://www.niubaobao.org/" target="_blank" rel="nofollow">张昭</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181897">
+            <p>我觉得自己最常用的就是div,p,ul,li,br,hr</p>
+
+<p>一张好的HTML网页，除了要在IE各种版本下正常运行（浏览与功能）之外，还要确保在其它浏览器（Firefox, Opera）和操作系统(apple)下正常运行，做到这几点是很不容易的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  8:59 AM">2009年5月18日 08:59</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181897">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用张昭的这条留言" onclick="return CommentQuote(&#39;comment-quote-181897&#39;,&#39;张昭&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181902" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://dotnil.yo2.cn" href="http://dotnil.yo2.cn/" target="_blank" rel="nofollow">nil</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181902">
+            <p>pre 标签被 deprecate 掉了？<br>
+我觉得用起来很方便啊…… </p>
+
+<p>那有可用以替换的标签嘛？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  9:55 AM">2009年5月18日 09:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181902">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用nil的这条留言" onclick="return CommentQuote(&#39;comment-quote-181902&#39;,&#39;nil&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181909" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://showfom.com/" href="http://showfom.com/" target="_blank" rel="nofollow">Showfom</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181909">
+            <p>pre我也一直在使用呢</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009 11:45 AM">2009年5月18日 11:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181909">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用Showfom的这条留言" onclick="return CommentQuote(&#39;comment-quote-181909&#39;,&#39;Showfom&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181914" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jing</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181914">
+            <p>继续关注！看到现在的网页越来越漂亮了，尤其是人性化越做越好，很羡慕，很羡慕。但那似乎太难了，HTML、css、javascript、ajax、php、MySQL……尤其是艺术细胞奇缺，这简直就是艺术家的工作。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  1:14 PM">2009年5月18日 13:14</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181914">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用jing的这条留言" onclick="return CommentQuote(&#39;comment-quote-181914&#39;,&#39;jing&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181918" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">cq78</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181918">
+            <p>基础的东西，几乎被忽视了··</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 18, 2009  2:15 PM">2009年5月18日 14:15</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181918">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用cq78的这条留言" onclick="return CommentQuote(&#39;comment-quote-181918&#39;,&#39;cq78&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181976" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Ruan YiFeng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181976">
+            <blockquote>
+<pre>引用chao的发言：</pre>
+
+<p>既然现在有可视化的网页设计工具了，为什么还需要html？</p>
+
+</blockquote>
+
+<p>为了对网页精确控制呀，否则就没办法添加CSS和javascript。</p>
+
+<blockquote>
+<pre>引用lifesinger的发言：</pre>
+
+<p> dl用来表达对话，是html4规范中的一处horse’s mouth</p>
+
+</blockquote>
+
+<p>多谢指出，我其实也觉得dl用来标识对话不太合理，但是有的外文资料上这样写了，我也就跟着写了，我这就删去。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 19, 2009 10:37 PM">2009年5月19日 22:37</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181976">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用Ruan YiFeng的这条留言" onclick="return CommentQuote(&#39;comment-quote-181976&#39;,&#39;Ruan YiFeng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-181977" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Ruan YiFeng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-181977">
+            <blockquote>
+<pre>引用nil的发言：</pre>
+
+<p> pre 标签被 deprecate 掉了？<br>
+我觉得用起来很方便啊…… </p>
+
+<p>那有可用以替换的标签嘛？</p>
+
+</blockquote>
+
+<p>我觉得，pre没有语义上的含义，根据语义网原则确实应该废除。</p>
+
+<p>至于替换标签，在语义网中，确实找不到。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 19, 2009 10:41 PM">2009年5月19日 22:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-181977">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用Ruan YiFeng的这条留言" onclick="return CommentQuote(&#39;comment-quote-181977&#39;,&#39;Ruan YiFeng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-182153" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://dotnil.yo2.cn" href="http://dotnil.yo2.cn/" target="_blank" rel="nofollow">nil</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-182153">
+            <blockquote>
+<pre>引用Ruan YiFeng的发言：</pre>
+
+<p> </p>
+
+<p>我觉得，pre没有语义上的含义，根据语义网原则确实应该废除。</p>
+
+<p>至于替换标签，在语义网中，确实找不到。</p>
+
+</blockquote>
+有趣的是，你的博客就在用的……
+&lt;pre&gt;引用Ruan YiFeng的发言：&lt;/pre&gt;
+
+<p>pre 是唯一一个让换行符原文显示的标签了吧？去掉了贴代码能烦死……</p>
+
+<p>一个是 &lt;pre class="code" /&gt; 一个是 &lt;blockquote&gt; 嵌套一堆 p，你觉得哪个更语义化一点呢？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 21, 2009  3:00 PM">2009年5月21日 15:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-182153">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用nil的这条留言" onclick="return CommentQuote(&#39;comment-quote-182153&#39;,&#39;nil&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-182359" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Ruan YiFeng</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-182359">
+            <p>To nil:</p>
+
+<p>pre唯一的好处就是能够保持缩进和换行，但是容易被滥用。也许W3C未来应该再发明一个特定的用于显示代码的标签。 </p>
+
+<p>至于我的blog模板，那是以前不懂的时候写的，很不规划，将来会改掉的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 24, 2009  1:20 PM">2009年5月24日 13:20</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-182359">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用Ruan YiFeng的这条留言" onclick="return CommentQuote(&#39;comment-quote-182359&#39;,&#39;Ruan YiFeng&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-182411" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.niubaobao.org" href="http://www.niubaobao.org/" target="_blank" rel="nofollow">张昭</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-182411">
+            <p>To share with you, </p>
+
+<p><a href="http://www.alistapart.com/articles/previewofhtml5" rel="nofollow">http://www.alistapart.com/articles/previewofhtml5</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 25, 2009  2:43 PM">2009年5月25日 14:43</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-182411">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用张昭的这条留言" onclick="return CommentQuote(&#39;comment-quote-182411&#39;,&#39;张昭&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-193370" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.huachen.me/" href="http://blog.huachen.me/" target="_blank" rel="nofollow">华晨</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-193370">
+            <p>写的真详细，也很简单 很适合学习 谢谢！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 25, 2009  3:04 PM">2009年10月25日 15:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-193370">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用华晨的这条留言" onclick="return CommentQuote(&#39;comment-quote-193370&#39;,&#39;华晨&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-268674" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">格格巫</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-268674">
+            <p>“不是在沉默中爆发，就是在沉默中灭亡。”这句，高中的时候学过，应该是《纪念刘和珍君》-鲁迅 里的，鲁迅《为了忘却的纪念》我没读过，百度说是鲁迅先生为了纪念“左联”五烈士写的，不知是不是有子集什么的关系...</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 11, 2013 11:25 PM">2013年2月11日 23:25</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-268674">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用格格巫的这条留言" onclick="return CommentQuote(&#39;comment-quote-268674&#39;,&#39;格格巫&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-384403" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">guixue</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-384403">
+            <p>阮老师，您是否少写了一个 img元素？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 11, 2018 11:09 AM">2018年1月11日 11:09</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-384403">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2009/05/guide_to_semantic_html_elements.html#comment-text" title="引用guixue的这条留言" onclick="return CommentQuote(&#39;comment-quote-384403&#39;,&#39;guixue&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1232">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./HTML语言编写指南 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./HTML语言编写指南 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./HTML语言编写指南 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./HTML语言编写指南 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share">分享按钮</a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./HTML语言编写指南 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+</body></html>

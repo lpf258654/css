@@ -1,0 +1,2505 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0057)http://www.ruanyifeng.com/blog/2017/05/css-variables.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS 变量教程 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS 变量教程 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS 变量教程 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS 变量教程 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html" title="Fish shell 入门教程">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" title="WebSocket 教程">
+    
+    <title>CSS 变量教程 - 阮一峰的网络日志</title>
+<script src="./CSS 变量教程 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 变量教程 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS 变量教程 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 变量教程 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS 变量教程 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS 变量教程 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1933" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html" title="Fish shell 入门教程">Fish&nbsp;shell&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" title="WebSocket 教程">WebSocket&nbsp;教</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/fish_shell.html" title="Fish shell 入门教程">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/05/websocket.html" title="WebSocket 教程">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS 变量教程</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 变量教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2017/05/"><abbr class="published" title="2017-05-09T08:04:45+08:00">2017年5月 9日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>今年三月，微软<a href="https://www.neowin.net/news/css-custom-properties-are-coming-to-microsoft-edge-in-the-windows-10-creators-update" target="_blank">宣布</a> Edge 浏览器将支持 CSS 变量。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p>这个重要的 CSS 新功能，所有主要浏览器已经都支持了。本文全面介绍如何使用它，你会发现原生 CSS 从此变得异常强大。</p>
+
+<p><img src="./CSS 变量教程 - 阮一峰的网络日志_files/bg2017050901.jpg" alt="" title=""></p>
+
+<h2>一、变量的声明</h2>
+
+<p>声明变量的时候，变量名前面要加两根连词线（<code>--</code>）。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">--foo</span><span class="token punctuation">:</span> #7F583F<span class="token punctuation">;</span>
+  <span class="token property">--bar</span><span class="token punctuation">:</span> #F7EFD2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>body</code>选择器里面声明了两个变量：<code>--foo</code>和<code>--bar</code>。</p>
+
+<p>它们与<code>color</code>、<code>font-size</code>等正式属性没有什么不同，只是没有默认含义。所以 CSS 变量（CSS variable）又叫做<strong>"CSS 自定义属性"</strong>（CSS custom properties）。因为变量与自定义的 CSS 属性其实是一回事。</p>
+
+<p>你可能会问，为什么选择两根连词线（<code>--</code>）表示变量？因为<code>$foo</code>被 Sass 用掉了，<code>@foo</code>被 Less 用掉了。为了不产生冲突，官方的 CSS 变量就改用两根连词线了。 </p>
+
+<p>各种值都可以放入 CSS 变量。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">:root</span><span class="token punctuation">{</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> #4d4e53<span class="token punctuation">;</span>
+  <span class="token property">--main-bg</span><span class="token punctuation">:</span> rgb(255, 255, 255)<span class="token punctuation">;</span>
+  <span class="token property">--logo-border-color</span><span class="token punctuation">:</span> rebeccapurple<span class="token punctuation">;</span>
+
+  <span class="token property">--header-height</span><span class="token punctuation">:</span> 68px<span class="token punctuation">;</span>
+  <span class="token property">--content-padding</span><span class="token punctuation">:</span> 10px 20px<span class="token punctuation">;</span>
+
+  <span class="token property">--base-line-height</span><span class="token punctuation">:</span> 1.428571429<span class="token punctuation">;</span>
+  <span class="token property">--transition-duration</span><span class="token punctuation">:</span> .35s<span class="token punctuation">;</span>
+  <span class="token property">--external-link</span><span class="token punctuation">:</span> <span class="token string">"external link"</span><span class="token punctuation">;</span>
+  <span class="token property">--margin-top</span><span class="token punctuation">:</span> calc(2vh + 20px)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>变量名大小写敏感，<code>--header-color</code>和<code>--Header-Color</code>是两个不同变量。</p>
+
+<h2>二、var() 函数</h2>
+
+<p><code>var()</code>函数用于读取变量。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">a </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> var(--foo)<span class="token punctuation">;</span>
+  <span class="token property">text-decoration-color</span><span class="token punctuation">:</span> var(--bar)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p><code>var()</code>函数还可以使用第二个参数，表示变量的默认值。如果该变量不存在，就会使用这个默认值。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token property">color</span><span class="token punctuation">:</span> var(--foo, #7F583F)<span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>第二个参数不处理内部的逗号或空格，都视作参数的一部分。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+var(--font-stack, <span class="token string">"Roboto"</span>, <span class="token string">"Helvetica"</span>)<span class="token punctuation">;</span>
+var(--pad, 10px 15px 20px)<span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p><code>var()</code>函数还可以用在变量的声明。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">:root </span><span class="token punctuation">{</span>
+  <span class="token property">--primary-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token property">--logo-text</span><span class="token punctuation">:</span> var(--primary-color)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>注意，变量值只能用作属性值，不能用作属性名。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">.foo </span><span class="token punctuation">{</span>
+  <span class="token property">--side</span><span class="token punctuation">:</span> margin-top<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/* 无效 */</span>
+  var(--side)<span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，变量<code>--side</code>用作属性名，这是无效的。</p>
+
+<h2>三、变量值的类型</h2>
+
+<p>如果变量值是一个字符串，可以与其他字符串拼接。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token property">--bar</span><span class="token punctuation">:</span> <span class="token string">'hello'</span><span class="token punctuation">;</span>
+<span class="token property">--foo</span><span class="token punctuation">:</span> var(--bar)<span class="token string">' world'</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>利用这一点，可以 debug（<a href="https://codepen.io/malyw/pen/oBWMOY" target="_blank">例子</a>）。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">body:after </span><span class="token punctuation">{</span>
+  <span class="token property">content</span><span class="token punctuation">:</span> '<span class="token property">--screen-category</span> <span class="token punctuation">:</span> 'var(--screen-category)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>如果变量值是数值，不能与数值单位直接连用。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">.foo </span><span class="token punctuation">{</span>
+  <span class="token property">--gap</span><span class="token punctuation">:</span> 20<span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">/* 无效 */</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> var(--gap)px<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，数值与单位直接写在一起，这是无效的。必须使用<code>calc()</code>函数，将它们连接。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">.foo </span><span class="token punctuation">{</span>
+  <span class="token property">--gap</span><span class="token punctuation">:</span> 20<span class="token punctuation">;</span>
+  <span class="token property">margin-top</span><span class="token punctuation">:</span> calc(var(--gap) * 1px)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>如果变量值带有单位，就不能写成字符串。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token comment" spellcheck="true">/* 无效 */</span>
+<span class="token selector">.foo </span><span class="token punctuation">{</span>
+  <span class="token property">--foo</span><span class="token punctuation">:</span> <span class="token string">'20px'</span><span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> var(--foo)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/* 有效 */</span>
+<span class="token selector">.foo </span><span class="token punctuation">{</span>
+  <span class="token property">--foo</span><span class="token punctuation">:</span> 20px<span class="token punctuation">;</span>
+  <span class="token property">font-size</span><span class="token punctuation">:</span> var(--foo)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<h2>四、作用域</h2>
+
+<p>同一个 CSS 变量，可以在多个选择器内声明。读取的时候，优先级最高的声明生效。这与 CSS 的"层叠"（cascade）规则是一致的。</p>
+
+<p>下面是一个<a href="http://jsbin.com/buwahixoqo/edit?html,css,output" target="_blank">例子</a>。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token style"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">&gt;</span></span>
+  <span class="token selector">:root </span><span class="token punctuation">{</span> <span class="token property">--color</span><span class="token punctuation">:</span> blue<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token selector">div </span><span class="token punctuation">{</span> <span class="token property">--color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token selector">#alert </span><span class="token punctuation">{</span> <span class="token property">--color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token selector">* </span><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> var(--color)<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">&gt;</span></span>蓝色<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">&gt;</span></span>绿色<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>alert<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>红色<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，三个选择器都声明了<code>--color</code>变量。不同元素读取这个变量的时候，会采用优先级最高的规则，因此三段文字的颜色是不一样的。</p>
+
+<p>这就是说，变量的作用域就是它所在的选择器的有效范围。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">--foo</span><span class="token punctuation">:</span> #7F583F<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">.content </span><span class="token punctuation">{</span>
+  <span class="token property">--bar</span><span class="token punctuation">:</span> #F7EFD2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>上面代码中，变量<code>--foo</code>的作用域是<code>body</code>选择器的生效范围，<code>--bar</code>的作用域是<code>.content</code>选择器的生效范围。</p>
+
+<p>由于这个原因，全局的变量通常放在根元素<code>:root</code>里面，确保任何选择器都可以读取它们。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">:root </span><span class="token punctuation">{</span>
+  <span class="token property">--main-color</span><span class="token punctuation">:</span> #06c<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<h2>五、响应式布局</h2>
+
+<p>CSS 是动态的，页面的任何变化，都会导致采用的规则变化。</p>
+
+<p>利用这个特点，可以在响应式布局的<code>media</code>命令里面声明变量，使得不同的屏幕宽度有不同的变量值。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">body </span><span class="token punctuation">{</span>
+  <span class="token property">--primary</span><span class="token punctuation">:</span> #7F583F<span class="token punctuation">;</span>
+  <span class="token property">--secondary</span><span class="token punctuation">:</span> #F7EFD2<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector">a </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> var(--primary)<span class="token punctuation">;</span>
+  <span class="token property">text-decoration-color</span><span class="token punctuation">:</span> var(--secondary)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule">@media screen and (min-width<span class="token punctuation">:</span> 768px)</span> <span class="token punctuation">{</span>
+  <span class="token selector">body </span><span class="token punctuation">{</span>
+    <span class="token property">--primary</span><span class="token punctuation">:</span>  #F7EFD2<span class="token punctuation">;</span>
+    <span class="token property">--secondary</span><span class="token punctuation">:</span> #7F583F<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<h2>六、兼容性处理</h2>
+
+<p>对于不支持 CSS 变量的浏览器，可以采用下面的写法。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">a </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #7F583F<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> var(--primary)<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>也可以使用<code>@support</code>命令进行检测。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token atrule">@supports ( (--a<span class="token punctuation">:</span> 0))</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* supported */</span>
+<span class="token punctuation">}</span>
+
+<span class="token atrule">@supports ( not (--a<span class="token punctuation">:</span> 0))</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* not supported */</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<h2>七、JavaScript 操作</h2>
+
+<p>JavaScript 也可以检测浏览器是否支持 CSS 变量。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const isSupported <span class="token operator">=</span>
+  window<span class="token punctuation">.</span>CSS <span class="token operator">&amp;&amp;</span>
+  window<span class="token punctuation">.</span>CSS<span class="token punctuation">.</span>supports <span class="token operator">&amp;&amp;</span>
+  window<span class="token punctuation">.</span>CSS<span class="token punctuation">.</span><span class="token function">supports<span class="token punctuation">(</span></span><span class="token string">'--a'</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>isSupported<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* supported */</span>
+<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">/* not supported */</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>JavaScript 操作 CSS 变量的写法如下。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript"><span class="token comment" spellcheck="true">
+// 设置变量
+</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span><span class="token function">setProperty<span class="token punctuation">(</span></span><span class="token string">'--primary'</span><span class="token punctuation">,</span> <span class="token string">'#7F583F'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">
+// 读取变量
+</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span><span class="token function">getPropertyValue<span class="token punctuation">(</span></span><span class="token string">'--primary'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">trim<span class="token punctuation">(</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token comment" spellcheck="true">
+// '#7F583F'
+</span><span class="token comment" spellcheck="true">
+// 删除变量
+</span>document<span class="token punctuation">.</span>body<span class="token punctuation">.</span>style<span class="token punctuation">.</span><span class="token function">removeProperty<span class="token punctuation">(</span></span><span class="token string">'--primary'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>这意味着，JavaScript 可以将任意值存入样式表。下面是一个监听事件的例子，事件信息被存入 CSS 变量。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+const docStyle <span class="token operator">=</span> document<span class="token punctuation">.</span>documentElement<span class="token punctuation">.</span>style<span class="token punctuation">;</span>
+
+document<span class="token punctuation">.</span><span class="token function">addEventListener<span class="token punctuation">(</span></span><span class="token string">'mousemove'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">&gt;</span> <span class="token punctuation">{</span>
+  docStyle<span class="token punctuation">.</span><span class="token function">setProperty<span class="token punctuation">(</span></span><span class="token string">'--mouse-x'</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>clientX<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  docStyle<span class="token punctuation">.</span><span class="token function">setProperty<span class="token punctuation">(</span></span><span class="token string">'--mouse-y'</span><span class="token punctuation">,</span> e<span class="token punctuation">.</span>clientY<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>那些对 CSS 无用的信息，也可以放入 CSS 变量。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token property">--foo</span><span class="token punctuation">:</span> if(x &gt; 5) this.width = 10<span class="token punctuation">;</span>
+</code></pre></blockquote>
+
+<p>上面代码中，<code>--foo</code>的值在 CSS 里面是无效语句，但是可以被 JavaScript 读取。这意味着，可以把样式设置写在 CSS 变量中，让 JavaScript 读取。</p>
+
+<p>所以，CSS 变量提供了 JavaScript 与 CSS 通信的一种途径。</p>
+
+<h2>八、参考链接</h2>
+
+<ul>
+<li><a href="https://vgpena.github.io/winning-with-css-variables/" target="_blank">Winning with CSS Variables</a></li>
+<li><a href="https://developers.google.com/web/updates/2016/02/css-variables-why-should-you-care" target="_blank">CSS Variables: Why Should You Care?</a></li>
+<li><a href="https://www.smashingmagazine.com/2017/04/start-using-css-custom-properties/" target="_blank">It's Time To Start Using CSS Custom Properties</a></li>
+<li><a href="https://philipwalton.com/articles/why-im-excited-about-native-css-variables/" target="_blank">Why I'm Excited About Native CSS Variables</a></li>
+</ul>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS 变量教程 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2017-05-09T08:04:45+08:00">2017年5月 9日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（50条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-376956" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Viky</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376956">
+            <p>感觉官方语法比 SASS、LESS 更罗嗦</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  8:13 AM">2017年5月 9日 08:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376956">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用Viky的这条留言" onclick="return CommentQuote(&#39;comment-quote-376956&#39;,&#39;Viky&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376957" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://inkzhou.com" href="http://inkzhou.com/" target="_blank" rel="nofollow">小小啊咪哒</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376957">
+            <p>嗨呀，没有SCSS和LESS的&amp;，好可惜</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  8:16 AM">2017年5月 9日 08:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376957">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用小小啊咪哒的这条留言" onclick="return CommentQuote(&#39;comment-quote-376957&#39;,&#39;小小啊咪哒&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376958" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.cdswyda.com/" href="http://blog.cdswyda.com/" target="_blank" rel="nofollow">依韵</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376958">
+            <p>如果能良好的发展，这东西用处真不少！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  8:18 AM">2017年5月 9日 08:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376958">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用依韵的这条留言" onclick="return CommentQuote(&#39;comment-quote-376958&#39;,&#39;依韵&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376959" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.csdn.net/fungleo" href="http://blog.csdn.net/fungleo" target="_blank" rel="nofollow">FungLeo</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376959">
+            <p>目前而言，sass不能被取代掉，就像jquery不能被取代掉一样。毕竟原生繁琐了许多。但是原生也不可忽视，就是sass等最终是编译成css的。所以，还想可以玩得更嗨！~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:15 AM">2017年5月 9日 09:15</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376959">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用FungLeo的这条留言" onclick="return CommentQuote(&#39;comment-quote-376959&#39;,&#39;FungLeo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376960" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://blog.wanghaida.com/" href="https://blog.wanghaida.com/" target="_blank" rel="nofollow">王海达博客</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376960">
+            <p>也不支持嵌套，函数，判断，还是有待发展。希望越来越好。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:17 AM">2017年5月 9日 09:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376960">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用王海达博客的这条留言" onclick="return CommentQuote(&#39;comment-quote-376960&#39;,&#39;王海达博客&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376961" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://qifu.me" href="https://qifu.me/" target="_blank" rel="nofollow">瑾瑜</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376961">
+            <p>这些新功能总要考虑兼容性，有点麻烦啊。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:35 AM">2017年5月 9日 09:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376961">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用瑾瑜的这条留言" onclick="return CommentQuote(&#39;comment-quote-376961&#39;,&#39;瑾瑜&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376962" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://fedorjia.github.com" href="http://fedorjia.github.com/" target="_blank" rel="nofollow">fedor</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376962">
+            <p>不支持嵌套么，这个是根本问题。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:45 AM">2017年5月 9日 09:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376962">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用fedor的这条留言" onclick="return CommentQuote(&#39;comment-quote-376962&#39;,&#39;fedor&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376963" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://xenojoshua.com" href="http://xenojoshua.com/" target="_blank" rel="nofollow">agreatfool</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376963">
+            <p>使用变量要写那么多东西，真心不知道怎么想的，这语法太啰嗦了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:50 AM">2017年5月 9日 09:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376963">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用agreatfool的这条留言" onclick="return CommentQuote(&#39;comment-quote-376963&#39;,&#39;agreatfool&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376964" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">戈饭</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376964">
+            <p>以后sass，less编译的css会不会也有相应变化</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  9:55 AM">2017年5月 9日 09:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376964">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用戈饭的这条留言" onclick="return CommentQuote(&#39;comment-quote-376964&#39;,&#39;戈饭&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376967" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">饭饭</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376967">
+            <p>css越来越强大，浏览器兼容性越来越好越来越统一，感觉less和sass最后终将退出舞台。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017 10:27 AM">2017年5月 9日 10:27</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376967">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用饭饭的这条留言" onclick="return CommentQuote(&#39;comment-quote-376967&#39;,&#39;饭饭&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376968" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.lovejavascript.com" href="http://www.lovejavascript.com/" target="_blank" rel="nofollow">拭目以待</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376968">
+            <p>对这个特别感兴趣</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017 10:30 AM">2017年5月 9日 10:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376968">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用拭目以待的这条留言" onclick="return CommentQuote(&#39;comment-quote-376968&#39;,&#39;拭目以待&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376977" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://github.com/superwoods" href="http://github.com/superwoods" target="_blank" rel="nofollow">Moo木</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376977">
+            <p>看到很多小伙伴吐槽语法太繁琐，可以理解，但是换个角度：根据自己的使用场景取舍不就行了？<br>
+我始终认为没有最好的技术，选择最适合的而已。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017 11:35 AM">2017年5月 9日 11:35</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376977">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用Moo木的这条留言" onclick="return CommentQuote(&#39;comment-quote-376977&#39;,&#39;Moo木&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376980" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jerossh</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376980">
+            <p>感觉我这种 使用 stylus 的应该不多吧。。。。不喜欢 花括号就是了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  2:18 PM">2017年5月 9日 14:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376980">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用jerossh的这条留言" onclick="return CommentQuote(&#39;comment-quote-376980&#39;,&#39;jerossh&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-376993" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">安安</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-376993">
+            <p>期待已久，css非常强大，可以抛弃sass和less了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May  9, 2017  6:03 PM">2017年5月 9日 18:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-376993">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用安安的这条留言" onclick="return CommentQuote(&#39;comment-quote-376993&#39;,&#39;安安&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377031" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Kevin</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377031">
+            <p>感觉css正在往复杂化发展，往编程逻辑上越靠越近。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 10, 2017  9:12 PM">2017年5月10日 21:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377031">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用Kevin的这条留言" onclick="return CommentQuote(&#39;comment-quote-377031&#39;,&#39;Kevin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377032" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://orro.ro/" href="https://orro.ro/" target="_blank" rel="nofollow">钛客志</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377032">
+            <p>Css开始变得越来越复杂了，语法也变复杂了，向下兼容也是一个逃不开的一面</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 11, 2017 12:04 AM">2017年5月11日 00:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377032">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用钛客志的这条留言" onclick="return CommentQuote(&#39;comment-quote-377032&#39;,&#39;钛客志&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377049" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">读心</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377049">
+            <p>增加变量有什么特别的优势吗</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 11, 2017 11:16 AM">2017年5月11日 11:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377049">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用读心的这条留言" onclick="return CommentQuote(&#39;comment-quote-377049&#39;,&#39;读心&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377066" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">wangxf</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377066">
+            好啰嗦
+<p>看起来并不是很好用啊，反正现在有sass，各种构建</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 11, 2017  7:58 PM">2017年5月11日 19:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377066">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用wangxf的这条留言" onclick="return CommentQuote(&#39;comment-quote-377066&#39;,&#39;wangxf&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377078" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">夜幕下的猫</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377078">
+            <p>作用域简直匪夷所思，让CSS更加混乱不堪。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 12, 2017  1:05 PM">2017年5月12日 13:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377078">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用夜幕下的猫的这条留言" onclick="return CommentQuote(&#39;comment-quote-377078&#39;,&#39;夜幕下的猫&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377085" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.jshacker.com" href="http://www.jshacker.com/" target="_blank" rel="nofollow">寄爱思黑客</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377085">
+            <p>好东西，但是因为Sass和Less把 $和@ 用掉就妥协为：--，真是挺可惜的，这可是官方的，为什么要在乎那些第三方的规范，被第三方所左右，微软的架构师也是窝囊。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 12, 2017  6:17 PM">2017年5月12日 18:17</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377085">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用寄爱思黑客的这条留言" onclick="return CommentQuote(&#39;comment-quote-377085&#39;,&#39;寄爱思黑客&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377098" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.mengxiangjia.info" href="http://www.mengxiangjia.info/" target="_blank" rel="nofollow">梦想.家</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377098">
+            <p>个人还是比较倾向第三方的sass,less。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 13, 2017 11:16 AM">2017年5月13日 11:16</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377098">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用梦想.家的这条留言" onclick="return CommentQuote(&#39;comment-quote-377098&#39;,&#39;梦想.家&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377111" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://xuxun.me" href="http://xuxun.me/" target="_blank" rel="nofollow">吃土小2叉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377111">
+            <p>第一次读的时候觉得似乎觉得 css 变量没有什么亮点。</p>
+
+<p>然后仔细看了看，发现<b>响应式布局</b>很有趣，至少在 less 或者 sass 中，是无法直接做到根据不同的设备尺寸，定义不同的变量的，具体场景比如：</p>
+
+<p>对于 &gt; 750 设备宽度，设置 rem 作为字体单位； </p>
+
+<p>对于 %lt; 750 设备宽度，设置 px 为字体单位</p>
+
+<p>这一点在 less 或者 sass 中无法做到，因为是预处理的特性（如果能，各位大神欢迎指正~）</p>
+
+<p>所以在 css 变量出现以前，除非借助于 js ，否则是无法实现动态响应式的。</p>
+
+<p>因为动态 css 变量的出现，感觉又会多出不少响应式的可能性以及其他黑科技应用。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 13, 2017  4:55 PM">2017年5月13日 16:55</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377111">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用吃土小2叉的这条留言" onclick="return CommentQuote(&#39;comment-quote-377111&#39;,&#39;吃土小2叉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377113" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">背包客易先生</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377113">
+            <p>既然都开始支持css变量了，能不能替代sass和less不好说。但是css的功能又变得强大了很多。 </p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 13, 2017  4:58 PM">2017年5月13日 16:58</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377113">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用背包客易先生的这条留言" onclick="return CommentQuote(&#39;comment-quote-377113&#39;,&#39;背包客易先生&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377183" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.createjs.cc" href="http://www.createjs.cc/" target="_blank" rel="nofollow">lengziyu</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377183">
+            <p>@吃土小2叉 `@media`本来不就有CSS3的属性嘛，less sass为什么不可以。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 16, 2017  9:28 AM">2017年5月16日 09:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377183">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用lengziyu的这条留言" onclick="return CommentQuote(&#39;comment-quote-377183&#39;,&#39;lengziyu&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377194" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">归海一刀</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377194">
+            <p>阮大神，建议你的博客增加 “踩”和“顶”这个功能。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 16, 2017 11:47 AM">2017年5月16日 11:47</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377194">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用归海一刀的这条留言" onclick="return CommentQuote(&#39;comment-quote-377194&#39;,&#39;归海一刀&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377206" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">雷凌</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377206">
+            <blockquote>
+<pre>引用lengziyu的发言：</pre>
+
+<p>@吃土小2叉 `@media`本来不就有CSS3的属性嘛，less sass为什么不可以。</p>
+
+</blockquote>
+
+<p>因为sass变量的作用域的概念和css的作用域概念不同</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 16, 2017  5:49 PM">2017年5月16日 17:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377206">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用雷凌的这条留言" onclick="return CommentQuote(&#39;comment-quote-377206&#39;,&#39;雷凌&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377244" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.blackcater.win" href="http://www.blackcater.win/" target="_blank" rel="nofollow">blackcater</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377244">
+            <p>还是stylus，less，sass好用一些</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 17, 2017 10:32 PM">2017年5月17日 22:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377244">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用blackcater的这条留言" onclick="return CommentQuote(&#39;comment-quote-377244&#39;,&#39;blackcater&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377246" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">南京韶邵</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377246">
+            <p>css在发展,sass和less是编译成css的,而这个是css原生的能力,如果浏览器都支持了,那么sass和less也可以编译出成带变量的css,<br>
+一个是基本功,一个是招式,基本功扎实了,招式的威力跟大,大约是这种关系吧</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 17, 2017 11:41 PM">2017年5月17日 23:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377246">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用南京韶邵的这条留言" onclick="return CommentQuote(&#39;comment-quote-377246&#39;,&#39;南京韶邵&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377315" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://qiushicai.github.io" href="https://qiushicai.github.io/" target="_blank" rel="nofollow">董233</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377315">
+            <p>阮老师，你这个免登录评论系统是怎么实现的，还是使用的第三方。知道也可以告知下。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 20, 2017 12:23 PM">2017年5月20日 12:23</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377315">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用董233的这条留言" onclick="return CommentQuote(&#39;comment-quote-377315&#39;,&#39;董233&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377347" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://xuxun.me" href="http://xuxun.me/" target="_blank" rel="nofollow">吃土小2叉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377347">
+            <blockquote>
+<pre>引用lengziyu的发言：</pre>
+
+<p>@吃土小2叉 `@media`本来不就有CSS3的属性嘛，less sass为什么不可以。</p>
+
+</blockquote>
+
+<p>之前不知为何有段文字不见了…… （目测是因为我输入了小于号，被识别成 html 标记然后忽略了）<br>
+对于 &gt; 750 设备宽度，设置 rem 作为字体单位；<br>
+对于 小于 750 设备宽度，设置 px 作为字体单位。</p>
+
+<p>因为 less 和 sass 都属于预处理，一般情况网页最终是加载 css 文件。<br>
+所以在 less 和 sass 被编译成 css 后，变量已经成为了固定值。<br>
+所以 less 或者 sass 的变量是无法在 @media 中动态变化的；但 css 变量可以。</p>
+
+<p><br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 23, 2017 12:18 AM">2017年5月23日 00:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377347">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用吃土小2叉的这条留言" onclick="return CommentQuote(&#39;comment-quote-377347&#39;,&#39;吃土小2叉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377359" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://taozit.com" href="http://taozit.com/" target="_blank" rel="nofollow">逗逗小桃子</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377359">
+            <p>@吃土小2叉：</p>
+
+<p>为什么是大于750用rem啊，不是小于750用rem么，我是新手。麻烦讲一下，我做的手机端的都是用rem啊。小屏幕的……</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 23, 2017  9:08 AM">2017年5月23日 09:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377359">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用逗逗小桃子的这条留言" onclick="return CommentQuote(&#39;comment-quote-377359&#39;,&#39;逗逗小桃子&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377368" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Agent47</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377368">
+            <p>个人觉得CSS变量支持被JS动态修改这一点，是比sass，less好用的地方吧。预处理语言编辑成css之后，变量貌似是不能被动态修改的。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 23, 2017 12:05 PM">2017年5月23日 12:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377368">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用Agent47的这条留言" onclick="return CommentQuote(&#39;comment-quote-377368&#39;,&#39;Agent47&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377400" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://xuxun.me" href="http://xuxun.me/" target="_blank" rel="nofollow">吃土小2叉</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377400">
+            <blockquote>
+<pre>引用逗逗小桃子的发言：</pre>
+
+<p>@吃土小2叉：</p>
+
+<p>为什么是大于750用rem啊，不是小于750用rem么，我是新手。麻烦讲一下，我做的手机端的都是用rem啊。小屏幕的……</p>
+
+</blockquote>
+
+<p>布局之类的用 rem 没问题的~</p>
+
+<p>主要问题出在文字上，开发时候遇到一些问题。</p>
+
+<p>当小屏的时候使用 rem 可能会导致文字过小，而用 px 可以保证文字显示正常.</p>
+
+<p>但是 px 对于大屏幕就不友好了，屏幕大的时候使用 px 因为字体不会随屏幕放大，所以在超大屏幕上可能会使得页面文字有些空。 </p>
+
+<p>大致是以上这个情况 -。-</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 23, 2017 11:01 PM">2017年5月23日 23:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377400">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用吃土小2叉的这条留言" onclick="return CommentQuote(&#39;comment-quote-377400&#39;,&#39;吃土小2叉&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377482" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">小新</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377482">
+            <p>可能我个人觉得加入逻辑判断要更重要一定吧。。。。不过现在大部分情况我都需要用js 或者jq 在客户端再处理一下。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="May 26, 2017  5:39 PM">2017年5月26日 17:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377482">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用小新的这条留言" onclick="return CommentQuote(&#39;comment-quote-377482&#39;,&#39;小新&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-377838" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">游牧</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-377838">
+            <blockquote>
+<pre>引用吃土小2叉的发言：</pre>
+
+<p>第一次读的时候觉得似乎觉得 css 变量没有什么亮点。</p>
+
+<p>然后仔细看了看，发现响应式布局很有趣，至少在 less 或者 sass 中，是无法直接做到根据不同的设备尺寸，定义不同的变量的，具体场景比如：</p>
+
+<p>对于 &gt; 750 设备宽度，设置 rem 作为字体单位； </p>
+
+<p>对于 %lt; 750 设备宽度，设置 px 为字体单位</p>
+
+<p>这一点在 less 或者 sass 中无法做到，因为是预处理的特性（如果能，各位大神欢迎指正~）</p>
+
+<p>所以在 css 变量出现以前，除非借助于 js ，否则是无法实现动态响应式的。</p>
+
+<p>因为动态 css 变量的出现，感觉又会多出不少响应式的可能性以及其他黑科技应用。</p>
+
+</blockquote>
+
+<p><br>
+可以，但是我不太确认我的回答是否是你的问题(你参考下吧，我也是第一次在阮老师的博客里留言)：</p>
+
+<p>div{<br>
+  @size: 750px;<br>
+  @media (min-width: @size) {<br>
+    font-size: 1rem;<br>
+  }<br>
+  @media (max-width: @size) {<br>
+    font-size: 16px;<br>
+  }<br>
+}<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 10, 2017 11:45 PM">2017年6月10日 23:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-377838">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用游牧的这条留言" onclick="return CommentQuote(&#39;comment-quote-377838&#39;,&#39;游牧&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378005" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">别让时间跑得太快</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378005">
+            <p>我在谷歌44.0.2上使用怎么无效，我代码的问题？<br>
+<br>
+<br>
+    <br>
+        <br>
+        css variable<br>
+        <br>
+        body{--red:#c00}<br>
+        p{background-color: var(--red)}<br>
+        <br>
+    <br>
+    <br>
+        </p><p></p><br>
+    <br>
+<p></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="June 16, 2017  1:42 PM">2017年6月16日 13:42</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-378005">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用别让时间跑得太快的这条留言" onclick="return CommentQuote(&#39;comment-quote-378005&#39;,&#39;别让时间跑得太快&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378384" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">冬冬</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378384">
+            <p>@吃土小2叉：</p>
+
+<p>可以使用vw和vh<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  1, 2017  5:28 PM">2017年7月 1日 17:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-378384">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用冬冬的这条留言" onclick="return CommentQuote(&#39;comment-quote-378384&#39;,&#39;冬冬&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378557" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">佚名式</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378557">
+            <p>@寄爱思黑客：</p>
+
+<p>我倒觉得用横杠是正确的，不用按 shift 键，就是要两条横杠比较麻烦</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  7, 2017  2:03 PM">2017年7月 7日 14:03</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-378557">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用佚名式的这条留言" onclick="return CommentQuote(&#39;comment-quote-378557&#39;,&#39;佚名式&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-378784" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.jianshu.com/u/dec38fbbb3fd" href="http://www.jianshu.com/u/dec38fbbb3fd" target="_blank" rel="nofollow">东东</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-378784">
+            <p>微软发布的，IE自己怎么不支持</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 19, 2017  4:18 PM">2017年7月19日 16:18</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-378784">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用东东的这条留言" onclick="return CommentQuote(&#39;comment-quote-378784&#39;,&#39;东东&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-379460" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Github=LWJCoder</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-379460">
+            <p>以前以各司其职为好，现在css也参合js的事情了，是想把两种语言混成一种语言来用的节奏~</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 11, 2017  6:21 PM">2017年8月11日 18:21</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-379460">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用Github=LWJCoder的这条留言" onclick="return CommentQuote(&#39;comment-quote-379460&#39;,&#39;Github=LWJCoder&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-379655" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yimi</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-379655">
+            <p>表示很感兴趣</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 19, 2017  5:28 PM">2017年8月19日 17:28</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-379655">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用yimi的这条留言" onclick="return CommentQuote(&#39;comment-quote-379655&#39;,&#39;yimi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-379673" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ang</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-379673">
+            <p>html既达不到理想的语意性，又搞出一大堆标签，还不如一个div，或canvas完事就做印刷渲染；要么维护传统信报语义，标题，段落，图片，超链，多媒体就别搞那些乱七八糟的功能标签。<br>
+css不写样式表现，加事件伪类，这还加了变量，干脆变成脚本得了。<br>
+个人觉得web发展得生产者绑架了消费者需求，强迫消费者消费没用的东西，比如浏览一个新闻页面信息，一堆没有的交互除了费流量就是分散注意力。<br>
+如果说web应用化，为什么不采用下载的方式呢？web应该回归电子期刊的本质。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="August 20, 2017 11:31 PM">2017年8月20日 23:31</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-379673">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用ang的这条留言" onclick="return CommentQuote(&#39;comment-quote-379673&#39;,&#39;ang&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-380073" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">anfly</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-380073">
+            <p>测试了下ie11，结果不支持。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September  5, 2017 10:44 PM">2017年9月 5日 22:44</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-380073">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用anfly的这条留言" onclick="return CommentQuote(&#39;comment-quote-380073&#39;,&#39;anfly&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-380332" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">ad100186</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-380332">
+            <p>受益良多，谢谢阮老师</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="September 13, 2017 10:45 AM">2017年9月13日 10:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-380332">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用ad100186的这条留言" onclick="return CommentQuote(&#39;comment-quote-380332&#39;,&#39;ad100186&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382023" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">刘彤</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382023">
+            <p>补充一下var函数的第二个变量，var(--color,white); 在变量--color没有定义的情况下，使用white</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  5, 2017  8:41 PM">2017年11月 5日 20:41</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-382023">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用刘彤的这条留言" onclick="return CommentQuote(&#39;comment-quote-382023&#39;,&#39;刘彤&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-386700" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://github.com/but0n" href="http://github.com/but0n" target="_blank" rel="nofollow">but0n</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-386700">
+            <p>我觉得这只是宏吧, 在css内部根本不可变, (比如用 :hover 之内的触发)</p>
+
+<p>在 js 里一个个赋值还不如toggleClass写着方便</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="March 14, 2018  4:19 PM">2018年3月14日 16:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-386700">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用but0n的这条留言" onclick="return CommentQuote(&#39;comment-quote-386700&#39;,&#39;but0n&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391176" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">lixiaofei</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391176">
+            <p>background-color: darken(var(--theme-color),10%), 这种情况会报错 error evaluating function `darken`: color.toHSL is not a function in file</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 20, 2018  2:11 PM">2018年7月20日 14:11</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-391176">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用lixiaofei的这条留言" onclick="return CommentQuote(&#39;comment-quote-391176&#39;,&#39;lixiaofei&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-396217" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">光影</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-396217">
+            <blockquote>
+<pre>引用饭饭的发言：</pre>
+
+<p>css越来越强大，浏览器兼容性越来越好越来越统一，感觉less和sass最后终将退出舞台。</p>
+
+</blockquote>
+
+<p>统一是个很难说，浏览器的兼容性是个很大的问题，各个浏览器的表现不一历史由来已久。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 29, 2018  3:26 PM">2018年11月29日 15:26</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-396217">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用光影的这条留言" onclick="return CommentQuote(&#39;comment-quote-396217&#39;,&#39;光影&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-408231" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://yangyoulin.com" href="https://yangyoulin.com/" target="_blank" rel="nofollow">xxyangyoulin</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-408231">
+            <p>要适配IE的人估计对这个不感兴趣。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February 14, 2019  9:53 PM">2019年2月14日 21:53</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-408231">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用xxyangyoulin的这条留言" onclick="return CommentQuote(&#39;comment-quote-408231&#39;,&#39;xxyangyoulin&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-410492" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://github.com/vok123" href="https://github.com/vok123" target="_blank" rel="nofollow">vok</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-410492">
+            <p><br>
+const isSupported =<br>
+  window.CSS &amp;&amp;<br>
+  window.CSS.supports &amp;&amp;<br>
+  window.CSS.supports('--a', 0);</p>
+
+<p>if (isSupported) {<br>
+  /* supported */<br>
+} else {<br>
+  /* not supported */<br>
+}<br>
+<br>
+判断是否支持css var 在新版safari及移动端浏览器(chrome, 微信, ios Safari) 判断返回值有问题.<br>
+window.CSS.supports('css固有属性', 值); // 例如 window.CSS.supports('flex', 1);<br>
+或者<br>
+window.CSS.supports('(--test: red)');<br>
+详情移步至MDN: <a href="https://developer.mozilla.org/zh-CN/docs/Web/API/CSS/supports" rel="nofollow">https://developer.mozilla.org/zh-CN/docs/Web/API/CSS/supports</a><br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April 11, 2019 11:29 PM">2019年4月11日 23:29</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-410492">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/05/css-variables.html#comment-text" title="引用vok的这条留言" onclick="return CommentQuote(&#39;comment-quote-410492&#39;,&#39;vok&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1933">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS 变量教程 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS 变量教程 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS 变量教程 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS 变量教程 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 变量教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame823" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS 变量教程 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>

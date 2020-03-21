@@ -1,0 +1,2283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0049)http://www.ruanyifeng.com/blog/2017/10/bulma.html -->
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+<meta name="generator" content="Movable Type  5.2.2">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--link rel="stylesheet" href="http://www.ruanyifeng.com/blog/styles.css" type="text/css" /-->
+<link rel="start" href="http://www.ruanyifeng.com/blog/" title="Home">
+<link rel="alternate" type="application/atom+xml" title="Recent Entries" href="http://feeds.feedburner.com/ruanyifeng">
+<script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/hm.js.下载"></script><script async="" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/analytics.js.下载"></script><script type="text/javascript" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/mt.js.下载"></script>
+<!--
+<rdf:RDF xmlns="http://web.resource.org/cc/"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<Work rdf:about="http://www.ruanyifeng.com/blog/2019/01/survivor-preface.html">
+<dc:title>站在未来的十字路口</dc:title>
+<dc:description>2018年的最后一周，《未来世界的幸存者》的台湾版上市了。...</dc:description>
+<dc:creator>阮一峰</dc:creator>
+<dc:date>2019-01-03T08:46:03+08:00</dc:date>
+<license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/3.0/" />
+</Work>
+<License rdf:about="http://creativecommons.org/licenses/by-nc-nd/3.0/">
+</License>
+</rdf:RDF>
+-->
+
+<style>
+body {
+  background-color: #f5f5d5;
+}
+
+#container::before {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: rgba(0,0,0,0.1);
+  text-align: center;
+  content: "本站显示不正常，可能因为您使用了广告拦截器。";
+}
+
+</style>
+<script>
+function loadjscssfile(filename, filetype){
+    if (filetype=="js"){ //if filename is a external JavaScript file
+        var fileref=document.createElement('script')
+        fileref.setAttribute("type","text/javascript")
+        fileref.setAttribute("src", filename)
+    }
+    else if (filetype=="css"){ //if filename is an external CSS file
+        var fileref=document.createElement("link")
+        fileref.setAttribute("rel", "stylesheet")
+        fileref.setAttribute("type", "text/css")
+        fileref.setAttribute("href", filename)
+    }
+    if (typeof fileref!="undefined")
+        document.getElementsByTagName("head")[0].appendChild(fileref)
+}
+//loadjscssfile("http://www.ruanyifeng.com/blog/styles.css", "css");
+loadjscssfile('/static/themes/theme_scrapbook/theme_scrapbook.min.css', "css");
+
+
+function checker() {
+// var img = document.querySelector('img[src^="http://www.ruanyifeng.com/blog/images"]');
+var img = document.querySelector('a > img[src*="wangbase.com/blogimg/asset/"]');
+  if (img && window.getComputedStyle(img).display === 'none'){
+    var sponsor = document.querySelector('.entry-sponsor');
+    var prompt = document.createElement('div');
+    prompt.style = 'border: 1px solid #c6c6c6;border-radius: 4px;background-color: #f5f2f0;padding: 15px; font-size: 14px;';
+  prompt.innerHTML = '<p>您使用了广告拦截器，导致本站内容无法显示。</p><p>请将 www.ruanyifeng.com 加入白名单，解除广告屏蔽后，刷新页面。谢谢。</p>';
+    sponsor.parentNode.replaceChild(prompt, sponsor);
+    document.querySelector('#main-content').innerHTML = '';
+  }
+}
+
+setTimeout(checker, 1000);
+</script><link rel="stylesheet" type="text/css" href="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/theme_scrapbook.min.css">
+
+    
+    <link rel="prev" href="http://www.ruanyifeng.com/blog/2017/10/head-transplant.html" title="换头术">
+    <link rel="next" href="http://www.ruanyifeng.com/blog/2017/11/2fa-tutorial.html" title="双因素认证（2FA）教程">
+    
+    <title>CSS 框架 Bulma 教程 - 阮一峰的网络日志</title>
+<script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bsStatic.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bs-engine.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bshareDiv,#bsPanel,#bsMorePanel,#bshareF{border:none;background:none;padding:0;margin:0;font:12px Helvetica,Calibri,Tahoma,Arial,宋体,sans-serif;line-height:14px;}#bsPanel div,#bsMorePanel div,#bshareF div{display:block;}.bsRlogo .bsPopupAwd,.bsRlogoSel .bsPopupAwd,.bsLogo .bsPopupAwd,.bsLogoSel .bsPopupAwd{line-height:16px !important;}a.bshareDiv div,#bsFloatTab div{*display:inline;zoom:1;display:inline-block;}a.bshareDiv img,a.bshareDiv div,a.bshareDiv span,a.bshareDiv a,#bshareF table,#bshareF tr,#bshareF td{text-decoration:none;background:none;margin:0;padding:0;border:none;line-height:1.2}a.bshareDiv span{display:inline;float:none;}div.buzzButton{cursor:pointer;font-weight:bold;}.buzzButton .shareCount a{color:#333}.bsStyle1 .shareCount a{color:#fff}span.bshareText{white-space:nowrap;}span.bshareText:hover{text-decoration:underline;}a.bshareDiv .bsPromo,div.bshare-custom .bsPromo{display:none;position:absolute;z-index:100;}a.bshareDiv .bsPromo.bsPromo1,div.bshare-custom .bsPromo.bsPromo1{width:51px;height:18px;top:-18px;left:0;line-height:16px;font-size:12px !important;font-weight:normal !important;color:#fff;text-align:center;background:url(http://static.bshare.cn/frame/images/bshare_box_sprite2.gif) no-repeat 0 -606px;}div.bshare-custom .bsPromo.bsPromo2{background:url(http://static.bshare.cn/frame/images/bshare_promo_sprite.gif) no-repeat;cursor:pointer;}</style><style type="text/css">.bsBox{display:none;z-index:100000001;font-size:12px;background:url(http://static.bshare.cn/frame/images//background-opaque-dark.gif) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}.bsClose{_overflow:hidden;cursor:pointer;position:absolute;z-index:10000000;color:#666;font-weight:bold;font-family:Helvetica,Arial;font-size:14px;line-height:20px;}.bsTop{color:#666;background:#f2f2f2;height:24px;line-height:24px;border-bottom:1px solid #e8e8e8;}.bsTop span{float:left;}.bsFrameDiv,#bsMorePanel{border:none;background:#fff;}.bsReturn{float:right;*margin-right:20px;margin-right:36px;text-align:right;cursor:pointer;line-height:24px;color:#666;opacity:0.5;}#bsReturn:hover{text-decoration:underline;opacity:1;}</style><script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bsMore.js.下载" type="text/javascript" charset="utf-8"></script><script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bshareS1.js.下载" type="text/javascript" charset="utf-8"></script><style type="text/css">div.bsClear{clear:both;height:0;line-height:0;overflow:hidden;font-size:0;}.bsSearchDiv{padding:5px 15px;background-color:#fafafa;}.bFind-wrapper-top{background:#fff;border-color:#ccc #aaa #aaa #ccc;border-style:solid;border-width:1px;height:16px;padding:4px;margin:0;}.bFind-wrapper-top input{padding:0 !important;border:none !important;box-shadow:none !important;line-height:16px !important;}.bFind-placeholder{background:url("http://static.bshare.cn/css/images/search-icon.gif") no-repeat;display:block;float:left;height:16px;width:16px;}.bFind{background:none;border:none;float:left;font-size:11px !important;height:16px !important;margin-left:3px;outline:none;padding:0;width:400px;}.bsPlatDiv{height:322px;background:#fff;overflow:auto;padding:0 15px;}#bsLogoList{display:block;list-style:none;overflow:hidden;margin:0;padding:0;}#bsLogoList li{float:left;display:inline-block;width:71px;text-align:center;font-size:12px;height:80px;margin:0 !important;}#bsLogoList .bsPlatIcon{cursor:pointer;display:block !important;text-align:center;}#bsLogoList .bsPlatImg{width:32px;height:32px;border:none !important;display:inline-block;}#bsLogoList .bsPlatImg:hover{-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;box-shadow:0 0 15px #a7a8ac;}#bsLogoList .bsPlatName{white-space:nowrap;text-overflow:ellipsis;overflow:hidden;text-align:center;color:#333 !important;margin-top:2px;line-height:140%;*width:70px;}#bsLogoList .bsPromoM{text-align:center;}.bsFooterDiv{height:24px;line-height:24px;padding:0 15px;border-top:1px solid #e8e8e8;background:#f2f2f2;text-align:right;}a.bsLogoLink{color:#666;}.bsLogoLink:hover{text-decoration:underline;}.bsPromoM{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;}.bsNew,.bsHot,.bsRec,.bsAwd{background-position:0 -552px;width:19px;margin:5px auto 1px;line-height:16px;height:18px;font-size:12px;color:#fff;overflow:hidden;}.bsNew{background-position:0 -570px;}.bsRec{width:30px;background-position:0 -588px;}.bsAwd{background:url(http://static.bshare.cn/frame/images//promot/promote.gif) no-repeat;}</style><script src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bshare_view" type="text/javascript" charset="utf-8"></script><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style><style type="text/css">a.bsSiteLink{text-decoration:none;color:#666;}a.bsSiteLink:hover{text-decoration:underline;}a.bshareDiv{overflow:hidden;height:16px;line-height:18px;font-size:14px;color:#333;padding-left:0;}a.bshareDiv:hover{text-decoration:none;}div.bsTitle{padding:0 8px;border-bottom:1px solid #e8e8e8;color:#666;background:#f2f2f2;text-align:left;}div.buzzButton{cursor:pointer;}div.bsRlogo,div.bsRlogoSel{width:68px;float:left;margin:0;padding:2px 0;}div.bsRlogo a,div.bsRlogoSel a{float:left;}div.bsLogo,div.bsLogoSel{float:left;width:111px;text-align:left;height:auto;padding:2px 4px;margin:2px 0;white-space:nowrap;overflow:hidden;}div.bsLogoSel,div.bsRlogoSel{border:1px solid #ddd;background:#f1f1f1;}div.bsLogo,div.bsRlogo{border:1px solid #fff;background:#fff;}div.bsLogo a,div.bsLogoSel a{display:block;height:16px;line-height:16px;padding:0 0 0 24px;text-decoration:none;float:left;overflow:hidden;}div.bsLogoSel a,div.bsRlogoSel a{color:#000;border:none;}div.bsLogo a,div.bsRlogo a{color:#666;border:none;}div.bsLogoLink{width:121px;overflow:hidden;background:#FFF;float:left;margin:3px 0;}#bsLogin{float:right;text-align:right;overflow:hidden;height:100%;}#bsPanel{position:absolute;z-index:100000000;font-size:12px;width:258px;background:url(http://static.bshare.cn/frame/images/background-opaque-dark.png) !important;padding:6px !important;-moz-border-radius:5px;-webkit-border-radius:5px;border-radius:5px;}div.bsClear{clear:both;height:0;line-height:0;font-size:0;overflow:hidden;}div.bsPopupAwd{background:url(http://static.bshare.cn/frame/images//bshare_box_sprite2.gif) no-repeat top left;background-position:0 -624px;width:18px;padding-left:3px;text-align:center;float:left;margin-left: 2px;height:15px;font-size:12px;color:#fff;overflow:hidden;}div.bsRlogo .bsPopupAwd,div.bsRlogoSel .bsPopupAwd{float:left;margin:5px 0 0 -14px;}</style></head>
+<body id="scrapbook" class="mt-entry-archive one-column">
+<script>
+if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)) document.body.classList.add('mobile');
+
+/*
+window.addEventListener('load', function(event) {
+  setTimeout(function () {
+    hab('#sup-post-2');
+    hab('#cre-inner');
+  }, 1000);
+});
+*/
+</script>
+    <div id="container">
+        <div id="container-inner">
+
+            <div id="header">
+    <div id="header-inner">
+        <div id="header-content">
+
+
+            <div id="header-name">阮一峰的网络日志 <span id="site_location"> » <a href="http://www.ruanyifeng.com/blog/" accesskey="1">首页</a></span><span id="site_archive"> » <a href="http://www.ruanyifeng.com/blog/archives.html">档案</a></span>
+</div>
+
+<div id="google_search">
+<!-- SiteSearch Google -->
+<form action="https://www.baidu.com/s" target="_blank" method="get" id="cse-search-box">
+  <div>
+  <input type="text" size="20" name="origin" class="searchbox" id="sbi" value="">
+  <input type="hidden" name="wd" value="">
+  <!--input type="image" src="/static/themes/theme_scrapbook/images/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + ' inurl:www.ruanyifeng.com/blog'" /-->
+  <input type="image" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/top_search_submit.gif" class="searchbox_submit" value="" alt="搜索" name="sa" onclick="this.form.wd.value = this.form.origin.value + &#39; 阮一峰&#39;">
+</div>
+</form>
+
+<!-- SiteSearch Google -->
+</div>
+<div id="feed_icon">
+<a href="http://www.ruanyifeng.com/feed.html" title="订阅Feed">
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAUzSURBVHjavFdbbFRVFF3nPjoz7dTWTittaW0jUDRAUqaNojyqREnEQKgfUj9MqqAmhqRt/OCD4CuY+Kckoh+aiGKC+gMJbdHoRysJ8dkhhmJLNdDKtJU+6GMK87j3Hs85d2Z6HzNtMYWb3Dn3NWftvfba+5xNYDl+e6Fkj6yqb/oDRbWq14vlPBLRKCITkxf0ROLt+hNjp1PPSRK4kA3vF1dXNRcWlyA2OQU9eos9opAkAiKxD+XkKO6t15aRWO7J/MgmAZU8MEgexgZHMX518Dh72sYMmVKShnxWuWHdHtxKIDIYTgMuDzgfmSOIQkYMpdUF8OY92Hytt4/jvkg47czzU16iQovM3QFwmNck+Yyduu7D6NA0Z6JR4THntFs9V4tWQg6Ui3s6MwKDncsFTnXKLJhDSeUK3AgPtyhccDzmVs999buRt/1Vm4i0od+hX7+MRG87jPGB/w1u8FPj9xEw7McVrnYuOCvtpjTth3J/nTg99c8LRhKhr6D3dTB5R24bXFwbMXBsyZzeoXaycEpJ95TB09AGX/NpqLVNtw8urnVzLvHjFNxiFqRy2OOHuqUVnue+ACkoWzo4O6lGzTmuHq6nPvY2m9rVqjrIK2rMEKxqyG5NPAKt+wjo0LklgfNxJkZMA3KJvqRUk3z5UFY3QH14P0h+WUY79HPvgv7VuSg4ZRGY1YgZgqXmORccF17sy2ehnf9AeO085K2HQFbtXBScj0LcpgF2cN+WV+DZ/LJQu6gD4R7oV7pBJwbSgtMvfiPoVp56DySwxm7EtkMs1WdAB7qzggsDJKQYsHucSkOudrkiCPWR/fA2nYCn8SNIK4NptSMyAu3sAdDRkIsJdfth0LzSrODUoPNZ4KI9SxJI5UHk7D4GdQfz2us31c7CoHMjRkKuDPHseCMrONVhNcDJwMJpKFVvg9L4OaTiNWm1x789KCqkrXhVBiEz0WYCT2nAzQAD1/vaETv1GrRfP4Vx5cfMNcDPwvP0h0DhanPym7OIf/+O67vcJ1/PCJ4KgdzaUP6Wz+dU+5yIL6fV+PsHGAOdwlPpvvUOyeeAVGyCdqkDNB6DPjsBSrnndfOGevOh3RhGItxvA+fX1CtbGFhgYUFkFMZPR6F1HnClHq8HyubWtJexX06CRmdt33hrd7nA7SFY4qoGpnYuOKcRykPPgDCBcsHx9Iv+fNL2PueBehCWUfYQIIMGLOCcOmXDXsh1+yCt35tUPfvzGFuSvzvoinXOxqa02qOhM6733nVP2MAdaej2XN11DPKjLZCD+yBvahGCo7JfTKAN9UD7s8Oe9zUNIhz8fWI8DG2k38WCFdxugANcXrvTVd1IEbuv3Jour7Hzn7jLMBNfKs7R3i67gRVrbeCOEDhinmWhAatsqdquM2XzHZINhK2cqTjHr/XZdVJUbgN3MWAVXKbSyg9jesRW2xP9di+lwrL5ojM3m2H/kG9hwcIA37c71W6wJdW2J2S5nrjYbq/t1AHAhJsKQeyfPvf6IMJgghPJhFZ4x0KlfLFvt22du45Au/A1SOlGc0P672XXwhLtOcM0kTTEMMd0qkVmMNXxMd/tsedUjInr4SQDgOfeXMSiN0FCL5WHah4L1qqYXPJOJlttd+a5M+YpcG5poLYKQ5f+6JJ4r8bbJYP47hq4r7QAs9PjYNhHJd4o8l5taiwuOpa7AS4XKqI/5NjJbTnaWK92nLdLuhQAJayRNMiygXPBeQN+Qbvu0zDc3y+aUzhbkGR73sI7ljvUnndx2q3t+X8CDAD66FtrIL864AAAAABJRU5ErkJggg==" alt="" style="border: 0pt none;">
+</a></div>
+
+        </div>
+    </div>
+</div>
+
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+
+                            <div id="entry-1962" class="entry-asset asset hentry">
+                                <div class="asset-header">
+<div class="asset-nav entry-nav">
+
+<div class="entry-location">
+<ul>
+<li>上一篇：<a href="http://www.ruanyifeng.com/blog/2017/10/head-transplant.html" title="换头术">换头术&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></li>
+<li>下一篇：<a href="http://www.ruanyifeng.com/blog/2017/11/2fa-tutorial.html" title="双因素认证（2FA）教程">双因素认证（2FA）教</a></li>
+</ul>
+</div>
+
+
+    
+                                    <div class="entry-categories">
+                                        <p>分类<span class="delimiter">：</span></p>
+                                        <ul>
+                                            <li><a href="http://www.ruanyifeng.com/blog/developer/" rel="tag">开发者手册</a></li>
+                                        </ul>
+                                    </div>
+    
+
+
+                                            
+<div class="entry-location-mobile" style="float: right;">
+<ul>
+<li><a href="http://www.ruanyifeng.com/blog/2017/10/head-transplant.html" title="换头术">⇐&nbsp;</a></li>
+<li><a href="http://www.ruanyifeng.com/blog/2017/11/2fa-tutorial.html" title="双因素认证（2FA）教程">&nbsp;⇒</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+
+                          
+<article class="hentry">
+                                    <h1 id="page-title" class="asset-name entry-title">CSS 框架 Bulma 教程</h1>
+                                            <div id="share_button" class="social-share" style="float:right;padding-right:2em;padding-top:1em;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<div class="asset-meta">
+                                        
+
+                                            <p class="vcard author">作者： <a class="fn url" href="http://www.ruanyifeng.com/">阮一峰</a></p>
+                                    <p>日期： <a href="http://www.ruanyifeng.com/blog/2017/10/"><abbr class="published" title="2017-10-24T07:48:16+08:00">2017年10月24日</abbr></a></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+                                
+                                <div class="asset-content entry-content" id="main-content">
+
+                                    <!-- div class="asset-body" -->
+                                        <p>网页样式需要大量时间开发，最省事的方法就是使用 CSS 框架。</p>
+
+                                    <!-- /div -->
+
+
+                                    <!-- div id="more" class="asset-more" -->
+                                        <p><a href="http://getbootstrap.com/" target="_blank">Bootstrap</a> 是最著名的 CSS 框架，但是今天我想推荐另一个更轻量化、更易用的框架----<a href="https://bulma.io/" target="_blank">Bulma</a>。有了它，即使完全不懂 CSS，也可以轻而易举做出美观的网页。</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102301.png" alt="" title=""></p>
+
+<p>我要感谢 <a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">100offer</a> 对我提供赞助。<a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">100offer</a> 是国内第一流的人力资源网站，本文结尾有他们的<a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#100offer">简介</a>，最近想换工作的朋友可以看一下。</p>
+
+<h2>一、简介</h2>
+
+<p>Bulma 框架最大的特点，就是简单好用。所有样式都基于<code>class</code>，只需为 HTML 元素指定<code>class</code>，样式立刻生效。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button is-primary is-large<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Login<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，a 元素只需加上几个<code>class</code>，就会出现一个主色调（<code>is-primary</code>）的大（<code>is-large</code>）按钮。</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102302.png" alt="" title=""></p>
+
+<p>Bulma 是一个手机优先的框架，提供五个宽度断点，具有良好的自适应特性，可以随心所欲为不同设备设置不同样式。</p>
+
+<blockquote>
+  <ul>
+<li>mobile：小于等于768px</li>
+<li>tablet：大于等于769px</li>
+<li>desktop：大于等于1024px</li>
+<li>widescreen：大于等于1216px</li>
+<li>fullhd：大于等于1408px</li>
+</ul>
+</blockquote>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102303.png" alt="" title=""></p>
+
+<p>它提供二十多种常用组件，比如<a href="https://bulma.io/documentation/form/general/" target="_blank">表单</a> 、<a href="https://bulma.io/documentation/elements/table/" target="_blank">表格</a>、<a href="https://bulma.io/documentation/elements/icon/" target="_blank">图标</a>、<a href="https://bulma.io/documentation/components/breadcrumb/" target="_blank">面包屑</a>、<a href="https://bulma.io/documentation/components/menu/" target="_blank">菜单</a>、<a href="https://bulma.io/documentation/components/navbar/" target="_blank">导航</a>、<a href="https://bulma.io/documentation/components/modal/" target="_blank">Modal 窗口</a>等等。简单的网站，可以不用写任何 CSS 代码。</p>
+
+<h2>二、基本用法</h2>
+
+<p>Bulma 的安装只需一步，把<a href="https://github.com/jgthms/bulma/blob/master/css/bulma.css" target="_blank">样式表</a>插入网页即可。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>css/bulma.min.css<span class="token punctuation">"</span></span><span class="token punctuation">/&gt;</span></span>
+</code></pre></blockquote>
+
+<p>使用更简单，就是为 HTML 元素加上<code>class</code>。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Button<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面的代码为 a 元素加上<code>button</code>类，这个链接就会被渲染成按钮。</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102304.png" alt="" title=""></p>
+
+<p>Bulma 提供大量的修饰类，用来改变基类的样式。它们都是以<code>is-</code>或<code>has-</code>开头。比如，要改变 Button 的大小，就可以使用下面的修饰类。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button is-small<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Small<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Normal<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button is-medium<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Medium<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>button is-large<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Large<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102306.png" alt="" title=""></p>
+
+<p>Bulma 默认提供6种颜色。</p>
+
+<blockquote>
+  <ul>
+<li>is-primary</li>
+<li>is-link</li>
+<li>is-info</li>
+<li>is-success</li>
+<li>is-warning</li>
+<li>is-danger</li>
+</ul>
+</blockquote>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102305.png" alt="" title=""></p>
+
+<p>按钮状态的修饰类如下。</p>
+
+<blockquote>
+  <ul>
+<li>is-hovered</li>
+<li>is-focused</li>
+<li>is-active</li>
+<li>is-loading</li>
+</ul>
+</blockquote>
+
+<p>完整的修饰类清单请看<a href="https://bulma.io/documentation/elements/button/" target="_blank">官方文档</a>。</p>
+
+<h2>三、网格体系</h2>
+
+<p>Bulma 的网格体系基于 <a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" target="_blank">Flex 布局</a>，写起来非常容易。最简单的用法就是使用<code>columns</code>指定容器，使用<code>column</code>指定项目。</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102307.png" alt="" title=""></p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>columns<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>First column<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Second column<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Third column<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>Fourth<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>屏幕宽度大于 768px 时，所有项目平铺，平分容器的宽度；宽度小于等于 768px 时，所有项目变成垂直堆叠。</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102311.png" alt="" title=""></p>
+
+<p>以下的修饰类用来指定项目的宽度。</p>
+
+<blockquote>
+  <ul>
+<li>四分之三：is-three-quarters</li>
+<li>四分之一： is-one-quarter</li>
+<li>三分之二：is-two-thirds</li>
+<li>三分之一：is-one-third</li>
+<li>二分之一：is-half</li>
+<li>五分之四：is-four-fifths</li>
+<li>五分之三：is-three-fifths</li>
+<li>五分之二：is-two-fifths</li>
+<li>五分之一：is-one-fifth</li>
+</ul>
+</blockquote>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102309.png" alt="" title=""></p>
+
+<p>此外，还有一些修饰类也非常有用。</p>
+
+<blockquote>
+  <ul>
+<li>is-narrow：网格的宽度由内容的宽度决定</li>
+<li>is-centered：网格内容居中对齐</li>
+<li>is-gapless：网格之间没有间距</li>
+</ul>
+</blockquote>
+
+<p>Bulma 也支持12网格体系。</p>
+
+<blockquote>
+  <ul>
+<li>is-2</li>
+<li>is-3</li>
+<li>is-4</li>
+<li>is-5</li>
+<li>is-6</li>
+<li>is-7</li>
+<li>is-8</li>
+<li>is-9</li>
+<li>is-10</li>
+<li>is-11</li>
+</ul>
+</blockquote>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102310.png" alt="" title=""></p>
+
+<p>如果要指定某个网格偏移，可以用<code>is-offset-</code>修饰类。</p>
+
+<blockquote>
+  <ul>
+<li>is-offset-one-quarter</li>
+<li>is-offset-one-fifth</li>
+<li>is-offset-8</li>
+<li>is-offset-1</li>
+</ul>
+</blockquote>
+
+<h2>四、响应式布局</h2>
+
+<p>前面说过，Bulma 有五个宽度断点，分别是 mobile（手机）、tablet（平板）、desktop（桌面）、widescreen（宽屏）、fullHD（高清）。</p>
+
+<p><code>columns</code>布局默认是在手机上垂直堆叠，其他宽度都是平铺。如果希望手机也保持平铺，可以加上<code>is-mobile</code>修饰类。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>columns is-mobile<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>如果希望手机和平板是垂直堆叠，其他宽度平铺，可以使用<code>is-desktop</code>修饰类。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>columns is-desktop<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>column<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>4<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>如果希望在不同设备，网格占据不同的宽度，可以像下面这样写。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>
+  column
+  is-half-mobile
+  is-one-third-tablet
+  is-one-quarter-desktop
+<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，这个网格在手机上占据二分之一宽度，平板三分之一宽度，桌面四分之一宽度，宽屏和高清则是平铺。</p>
+
+<p>Bulma 允许为不同设备指定不同的布局。</p>
+
+<blockquote><pre class=" language-markup"><code class=" language-markup">
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>
+  column
+  is-flex-mobile
+  is-inline-tablet
+  is-block-desktop
+<span class="token punctuation">"</span></span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+</code></pre></blockquote>
+
+<p>上面代码中，手机是 flex 布局，平板是 inline 布局，其他宽度是 block 布局。</p>
+
+<p>下面是隐藏某个项目的修饰类。</p>
+
+<blockquote>
+  <ul>
+<li>is-hidden-mobile：只在手机隐藏   </li>
+<li>is-hidden-tablet-only：只在平板隐藏  </li>
+<li>is-hidden-desktop-only  ：只在桌面隐藏</li>
+<li>is-hidden-touch：手机和平板隐藏，其他宽度显示</li>
+</ul>
+</blockquote>
+
+<p>完整的清单请看<a href="https://bulma.io/documentation/modifiers/responsive-helpers/#hide" target="_blank">官方文档</a>。</p>
+
+<h2>五、文字</h2>
+
+<p>Bulma 提供7个修饰指定文字大小。</p>
+
+<blockquote>
+  <ul>
+<li>is-size-1： 3rem</li>
+<li>is-size-2： 2.5rem</li>
+<li>is-size-3： 2rem</li>
+<li>is-size-4： 1.5rem</li>
+<li>is-size-5： 1.25rem</li>
+<li>is-size-6： 1rem</li>
+<li>is-size-7： 0.75rem</li>
+</ul>
+</blockquote>
+
+<p>可以为不同设备指定不同的文字大小。</p>
+
+<blockquote>
+  <ul>
+<li>is-size-1-mobile：手机是 size-1 </li>
+<li>is-size-1-tablet：平板是 size-1 </li>
+<li>is-size-1-touch：手机和平板是 size-1</li>
+<li>is-size-1-desktop：桌面、宽屏和高清是 size-1  </li>
+<li>is-size-1-widescreen：宽屏和高清是 size-1</li>
+<li>is-size-1-fullhd：高清是 size-1</li>
+</ul>
+</blockquote>
+
+<p>此外，还有字体<a href="https://bulma.io/documentation/modifiers/typography-helpers/#colors" target="_blank">颜色</a>、<a href="https://bulma.io/documentation/modifiers/typography-helpers/#alignment" target="_blank">对齐</a>、<a href="https://bulma.io/documentation/modifiers/typography-helpers/#text-weight" target="_blank">轻重</a>的修饰类。</p>
+
+<h2>六、定制</h2>
+
+<p>最后这个部分是高级内容，讲解如何定制 Bulma，也就是修改默认样式。Bulma 采用 Sass 语法（注意，不是 Scss 语法），所以定制的样式也必须使用 <a href="http://www.ruanyifeng.com/blog/2012/06/sass.html" target="_blank">SASS</a>。</p>
+
+<p>首先，克隆或<a href="https://github.com/jgthms/bulma/archive/master.zip" target="_blank">下载</a>源码。</p>
+
+<blockquote><pre class=" language-bash"><code class=" language-bash">
+$ git clone https<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>github<span class="token punctuation">.</span>com<span class="token operator">/</span>jgthms<span class="token operator">/</span>bulma<span class="token punctuation">.</span>git
+</code></pre></blockquote>
+
+<p>然后，安装依赖。</p>
+
+<blockquote><pre class=" language-bash"><code class=" language-bash">
+$ cd bulma
+$ npm install
+</code></pre></blockquote>
+
+<p>接着，在源码的根目录里面，新建一个<code>app.sass</code>文件，定制的代码都写在这个文件。在它里面，先引入 Bulma <a href="https://github.com/jgthms/bulma/blob/master/sass/utilities/initial-variables.sass" target="_blank">基础变量</a>。如果需要的话，可以改掉。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+@import <span class="token string">"./sass/utilities/initial-variables"</span>
+
+$<span class="token property">blue</span><span class="token punctuation">:</span> #72d0eb
+$<span class="token property">pink</span><span class="token punctuation">:</span> #ffb3b3
+$<span class="token property">family-serif</span><span class="token punctuation">:</span> <span class="token string">"Merriweather"</span>, <span class="token string">"Georgia"</span>, serif
+</code></pre></blockquote>
+
+<p>上面代码中，预设的<code>blue</code>、<code>pink</code>和<code>family-serif</code>变量被改掉。</p>
+
+<p>有一些 Bulma 变量是从基础变量衍生的，需要的话也可以改掉。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+$<span class="token property">primary</span><span class="token punctuation">:</span> $pink
+</code></pre></blockquote>
+
+<p>上面代码中，主色调改成了<code>pink</code>变量。</p>
+
+<p>接着，在这个文件里面加载 Bulma 的<a href="https://github.com/jgthms/bulma/blob/master/bulma.sass" target="_blank">入口脚本</a>。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+@import <span class="token string">"./bulma"</span>
+</code></pre></blockquote>
+
+<p>这一行的下面，你就可以写自己的样式了，比如为所有标题加一个下划线。</p>
+
+<blockquote><pre class=" language-css"><code class=" language-css">
+<span class="token selector">.title </span><span class="token punctuation">{</span>
+  <span class="token property">text-decoration</span><span class="token punctuation">:</span> underline<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></blockquote>
+
+<p>最后，打开<code>package.json</code>，找到下面这一行。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token string">"build-sass"</span><span class="token punctuation">:</span> <span class="token string">"node-sass --output-style expanded --source-map true bulma.sass css/bulma.css"</span><span class="token punctuation">,</span>
+</code></pre></blockquote>
+
+<p>把里面的<code>bulma.sass</code>改成<code>app.sass</code>。</p>
+
+<blockquote><pre class=" language-javascript"><code class=" language-javascript">
+<span class="token string">"build-sass"</span><span class="token punctuation">:</span> <span class="token string">"node-sass --output-style expanded --source-map true app.sass css/bulma.css"</span><span class="token punctuation">,</span>
+</code></pre></blockquote>
+
+<p>以后每次修改完样式，运行一下<code>npm run build</code>，就会生成自己的样式表<code>css/bulma.css</code>了。</p>
+
+<p>（全文完）</p>
+
+<p>================================</p>
+
+<p><a id="100offer" target="_blank"></a></p>
+
+<p>优秀的人才不缺工作机会，只缺适合自己的好机会。但是他们往往没有精力，从海量机会中找到最适合的那个。</p>
+
+<p><a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">100offer</a> 让您可以向数百家互联网企业，匿名展示简历和职业期望，省下查找职位和投递简历的时间。通过这种方式，对您感兴趣的企业，主动邀请您参加面试。</p>
+
+<p><a href="https://cn.100offer.com/blog/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank"><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102402.png" alt="" title=""></a></p>
+
+<p><a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">100offer</a> 的用户之中，既有厌倦了大公司螺丝钉般的重复工作，转而进入创业公司的前 BAT 员工；也有在小公司工作多年，一心想进入大公司的互联网人；还有向往国外的工作与生活，成功肉身翻墙新加坡的工程师。</p>
+
+<p>准备好用不一样的方式迎接更好的职业机会了吗？现在就<a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">提交申请</a>吧！</p>
+
+<p><a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank"><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102401.jpg" alt="" title=""></a></p>
+
+<p>另外，10月24日是程序员节。作为一名敲代码为生的程序员，你是不是被旁人贴过太多不属于你的标签----死板、呆萌、宅、不解人意？</p>
+
+<p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2017102403.jpg" alt="" title=""></p>
+
+<p><a href="https://cn.100offer.com/how-it-works/?utm_source=ruanyifeng&amp;utm_medium=display&amp;utm_campaign=ruanyifeng_20171024&amp;utm_content=find_new_job&amp;campaign_code=ruanyifeng" target="_blank">100offer</a> 给你一个撕掉标签的机会：关注 100offer 微信号，发送一段话／一张图／一段视频／一条语音...展示你除了敲代码以外的神技能，还有最高价值1024元的"程序员兴趣基金"等你拿！</p>
+
+<p>（完）</p>
+
+                                    <!-- /div -->
+
+                                </div>
+    <script type="text/javascript" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/newwindow.js.下载"></script>
+                                <div class="asset-footer">
+
+<h3>文档信息</h3>
+<ul>
+<li>版权声明：自由转载-非商用-非衍生-保持署名（<a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）</li>
+<li>发表日期： <abbr class="published" title="2017-10-24T07:48:16+08:00">2017年10月24日</abbr></li>
+
+</ul>
+                                </div>
+</article>
+                            </div>
+
+  <div style="display: inline-block ! important;width: 100%;">
+
+  </div>
+
+<div id="related_entries">
+<h2>相关文章</h2>
+<ul>
+
+<li><strong>2020.01.14: <a href="http://www.ruanyifeng.com/blog/2020/01/ffmpeg.html">FFmpeg 视频处理入门教程</a></strong>
+
+                           <div class="entry-body">
+                              FFmpeg 是视频处理最常用的开源软件。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.29: <a href="http://www.ruanyifeng.com/blog/2019/12/mktemp.html">Bash 脚本如何创建临时文件：mktemp 命令和 trap 命令教程</a></strong>
+
+                           <div class="entry-body">
+                              有时，Bash 脚本需要创建临时文件或临时目录。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.24: <a href="http://www.ruanyifeng.com/blog/2019/12/git-undo.html">如何撤销 Git 操作？</a></strong>
+
+                           <div class="entry-body">
+                              Git 版本管理时，往往需要撤销某些操作。
+
+                           </div>
+
+</li>
+
+ 
+<li><strong>2019.12.22: <a href="http://www.ruanyifeng.com/blog/2019/12/github_actions.html">GitHub Actions 教程：定时发送天气邮件</a></strong>
+
+                           <div class="entry-body">
+                              2019年11月，GitHub 正式开放了 GitHub Actions 这个功能，现在不用申请就能使用。
+
+                           </div>
+
+</li>
+
+ 
+</ul>
+</div>
+
+
+
+                    
+
+                    <div id="comments" class="comments">
+
+
+    
+    
+        
+    <h2 class="comments-header">留言（43条）</h2>
+
+    <div id="comments-content" class="comments-content" style="clear: left;">
+        
+        <div id="comment-381618" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">teynui</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381618">
+            <p>没感觉比bootstrap有特色</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  8:30 AM">2017年10月24日 08:30</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381618">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用teynui的这条留言" onclick="return CommentQuote(&#39;comment-quote-381618&#39;,&#39;teynui&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381619" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://github.com/dkvirus/dva" href="https://github.com/dkvirus/dva" target="_blank" rel="nofollow">dkvirus</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381619">
+            <p>一个新技术的出现肯定是为了弥补现存技术的缺陷，很好奇这玩意比 Bootstrap 的优势在哪？难道是更加轻量级？？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  8:53 AM">2017年10月24日 08:53</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381619">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用dkvirus的这条留言" onclick="return CommentQuote(&#39;comment-quote-381619&#39;,&#39;dkvirus&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381620" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">neko</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381620">
+            <p>基于 flex 。。。就表示。。。。。。。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  9:05 AM">2017年10月24日 09:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381620">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用neko的这条留言" onclick="return CommentQuote(&#39;comment-quote-381620&#39;,&#39;neko&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381621" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">1休哥</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381621">
+            <blockquote>
+<pre>引用dkvirus的发言：</pre>
+
+<p>一个新技术的出现肯定是为了弥补现存技术的缺陷，很好奇这玩意比 Bootstrap 的优势在哪？难道是更加轻量级？？</p>
+
+</blockquote>
+
+<p>想多了，就是个玩票性质的，愿意用就用。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  9:39 AM">2017年10月24日 09:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381621">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用1休哥的这条留言" onclick="return CommentQuote(&#39;comment-quote-381621&#39;,&#39;1休哥&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381622" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://dongshihao.com" href="http://dongshihao.com/" target="_blank" rel="nofollow">herman</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381622">
+            <p>不错，可以试试。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017 10:08 AM">2017年10月24日 10:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381622">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用herman的这条留言" onclick="return CommentQuote(&#39;comment-quote-381622&#39;,&#39;herman&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381624" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.yangpeixiao668.cn" href="http://www.yangpeixiao668.cn/" target="_blank" rel="nofollow">思念之人</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381624">
+            <p>，大神推荐的东西准没错，感谢峰哥，</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017 12:13 PM">2017年10月24日 12:13</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381624">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用思念之人的这条留言" onclick="return CommentQuote(&#39;comment-quote-381624&#39;,&#39;思念之人&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381625" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yummy</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381625">
+            <blockquote>
+<pre>引用dkvirus的发言：</pre>
+
+<p>一个新技术的出现肯定是为了弥补现存技术的缺陷，很好奇这玩意比 Bootstrap 的优势在哪？难道是更加轻量级？？</p>
+
+</blockquote>
+
+<p>也许是这个比较纯粹， 只有CSS，没有JS，要使用和Jquery冲突的JS框架就可以用这个</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  1:02 PM">2017年10月24日 13:02</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381625">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用yummy的这条留言" onclick="return CommentQuote(&#39;comment-quote-381625&#39;,&#39;yummy&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381626" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Gerald</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381626">
+            <p>这篇文章的目的是单纯为了发广告？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  1:52 PM">2017年10月24日 13:52</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381626">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用Gerald的这条留言" onclick="return CommentQuote(&#39;comment-quote-381626&#39;,&#39;Gerald&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381627" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://kodango.com" href="http://kodango.com/" target="_blank" rel="nofollow">kodango</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381627">
+            <p>确实感觉没什么特色，优势在哪呢？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  2:15 PM">2017年10月24日 14:15</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381627">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用kodango的这条留言" onclick="return CommentQuote(&#39;comment-quote-381627&#39;,&#39;kodango&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381629" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jc</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381629">
+            <p>多了一個空格：</p>
+
+<p><br>
+is-hidden-desktop-only ：只在桌面隐藏</p>
+
+<p>四分之一： is-one-quarter<br>
+<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  2:46 PM">2017年10月24日 14:46</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381629">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用jc的这条留言" onclick="return CommentQuote(&#39;comment-quote-381629&#39;,&#39;jc&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381630" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://putianxi.github.io" href="https://putianxi.github.io/" target="_blank" rel="nofollow">滚蛋吧，莆田系</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381630">
+            <p>我在自己的网站用过，putianxi.github.io</p>
+
+<p>先说优点：</p>
+
+<p>1. 纯 CSS，没有 JS 依赖，配合 Vue，React 等很方便</p>
+
+<p>2. 默认样式比较漂亮，比起 BootStrap 漂亮不少</p>
+
+<p>再说缺点：</p>
+
+<p>1. 正因为没有 JS，有些组件不全，需要自己找 Jquery 相关的组件补</p>
+
+<p>2. 采用 Flex，低版本浏览器兼容就别想了</p>
+
+<p>3. 文档逻辑比较奇怪，而且感觉也不全，之前做移动端的面包菜单，就找了挺久</p>
+
+<p>4. 毕竟小众，有问题只能靠自己</p>
+
+<p>总结</p>
+
+<p>总体来说，如果你的网站没有复杂的交互，值得一试，但是大一点的网站，BootStrap， Semantic-UI 之类的可能更靠谱</p>
+
+<p>我主要做后端，偶尔做前端页面，所以如果以上内容有不周之处，欢迎指证</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017  3:32 PM">2017年10月24日 15:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381630">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用滚蛋吧，莆田系的这条留言" onclick="return CommentQuote(&#39;comment-quote-381630&#39;,&#39;滚蛋吧，莆田系&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381640" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">kergee</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381640">
+            <p>我还是继续用Bootstrap吧，顺便推荐一下https://www.froala.com/design-blocks</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017 10:33 PM">2017年10月24日 22:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381640">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用kergee的这条留言" onclick="return CommentQuote(&#39;comment-quote-381640&#39;,&#39;kergee&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381641" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">jojoyoung</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381641">
+            <p>老师老师~ 这个能兼容到win7(IE8)嘛？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 24, 2017 10:39 PM">2017年10月24日 22:39</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381641">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用jojoyoung的这条留言" onclick="return CommentQuote(&#39;comment-quote-381641&#39;,&#39;jojoyoung&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381646" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://yizuocity.com/" href="http://yizuocity.com/" target="_blank" rel="nofollow">tk.North</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381646">
+            <p>最后应该是运行npm run build-sass吧？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 25, 2017  9:54 AM">2017年10月25日 09:54</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381646">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用tk.North的这条留言" onclick="return CommentQuote(&#39;comment-quote-381646&#39;,&#39;tk.North&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381653" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://无" href="http://xn--rgv/" target="_blank" rel="nofollow">西龙</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381653">
+            <p>阮大神，其实我第一眼看上你主要是你的技术文章写的很漂亮，要不你有时间介绍一下你是怎么写的这么漂亮的，用的markdown吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 25, 2017 12:51 PM">2017年10月25日 12:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381653">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用西龙的这条留言" onclick="return CommentQuote(&#39;comment-quote-381653&#39;,&#39;西龙&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381674" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">寻找安多芬</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381674">
+            <p>阮老师的网站都被和谐了！艹，当局！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 25, 2017  5:31 PM">2017年10月25日 17:31</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381674">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用寻找安多芬的这条留言" onclick="return CommentQuote(&#39;comment-quote-381674&#39;,&#39;寻找安多芬&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381682" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">xiaojunjor</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381682">
+            <blockquote>
+<pre>引用寻找安多芬的发言：</pre>
+
+<p>阮老师的网站都被和谐了！艹，当局！</p>
+
+</blockquote>
+
+<p>作死</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 26, 2017  9:10 AM">2017年10月26日 09:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381682">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用xiaojunjor的这条留言" onclick="return CommentQuote(&#39;comment-quote-381682&#39;,&#39;xiaojunjor&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381703" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://blog.rossroma.com" href="http://blog.rossroma.com/" target="_blank" rel="nofollow">rossroma</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381703">
+            <p>感觉就是简化了classname的bootstrap</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 26, 2017  3:05 PM">2017年10月26日 15:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381703">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用rossroma的这条留言" onclick="return CommentQuote(&#39;comment-quote-381703&#39;,&#39;rossroma&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381726" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://fe2x.cc" href="http://fe2x.cc/" target="_blank" rel="nofollow">Clarencec</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381726">
+            <p>这框架感觉很方便</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 27, 2017 11:05 AM">2017年10月27日 11:05</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381726">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用Clarencec的这条留言" onclick="return CommentQuote(&#39;comment-quote-381726&#39;,&#39;Clarencec&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381744" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">helloworld!</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381744">
+            <p>前端框架太多了，功能相似的我就选择bootstrap还是靠谱点<br>
+顺便推荐一下 bootstrap在线手册 <a href="http://www.jqhtml.com/bootstraps-syntaxhigh/index.html" rel="nofollow">http://www.jqhtml.com/bootstraps-syntaxhigh/index.html</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 27, 2017  9:08 PM">2017年10月27日 21:08</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381744">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用helloworld!的这条留言" onclick="return CommentQuote(&#39;comment-quote-381744&#39;,&#39;helloworld!&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381789" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://caidan2.com" href="https://caidan2.com/" target="_blank" rel="nofollow">tan</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381789">
+            <p>最大优点当然是无js依赖，可以无痛的与vue等js框架一起使用。另外还有两个更加简单的纯css工具推荐一下， 一个是基础样式类 <a href="http://basscss.com/" rel="nofollow">http://basscss.com/</a>  一个是颜色类 <a href="http://clrs.cc/" rel="nofollow">http://clrs.cc/</a> 加上bulma, 可以减少90%的自定义样式。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 29, 2017 10:25 AM">2017年10月29日 10:25</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381789">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用tan的这条留言" onclick="return CommentQuote(&#39;comment-quote-381789&#39;,&#39;tan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381794" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">cc</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381794">
+            <p>和bootstrap同属一路货色</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 29, 2017 10:51 AM">2017年10月29日 10:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381794">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用cc的这条留言" onclick="return CommentQuote(&#39;comment-quote-381794&#39;,&#39;cc&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381818" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://mrcuriosity.org/" href="https://mrcuriosity.org/" target="_blank" rel="nofollow">qi</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381818">
+            <p>最近在做一个产品选型的时候就选择了bulma，然后来这里就看到一峰兄的这篇文章，真是不谋而合啊</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 30, 2017  4:51 PM">2017年10月30日 16:51</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381818">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用qi的这条留言" onclick="return CommentQuote(&#39;comment-quote-381818&#39;,&#39;qi&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381826" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">zdj</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381826">
+            <p>阮老师，能加微信讨论下吗？一直看你的文章，一直在膜拜中。。。<br>
+真心希望能看到老师的回信。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 30, 2017 11:32 PM">2017年10月30日 23:32</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381826">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用zdj的这条留言" onclick="return CommentQuote(&#39;comment-quote-381826&#39;,&#39;zdj&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381838" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">毛人</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381838">
+            <p>快十年没来看你的博客了，没想到你还在写。这份毅力已非一般人能及。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 31, 2017  2:50 PM">2017年10月31日 14:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381838">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用毛人的这条留言" onclick="return CommentQuote(&#39;comment-quote-381838&#39;,&#39;毛人&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381887" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">王晓聪</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381887">
+            <p>写的详细</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2017 12:19 AM">2017年11月 2日 00:19</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381887">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用王晓聪的这条留言" onclick="return CommentQuote(&#39;comment-quote-381887&#39;,&#39;王晓聪&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381917" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">方春</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381917">
+            <p>我想知道特色在哪里</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2017  2:00 PM">2017年11月 2日 14:00</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381917">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用方春的这条留言" onclick="return CommentQuote(&#39;comment-quote-381917&#39;,&#39;方春&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381922" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://jianpage.com" href="http://jianpage.com/" target="_blank" rel="nofollow">ixx</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381922">
+            <p>基本功能都有，感觉不错，下一个项目可以试试</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2017  4:01 PM">2017年11月 2日 16:01</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381922">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用ixx的这条留言" onclick="return CommentQuote(&#39;comment-quote-381922&#39;,&#39;ixx&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381926" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">逗逗</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381926">
+            <p>有设计师在，bootstrap平时都没法用，别说这个了</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  2, 2017  5:33 PM">2017年11月 2日 17:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381926">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用逗逗的这条留言" onclick="return CommentQuote(&#39;comment-quote-381926&#39;,&#39;逗逗&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-381968" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">杨玲</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-381968">
+            <blockquote>
+<pre>引用思念之人的发言：</pre>
+
+<p>，大神推荐的东西准没错，感谢峰哥，</p>
+
+</blockquote>
+
+<p>感谢峰叔</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  4, 2017 10:50 AM">2017年11月 4日 10:50</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-381968">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用杨玲的这条留言" onclick="return CommentQuote(&#39;comment-quote-381968&#39;,&#39;杨玲&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382019" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://picturepan2.github.io/spectre" href="https://picturepan2.github.io/spectre" target="_blank" rel="nofollow">Yan</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382019">
+            <p>自荐另一个 CSS 框架 <a href="https://picturepan2.github.io/spectre" rel="nofollow">Spectre.css</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  5, 2017  6:14 PM">2017年11月 5日 18:14</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-382019">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用Yan的这条留言" onclick="return CommentQuote(&#39;comment-quote-382019&#39;,&#39;Yan&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382135" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://gaoryrt.com" href="http://gaoryrt.com/" target="_blank" rel="nofollow">gaoryrt</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382135">
+            <p>@滚蛋吧，莆田系：</p>
+
+<p>除了 IE / Opera，flex 的支持率（使用autoprefixer）还是挺高的吧 <a href="https://caniuse.com/#search=flex" rel="nofollow">https://caniuse.com/#search=flex</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November  8, 2017 11:04 AM">2017年11月 8日 11:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-382135">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用gaoryrt的这条留言" onclick="return CommentQuote(&#39;comment-quote-382135&#39;,&#39;gaoryrt&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382357" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://wener.me" href="http://wener.me/" target="_blank" rel="nofollow">wener</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382357">
+            <p>因为前阵子用过 bulma, 个人非常推崇, 但是一看评论 </p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 16, 2017 12:33 AM">2017年11月16日 00:33</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-382357">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用wener的这条留言" onclick="return CommentQuote(&#39;comment-quote-382357&#39;,&#39;wener&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-382419" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">nickzone</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-382419">
+            <p>正在找一个灵活的框架做可拖拽的模板生成交互系统，这个框架看起来比较灵活！</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 17, 2017  2:45 PM">2017年11月17日 14:45</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-382419">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用nickzone的这条留言" onclick="return CommentQuote(&#39;comment-quote-382419&#39;,&#39;nickzone&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-383015" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://www.wolfdream.top" href="http://www.wolfdream.top/" target="_blank" rel="nofollow">潘祖红</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-383015">
+            <p>不应该纯粹的评论一个框架，要结合场景和需求来。瞎评论的都是搬运工</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="December  6, 2017  1:57 PM">2017年12月 6日 13:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-383015">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用潘祖红的这条留言" onclick="return CommentQuote(&#39;comment-quote-383015&#39;,&#39;潘祖红&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-385591" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">yoyo</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-385591">
+            <p>基于flex的不错，bootstrap太多没用的了，对于不需要兼容低版本浏览器的项目用这个比bootstrap好</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="February  6, 2018  4:12 PM">2018年2月 6日 16:12</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-385591">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用yoyo的这条留言" onclick="return CommentQuote(&#39;comment-quote-385591&#39;,&#39;yoyo&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-390504" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">Sirius</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-390504">
+            <p>没有JS，意味着很容易集成到React、Vue和Angular中。<br>
+我就问你基于jQuery的那堆东西你怎么集成。一堆人还问有什么用，28K stars不是你说玩票就玩票的好吗？</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July  3, 2018  5:57 PM">2018年7月 3日 17:57</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-390504">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用Sirius的这条留言" onclick="return CommentQuote(&#39;comment-quote-390504&#39;,&#39;Sirius&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-391269" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">vk</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-391269">
+            <p>轻量级，riotjs + bulma，还要啥自行车</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="July 22, 2018  6:10 PM">2018年7月22日 18:10</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-391269">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用vk的这条留言" onclick="return CommentQuote(&#39;comment-quote-391269&#39;,&#39;vk&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-396142" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">5</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-396142">
+            <p>官方文档里is-1,is-2这种不是控制的是gap吗，为什么文章中说是12网格体系</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 29, 2018 12:22 AM">2018年11月29日 00:22</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-396142">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用5的这条留言" onclick="return CommentQuote(&#39;comment-quote-396142&#39;,&#39;5&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-405333" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="http://nextblog.cn" href="http://nextblog.cn/" target="_blank" rel="nofollow">AJI</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-405333">
+            <blockquote>
+<pre>引用5的发言：</pre>
+
+<p>官方文档里is-1,is-2这种不是控制的是gap吗，为什么文章中说是12网格体系</p>
+
+</blockquote>
+
+<p>是的，但是你理解错了。is-x 设置在夫容器（columns）时表示gap，设置在子元素时表示控制大小。<br>
+详情参考： <a href="https://bulma.io/documentation/columns/sizes/" rel="nofollow">https://bulma.io/documentation/columns/sizes/</a></p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="January 19, 2019 10:07 AM">2019年1月19日 10:07</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-405333">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用AJI的这条留言" onclick="return CommentQuote(&#39;comment-quote-405333&#39;,&#39;AJI&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-410296" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">CHL</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-410296">
+            <p>我看了官方文档，感觉有点慌！除了比较纯之外，我没有感觉！第一我确实不能在文档上找到它有什么非常特别之处；第二第三方文档资料比较少；如果要比纯，我觉得pureCSS也可以，更轻量级。我还是切换回Bootstrap。</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="April  2, 2019 12:04 AM">2019年4月 2日 00:04</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-410296">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用CHL的这条留言" onclick="return CommentQuote(&#39;comment-quote-410296&#39;,&#39;CHL&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414002" class="comment">
+    <div class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author">萌新</span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414002">
+            <p>最后修改bulma变量这里有问题,<br>
+严格按照教程走将报错:<br>
+An output directory must be specified when compiling a directory<br>
+</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="October 17, 2019  1:02 PM">2019年10月17日 13:02</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-414002">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用萌新的这条留言" onclick="return CommentQuote(&#39;comment-quote-414002&#39;,&#39;萌新&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    
+        
+        <div id="comment-414587" class="comment">
+    <div id="comment-last" class="inner">
+        <div class="comment-header">
+            <div class="asset-meta">
+<p>
+                <span class="byline">
+                    
+
+                    <span class="vcard author"><a title="https://bulma.comptechs.cn" href="https://bulma.comptechs.cn/" target="_blank" rel="nofollow">夜雨</a></span>
+
+ 说：
+                </span>
+</p>
+            </div>
+        </div>
+        <div class="comment-content" id="comment-quote-414587">
+            <p>正在学习中，尝试翻译bulma.io</p>
+        </div>
+<div class="comment-footer">
+<div class="comment-footer-inner">
+<p>
+                   <abbr class="published" title="November 16, 2019  3:49 PM">2019年11月16日 15:49</abbr>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-414587">#</a>
+ | <a href="http://www.ruanyifeng.com/blog/2017/10/bulma.html#comment-text" title="引用夜雨的这条留言" onclick="return CommentQuote(&#39;comment-quote-414587&#39;,&#39;夜雨&#39;);">引用</a>
+</p>
+</div>
+</div>
+    </div>
+</div>
+        
+    </div>
+        
+    
+
+
+    
+    
+    <div class="comments-open" id="comments-open">
+        <h2 class="comments-open-header">我要发表看法</h2>
+        <div class="comments-open-content">
+
+        
+            <div id="comment-greeting"></div>
+
+            <form method="post" action="http://www.ruanyifeng.com/cgi-bin/mtos/mt-comments.cgi" name="comments_form" id="comments-form" onsubmit="return pleaseWait();">
+                <input type="hidden" name="static" value="1">
+                <input type="hidden" name="entry_id" value="1962">
+                <input type="hidden" name="__lang" value="en">
+                <input type="hidden" name="parent_id" value="" id="comment-parent-id">
+                <input type="hidden" name="armor" value="1">
+                <input type="hidden" name="preview" value="">
+                <input type="hidden" name="sid" value="">
+                <div id="comments-open-data">
+            <div id="comments-open-text">
+                    <p><label for="comment-text">您的留言
+                    （HTML标签部分可用）</label></p>
+                    <p><textarea id="comment-text" name="text" rows="10" cols="50"></textarea></p>
+                </div>
+                    <div id="comment-form-name">
+                        <p><label for="comment-author">您的大名：</label></p>
+                        <p><input id="comment-author" name="author" size="30" value="">  <span class="hint"> «-必填</span></p>
+                    </div>
+                    <div id="comment-form-email">
+                        <p><label for="comment-email">电子邮件：</label></p>
+                        <p><input id="comment-email" name="email" size="30" value="">  <span class="hint"> «-必填，不公开</span></p>
+                    </div>
+                    <div id="comment-form-url">
+                        <p><label for="comment-url">个人网址：</label></p>
+                        <p><input id="comment-url" name="url" size="30" value="">  <span class="hint"> «-我信任你，不会填写广告链接</span></p>
+                    </div>
+                    <div id="comment-form-remember-me">
+                        <p>
+                        <label for="comment-bake-cookie">记住个人信息？</label><input type="checkbox" id="comment-bake-cookie" name="bakecookie" onclick="!this.checked?forgetMe(document.comments_form):rememberMe(document.comments_form)" value="1" accesskey="r"></p>
+                    </div>
+                </div>
+                    <div id="comment-form-reply" style="display:none">
+                    <input type="checkbox" id="comment-reply" name="comment_reply" value="" onclick="mtSetCommentParentID()">
+                    <label for="comment-reply" id="comment-reply-label"></label>
+                </div>
+                <div id="comments-open-captcha"></div>
+                <div id="comments-open-footer">
+<div id="wait" style="display:none;">
+<p><strong>正在发表您的评论，请稍候</strong></p>
+<p>
+<input type="text" name="percent" size="3" style="font-family:Arial; color:black;text-align:center; border-width:medium; border-style:none;">           
+<input type="text" name="chart" size="46" style="font-family:Arial;font-weight:bolder; color:black; padding:0px; border-style:none;">
+</p>
+</div>
+
+                    <p><input type="submit" accesskey="s" name="post" id="comment-submit" value="发表">  <span class="hint"> «- 点击按钮</span></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    
+
+
+</div>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        <script type="text/javascript" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/prism.js.下载"></script>
+        <script type="text/javascript" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/checker.js.下载"></script> 
+            <div id="footer">
+<div id="footer-inner">
+  <div id="footer-content">
+
+      
+<!--
+      <section> 
+     </section>
+  <p><a title="Instagram" target="_blank" href="http://instagram.com/ruanyf">Instagram</a></p>
+       <p><a title="订阅" href="https://app.feedblitz.com/f/f.fbz?Sub=348868" target="_blank">邮件订阅</a></p>
+  
+       <h2>Feed</h2>
+       <p><a title="FeedBurner" href="http://feeds.feedburner.com/ruanyifeng" target="_blank">FeedBurner</a></p>
+       <p><a title="atom.xml" href="http://www.ruanyifeng.com/blog/atom.xml" target="_blank">atom.xml</a></p>
+     
+      <p>支付宝：<a title="支付宝" href="alipays://platformapi/startapp?appId=20000067&url=http%3A%2F%2Fwww.ruanyifeng.com%2Fblog" target="_blank">yifeng.ruan@gmail.com</a></p>
+-->
+
+     <section>
+<!--
+       <h2>授权方式</h2>
+       <p><a title="许可证" href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh" target="_blank">自由转载-非商用-非衍生-保持署名</a></p>
+       <h2>微信公号</h2>
+       <h2>社交帐号</h2>
+       <h2>联系方式</h2>
+     -->
+       <p><img src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/bg2020013101.jpg" alt="微信扫描"></p>
+       <p>
+         <a title="微博" href="http://weibo.com/ruanyf" target="_blank">Weibo</a> | 
+         <a title="Twitter" target="_blank" href="https://twitter.com/ruanyf">Twitter</a> |
+         <a title="GitHub" target="_blank" href="https://github.com/ruanyf">GitHub</a>
+       </p>
+     
+     <p>Email: <a title="电子邮件" href="mailto:yifeng.ruan@gmail.com" target="_blank">yifeng.ruan@gmail.com</a></p>
+     </section>
+  
+  
+
+
+  </div>
+</div>
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46829782-1', 'ruanyifeng.com');
+  ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/stats.js.下载"></script>
+<script>
+var supportImg = document.querySelector('#support-img');
+
+if (supportImg && _hmt) {
+  _hmt.push(['_trackEvent', 'banner', 'load']);
+  supportImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'banner', 'click']);
+  }, false);
+}
+
+var homepageImg = document.querySelector('#homepage_sponsor');
+if (homepageImg && _hmt) {
+  _hmt.push(['_trackEvent', 'homepage-banner', 'load']);
+  homepageImg.addEventListener('click', function () {
+    _hmt.push(['_trackEvent', 'homepage-banner', 'click']);
+  }, false);
+}
+</script>
+
+
+<div id="share_button_proto" style="display:none;">
+<a class="bshareDiv" href="http://www.bshare.cn/share" style="display: block; text-decoration: none; padding: 0px; margin: 0px; font-size: 12px; height: 21px; width: 51px;"><div class="bsPromo bsPromo1"></div><div class="buzzButton bsStyle10" style="height:21px;color:#333;;background:transparent url(http://static.bshare.cn/frame/images/button_custom10-zh-Orange.gif) no-repeat;text-align:center;width:51px;"></div><div style="clear:both;"></div></a>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/buttonLite.js.下载"></script>
+<script type="text/javascript" charset="utf-8">
+bShare.addEntry({
+    title: document.getElementById("page-title").innerHTML,
+url:window.location.href
+});
+</script>
+</div>
+
+<script>
+document.getElementById("share_button").innerHTML=document.getElementById("share_button_proto").innerHTML;
+</script>
+
+
+
+
+
+        </div>
+    </div>
+
+<div id="bsBox" class="bsBox"><div class="bsClose">X</div><div class="bsTop"><div class="bsReturn">选择其他平台 &gt;&gt;</div><span style="margin-left:15px;">分享到</span><span class="bsPlatName"></span></div><div class="bsFrameDiv"><iframe class="bShareFrame" name="bsFrame149" frameborder="0" scrolling="no" allowtransparency="true" src="./CSS 框架 Bulma 教程 - 阮一峰的网络日志_files/saved_resource.html"></iframe></div><div id="bsMorePanel" style="display: none;"></div></div><div id="bsPanelHolder"><div id="bsPanel" style="display:none;"><div class="bsTitle"><a style="float:left;height:20px;line-height:20px;font-weight:bold;" class="bsSiteLink" target="_blank" href="http://www.bshare.cn/intro">分享到...</a><a class="bsSiteLink" style="cursor:pointer;float:right;height:20px;line-height:20px;font-weight:bold;" onclick="document.getElementById(&#39;bsPanel&#39;).style.display=&#39;none&#39;;">X</a><div class="bsClear"></div></div><div class="bsClear"></div><div style="padding-left:8px;background:#fff;*height:218px;"><div style="height:47px;border-bottom:1px #ccc solid;padding:4px 0 4px 16px;margin-right:8px;_padding-left:12px;"><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;facebook&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/facebook.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Facebook</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;twitter&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/twitter.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">Twitter</div></a></div><div class="bsRlogo" onmouseover="javascript:this.className=&#39;bsRlogoSel&#39;" onmouseout="javascript:this.className=&#39;bsRlogo&#39;"><a href="javascript:;" onclick="javascript:bShare.share(event,&#39;sinaminiblog&#39;);return false;" style="text-decoration:none;line-height:120%;"><div style="cursor:pointer;width:24px;height:24px;margin:0 18px 2px;background:url(http://static.bshare.cn/frame/images//logos/m2/sinaminiblog.gif) no-repeat;"></div><div style="cursor:pointer;text-align:center;width:60px;height:16px !important;overflow:hidden;color:inherit;white-space:nowrap;line-height:120% !important;">新浪微博</div></a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="微信" onclick="javascript:bShare.share(event,&#39;weixin&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/weixin.png) no-repeat;">微信</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="腾讯微博" onclick="javascript:bShare.share(event,&#39;qqmb&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1512px;">腾讯微博</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="豆瓣网" onclick="javascript:bShare.share(event,&#39;douban&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -540px;">豆瓣网</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="饭否" onclick="javascript:bShare.share(event,&#39;fanfou&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -666px;">饭否</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="雪球" onclick="javascript:bShare.share(event,&#39;xueqiu&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/xueqiu.png) no-repeat;">雪球</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="电子邮件" onclick="javascript:bShare.share(event,&#39;email&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -612px;">电子邮件</a></div></div><div class="bsLogoLink"><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Google+" onclick="javascript:bShare.share(event,&#39;gplus&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/gplus.png) no-repeat;">Google+</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ空间" onclick="javascript:bShare.share(event,&#39;qzone&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -1566px;">QQ空间</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="QQ好友" onclick="javascript:bShare.share(event,&#39;qqim&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//logos/s4/qqim.png) no-repeat;">QQ好友</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="Instapaper" onclick="javascript:bShare.share(event,&#39;instapaper&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -954px;">Instapaper</a></div><div class="bsLogo" onmouseover="javascript:this.className=&#39;bsLogoSel&#39;" onmouseout="javascript:this.className=&#39;bsLogo&#39;"><a href="javascript:;" title="美味书签" onclick="javascript:bShare.share(event,&#39;delicious&#39;);return false;" style="background:url(http://static.bshare.cn/frame/images//slogos_sprite8.png) no-repeat 0 -432px;">美味书签</a></div></div><div class="bsClear"></div></div><div style="height:20px;line-height:20px;padding:0 8px;border-top:1px solid #e8e8e8;color:#666;background:#f2f2f2;"><div class="buzzButton" style="float:left;">更多平台... <font style="font-weight:normal;">(133)</font></div><div id="bsPower" style="float:right;text-align:right;overflow:hidden;height:100%;"><a class="bsSiteLink" style="font-size:10px;vertical-align:text-bottom;line-height:24px;cursor:pointer;" href="http://www.bshare.cn/" target="_blank"><span style="font-size:10px;vertical-align:text-bottom;"><span style="color:#f60;">b</span>Share</span></a></div></div></div></div></body></html>
