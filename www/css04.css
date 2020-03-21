@@ -63,6 +63,8 @@
 		color: #fff; 
 		font-size: 0.3rem; 
 		float: left;
+		height: 2.5rem;
+		overflow: hidden;
 	}
 /*}
 @media screen and (orientation: landscape){
