@@ -1,69 +1,71 @@
 /*@media screen and (orientation: portrait){*/
 	html {
-		font-size: 50px;
+		font-size: 10px;
 	}
 /*	@media (max-width: 1080px) {
 		html {
 			font-size: calc(100vw / 6.4)
 			}
 		}*/
+	* {
+		margin: 0;
+		border: 0;
+	}
 	body {
-		background-color: #68cdd5;border: 0; margin: 0;
+		background-color: #68cdd5;
 	}
 	div {
-		border: 0; margin: 0;
+		position: relative;	
 	}
-	img {
-		margin: 0; 
-		float: left; 
-		max-width: 100%; 
+	img { 
 		position: relative; 
 		left: 50%; 
 		top: 50%; 
 		transform: translate(-50%, -50%);
+		max-width: 100%; 
+		float: left;
 	}
 	.back {
-		width: 0.54rem; 
-		height: 0.54rem; 
 		position: fixed; 
-		left: 0.35rem; 
-		top: 0.2rem;
-	}
+		left: 1.8rem; 
+		top: 1rem;
+		width: 2.7rem; 
+		height: 2.7rem; 	}
 	.logo {
-		width: 1.81rem; 
-		height: 0.7rem; 
 		position: absolute; 
 		left: 50%; 
-		top: 1.16rem; 
-		margin-left: -1.22rem;
+		top: 5.8rem; 
+		margin-left: -4.5rem;
+		width: 9rem; 
+		height: 3.5rem; 
 	}
 	.content {
 		position: absolute; 
-		left: 0.89rem; 
-		top: 3.05rem; 
-		right: 1rem;
+		left: 4.5rem; 
+		top: 15.2rem; 
+		right: 5rem;
 	}
 	.class {
-		width: 1.21rem; 
-		height: 1.3rem; 
 		position: absolute; 
-		left: 1.21rem; 
-		top: 6.73rem;
-		padding-bottom: 2rem;
+		left: 6rem; 
+		top: 33.7rem;		
+		width: 6rem; 
+		height: 7.5rem; 
+		padding-bottom: 10rem;
 	}
 	.logo2 {
-		width: 1.05rem; 
-		height: 1.3rem; 
 		position: absolute; 
-		right: 1.11rem; 
-		top: 6.73rem;
-		padding-bottom: 2rem;
+		right: 5.5rem; 
+		top: 33.7rem;		
+		width: 6rem; 
+		height: 7.5rem; 
+		padding-bottom: 10rem;
 	}
-	a {
+	p {
+		height: 12.5rem;		
+		float: left;		
 		color: #fff; 
-		font-size: 0.3rem; 
-		float: left;
-		height: 2.5rem;
+		font-size: 1.5rem; 
 		overflow: hidden;
 	}
 /*}
