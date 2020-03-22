@@ -30,7 +30,8 @@
 		left: 1.8rem; 
 		top: 1rem;
 		width: 2.7rem; 
-		height: 2.7rem; 	}
+		height: 2.7rem; 	
+	}
 	.logo {
 		position: absolute; 
 		left: 50%; 
@@ -41,7 +42,7 @@
 	}
 	.content {
 		position: absolute; 
-		left: 4.5rem; 
+		left: 5rem; 
 		top: 15.2rem; 
 		right: 5rem;
 	}
@@ -55,7 +56,7 @@
 	}
 	.logo2 {
 		position: absolute; 
-		right: 5.5rem; 
+		right: 6rem; 
 		top: 33.7rem;		
 		width: 6rem; 
 		height: 7.5rem; 
