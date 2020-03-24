@@ -1,94 +1,94 @@
-html {
-	font-size: 44.44px; 
-	margin: 0; 
-	border:0;
+* {
+	margin: 0;
+	border: 0;
 }
+html {
+    font-size: 10px; 
+}
+/*@media (max-width: 720px) {
+	html {
+		font-size: calc(320px / 72)
+	}
+}实时刷新？*/
 body {
-	margin: 0; 
-	border:0;
 	background-color: #EDEDED;
 }
 div {
-	margin: 0; 
-	border:0;
+	position: relative;
+}
+p {
+	height: 100%;	
+	line-height: 10rem;
+	font-size: 3.6rem;
+	color: #fff; 
 }
 .head {
 	position: absolute; 
 	width: 100%; 
-	height: 0.88rem; 
+	height: 8.8rem; 
 	background-color: #68cdd5;
 }
 .register {
-	font-size: 0.32rem; 
-	color: #fff; 
-	float: left; 
-	margin: 0.23rem 0 0.23rem 0.3rem;
+	float: left; 	 
+	margin-left: 2.3rem;
+	font-size: 3.2rem;
+	line-height: 8.8rem;
 }
 .close {
-	font-size: 0.32rem; 
-	color: #fff; 
 	float: right; 
-	margin:0.23rem 0.3rem 0.23rem 0;
+	margin-right:2.3rem;
+	font-size: 3.2rem; 
+	line-height: 8.8rem;
 }
 .login {
-	font-size: 0.36rem; 
-	color: #fff; 
-	position: absolute; 
+	position: absolute; 	
 	left: 50%; 
-	top: 50%; 
-	margin: -0.25rem 0 0 -0.36rem;
+	margin-left: -3.6rem;
+	font-size: 3.6rem; 
+	line-height: 8.8rem;
 }
 .user_name {
 	position: absolute; 
-	top: 1.04rem; 
-	position: absolute; 
-	height: 1rem; 
+	top: 10rem; 
 	width: 100%;
+	height: 10rem; 
 }
 .user_pas {
 	position: absolute; 
-	top: 2.18rem; 
-	position: absolute; 
-	height: 1rem; 
+	top: 21.8rem; 
 	width: 100%;
+	height: 10rem; 
 }
 img {
-	width: 1.18rem; 
-	height: 1rem; 
-	float: left;
+	float: left;	
+	width: 11.8rem; 
+	height: 10rem; 
 }
 input {
-	width: calc(100% - 1.68rem); 
-	height: 1rem; 
-	border: 0; 
-	padding: 0 0 0 0.5rem; 
-	float: left; 
-	font-size: 0.28rem;
+	float: left; 	
+	width: calc(100% - 16.8rem); 
+	height: 10rem; 
+	padding: 0 0 0 5rem; 
+	font-size: 2.8rem;
 	-webkit-appearance:none;/*清除ios默认圆角*/
 	border-radius: 0;
 }
 input::-webkit-input-placeholder {
-	font-size: 0.28rem; 
+	font-size: 2.8rem; 
 	color: #CCCCCC;
 }
 button {
-	width: 100%; 
-	height: 1rem; 
 	position: absolute; 
-	top: 3.86rem; 
-	background-color: #68cdd5; 
-	border: 0; 
+	top: 38.6rem; 	
+	width: 100%; 
+	height: 10rem; 
 	padding: 0;
-}
-p {
-	font-size: 0.36rem; 
-	color: #fff; 
-	margin-top: 0.265rem;
+	background-color: #68cdd5; 
 }
 .forgot {
-	font-size: 0.32rem;
 	float: right; 
-	margin: 5.07rem 0.3rem 0 0; 
+	margin: 50rem 3rem 0 0; 	
+	font-size: 3.2rem;
 }
 a { 
 	color: #68cdd5; 
