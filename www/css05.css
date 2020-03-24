@@ -5,11 +5,11 @@
 html {
     font-size: 10px; 
 }
-/*@media (max-width: 720px) {
+@media (max-width: 1440px) {
 	html {
-		font-size: calc(320px / 72)
+		font-size: calc(425px / 72)
 	}
-}实时刷新？*/
+}/*实时刷新？*/
 body {
 	background-color: #EDEDED;
 }
